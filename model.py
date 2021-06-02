@@ -1,6 +1,5 @@
 """ Models for eVentry app """
 
-from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -79,8 +78,8 @@ class EventsItems(db.Model):
     event_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
     item_id = db.Column(db.Integer, db.ForeignKey('items.item_id'))
 
-    event = db.relationship('Event', backref='event_item')
-    item = db.relationship('Item', backref='event_item')
+    # event = db.relationship('Event', backref='event_item')
+    # item = db.relationship('Item', backref='event_item')
 
     def __repr__(self):
         return f'<EventsItems events_items={self.events_items} event_id={self.event_id} item_id={self.item_id}>'
@@ -115,9 +114,7 @@ def connect_to_db(flask_app, db_uri='postgresql:///eventry', echo=True):
 
 
 if __name__ == '__main__':
-    # from server import app
-
-    app = Flask(__name__)
+    from server import app
 
     # Call connect_to_db(app, echo=False) if your program output gets
     # too annoying; this will tell SQLAlchemy not to print out every
