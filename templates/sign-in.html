@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}eVentry Home{% endblock %}
+
+{% block body %}
+  
+  <h1>eVentry!</h1>
+
+  <h2>Please, Log in</h2>
+  <form action="/sign-in">
+    <p>
+      Email <input type="text" name="email">
+    </p>
+
+    <p>
+      Password <input type="password" name="password">
+    </p>
+
+    <p>
+      <input type="submit">
+    </p>
+  </form>
+
+{% endblock %}
