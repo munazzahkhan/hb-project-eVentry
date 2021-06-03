@@ -14,7 +14,7 @@ class User(db.Model):
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     fname = db.Column(db.String(30))
     lname = db.Column(db.String(30))
-    email = db.Column(db.String(30), unique=True)
+    email = db.Column(db.String(30))
     password = db.Column(db.String(20))
 
     def __repr__(self):
@@ -62,7 +62,7 @@ class Event(db.Model):
 
     user = db.relationship('User', backref='events')
     theme = db.relationship('Theme', backref='events')
-    imgs = db.relationship('Image', backref='event')
+    image = db.relationship('Image', backref='event')
 
     def __repr__(self):
         return f'<Event event_id={self.event_id} category={self.category}>'
@@ -96,7 +96,7 @@ class Item(db.Model):
     link = db.Column(db.String)
     img_id = db.Column(db.Integer, db.ForeignKey('images.img_id'))
 
-    imgs = db.relationship('Image', backref='item')
+    image = db.relationship('Image', backref='item')
 
     def __repr__(self):
         return f'<Item item_id={self.item_id} description={self.description}>'

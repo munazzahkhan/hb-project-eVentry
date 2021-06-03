@@ -7,8 +7,8 @@ import crud
 import model
 import server
 
-os.system('dropdb ratings')
-os.system('createdb ratings')
+os.system('dropdb eventry')
+os.system('createdb eventry')
 
 model.connect_to_db(server.app)
 model.db.create_all()
@@ -37,7 +37,7 @@ for n in range(10):
 
     image = crud.create_image(url)
 
-    new_event = crud.create_event(new_user, category, theme, image)
+    new_event = crud.create_event(new_user, category, new_theme, image)
 
     for i in range(5):
 

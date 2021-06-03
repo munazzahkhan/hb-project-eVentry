@@ -14,6 +14,12 @@ def create_user(fname, lname, email, password):
     return user
 
 
+def get_user_by_email(email):
+    """Return a user by email."""
+    print(email)
+    return User.query.filter(User.email == email).first()
+
+
 def create_theme(name, color):
     """ Create and return a new theme """
 
