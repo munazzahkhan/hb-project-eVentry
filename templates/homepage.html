@@ -5,10 +5,16 @@
   
   <h1>Welcome to eVentry!</h1>
 
-  <!-- <h2>Navigation</h2>
-  <ul>
-    <li><a href="/movies">View all movies</a></li>
-    <li><a href="/users">View all users</a></li>
-  </ul> -->
+  <h2>Event Categories</h2>
+
+  {% for c in categories %}
+    <ul>
+      <li>
+          <a href="/events/{{ c.category }}">
+            {{ c.category }}
+          </a>
+        </li>
+    </ul>
+  {% endfor %}
 
 {% endblock %}

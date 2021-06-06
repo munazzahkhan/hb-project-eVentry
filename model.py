@@ -42,10 +42,23 @@ class Image(db.Model):
     __tablename__ = "images"
 
     img_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    url = db.Column(db.String(30))
+    url = db.Column(db.String)
 
     def __repr__(self):
         return f'<Image img_id={self.img_id} url={self.url}>'
+
+
+class Category(db.Model):
+    """ A category """
+
+    # creating a categories table
+    __tablename__ = "categories"
+
+    category_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    category = db.Column(db.String(50))
+
+    def __repr__(self):
+        return f'<Category category_id={self.category_id} category={self.category}>'
 
 
 class Event(db.Model):
@@ -56,11 +69,12 @@ class Event(db.Model):
 
     event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    category = db.Column(db.String(30))
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.category_id'))
     theme_id = db.Column(db.Integer, db.ForeignKey('themes.theme_id'))
     img_id = db.Column(db.Integer, db.ForeignKey('images.img_id'))
 
     user = db.relationship('User', backref='events')
+    category = db.relationship('Category', backref='events')
     theme = db.relationship('Theme', backref='events')
     image = db.relationship('Image', backref='event')
 
