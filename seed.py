@@ -39,7 +39,7 @@ for n in range(10):
     category = choice([1,2])
 
     r = randint(1,3)
-    url = f'\images\event-{r}.jpeg'
+    url = f'/static/images/event-{r}.jpeg'
 
     image = crud.create_image(url)
 
@@ -50,7 +50,7 @@ for n in range(10):
         description = f'This is item{i}. I got it from a store.'
         link = f'Here is the link for item{i}'
         r = randint(1,3)
-        url = f'\images\item-{r}.jpeg'
+        url = f'/static/images/item-{r}.jpeg'
 
         image = crud.create_image(url)
 

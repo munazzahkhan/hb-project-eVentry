@@ -41,13 +41,36 @@ def signin_user():
 
     user = crud.get_user_by_email(email)
 
+    # if not user:
+    #     flash("No such email address.")
+    #     return redirect('/sign-in')
+
+    # if user.password != password:
+    #     flash("Incorrect password.")
+    #     return redirect('/sign-in')
+
+    # session["signed_in_user_email"] = user.email
+    # flash("Logged in.")
+
+    # return redirect('/')
+
     if user:
         if user.email == email and user.password == password:
+            session["signed_in_user_email"] = user.email
             flash('Signed in!')
         return redirect('/')
     else:
         flash('Account does not exist.')
         return render_template('sign-in.html')
+
+
+@app.route("/sign-out")
+def signout_user():
+    """ Sign out user """
+
+    del session["signed_in_user_email"]
+    flash("Logged out.")
+    return redirect('/')
 
 
 @app.route('/sign-up-page')
@@ -96,7 +119,7 @@ def show_event_category(category):
 def show_event_details(category, event_id):
     """ Show event details """
 
-    event = crud.get_event_by_id(category, event_id)
+    event = crud.get_event_by_id(event_id)
 
     print("*"*20)
     print("in server: events = ", event)

@@ -86,17 +86,15 @@ def get_events_by_category(category):
     return Event.query.filter(Event.category_id==category).all()
 
 
-def get_event_by_id(category, event_id):
+def get_event_by_id(event_id):
     """ Return the event """
 
-    # event = Event.query.filter_by(category=category)
     items_list = EventsItems.query.filter_by(event_id=event_id)
 
     item_objs = []
     for item in items_list:
         res = Item.query.get(item.item_id)
         item_objs.append(res)
-    print(item_objs)
 
     return item_objs
 

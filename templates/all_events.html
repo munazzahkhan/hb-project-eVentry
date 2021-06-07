@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}All Events{% endblock %}
+
+{% block body %}
+<p>
+    {% for event in events %}
+        <li>
+            <a href="/events/{{ event.category.category }}/{{ event.event_id }}">
+                <img src="{{ event.image.url }}">
+            </a>
+        </li>
+    {% endfor %}
+</p>
+{% endblock %}

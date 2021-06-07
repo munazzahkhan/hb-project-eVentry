@@ -12,8 +12,12 @@
   <body>
     <div>
         <a href="/">Home</a>
-        <a href="/sign-in-page">Sign in</a>
-        <a href="/sign-up-page">Sign up</a>
+        {% if session.get('signed_in_user_email') %}
+          <a href="/sign-out">Sign out</a>
+        {% else %}
+          <a href="/sign-in-page">Sign in</a>
+          <a href="/sign-up-page">Sign up</a>
+        {% endif %}
     </div>
     {% for msg in get_flashed_messages() %}
       <p class="flash-msg">
