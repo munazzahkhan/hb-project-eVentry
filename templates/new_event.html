@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}New Event{% endblock %}
+
+{% block body %}
+
+<form action="/new-event" method="POST">
+    <h4>Please enter the details below to add your event</h4>
+    <p>
+        Event category:
+        <select name="category">
+            {% for category in categories %}
+                <option value="{{ category.category_id }}">{{ category.category }}</option>
+            {% endfor %}
+        </select>   
+    </p>
+    <p>
+        Event theme color: <input type="text" name="theme">
+    </p>
+    <h4>Enter an item from your event and some details about it</h4>
+    <p>
+        Item name: <input type="text" name="name">
+    </p>
+    <p>
+        Description: <input type="textarea" name="description">
+    </p>
+    <p>
+        Link where to get it from: <input type="text" name="link">
+    </p>
+    <p>
+        <input type="submit">
+    </p>
+</form>
+
+{% endblock %}

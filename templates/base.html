@@ -13,6 +13,8 @@
     <div>
         <a href="/">Home</a>
         {% if session.get('signed_in_user_email') %}
+          <a href="/view-user-events">View My Events</a>
+          <a href="/new-event-page">Create New Event</a>
           <a href="/sign-out">Sign out</a>
         {% else %}
           <a href="/sign-in-page">Sign in</a>

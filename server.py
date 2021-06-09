@@ -57,6 +57,7 @@ def signin_user():
     if user:
         if user.email == email and user.password == password:
             session["signed_in_user_email"] = user.email
+            session["signed_in_user_id"] = user.user_id
             flash('Signed in!')
         return redirect('/')
     else:
@@ -82,7 +83,7 @@ def show_signup_page_to_user():
 
 @app.route('/users', methods=['POST'])
 def register_user():
-    """Create a new user."""
+    """ Create a new user """
 
 
     fname = request.form.get('fname')
@@ -107,10 +108,6 @@ def show_event_category(category):
 
     category = crud.get_category(category)
     events = crud.get_events_by_category(category.category_id)
-
-    # print("*"*20)
-    # print("in server: events = ", events)
-    # print("*"*20)
  
     return render_template('all_events.html', events=events, category=category)
 
@@ -121,11 +118,62 @@ def show_event_details(category, event_id):
 
     event = crud.get_event_by_id(event_id)
 
-    print("*"*20)
-    print("in server: events = ", event)
-    print("*"*20)
+    # print("*"*20)
+    # print("in server: events = ", event)
+    # print("*"*20)
  
     return render_template('event_details.html', event=event)
+
+
+@app.route('/view-user-events')
+def show_events_by_user():
+
+    user_id = session["signed_in_user_id"]
+    events = crud.get_events_by_user(user_id)
+
+    return render_template('all_events.html', events=events)
+
+@app.route('/new-event-page')
+def show_new_event_page_to_user():
+    """ Show new event page to the user """
+
+    categories = crud.get_categories()
+
+    return render_template('new_event.html', categories=categories)
+
+
+@app.route('/new-event', methods=['POST'])
+def new_event():
+    """ Create a new event """
+
+    category_id = request.form.get('category')
+    print("*"*20)
+    print("in server: category_id = ", category_id)
+    print("*"*20)
+
+    color = request.form.get('theme')
+    name = request.form.get('name')
+    description = request.form.get('description')
+    link = request.form.get('link')
+    item_image = crud.create_image('/static/images/item-2.jpeg')
+    img_id = item_image.img_id
+    theme = crud.create_theme(color)
+    theme_id = theme.theme_id
+    item = crud.create_item(name, description, link, img_id)
+
+    event_image = crud.create_image('/static/images/event-2.jpeg')
+    img_id = event_image.img_id
+    user_id = session["signed_in_user_id"]
+
+    # category = crud.create_category(category_name)
+    # category_id = category_id
+    event = crud.create_event(user_id, category_id, theme_id, img_id)
+
+    crud.create_events_items(event.event_id, item.item_id)
+
+    events = crud.get_events_by_category(category_id)
+
+    return redirect('/')
 
 
 if __name__ == '__main__':

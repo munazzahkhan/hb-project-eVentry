@@ -20,10 +20,10 @@ def get_user_by_email(email):
     return User.query.filter(User.email == email).first()
 
 
-def create_theme(name, color):
+def create_theme(color):
     """ Create and return a new theme """
 
-    theme = Theme(name=name, color=color)
+    theme = Theme(color=color)
 
     db.session.add(theme)
     db.session.commit()
@@ -86,6 +86,12 @@ def get_events_by_category(category):
     return Event.query.filter(Event.category_id==category).all()
 
 
+def get_events_by_user(user_id):
+    """ Return all events by a user """
+
+    return Event.query.filter(Event.user_id==user_id).all()
+
+
 def get_event_by_id(event_id):
     """ Return the event """
 
@@ -110,10 +116,10 @@ def create_events_items(event, item):
     return event_item
 
 
-def create_item(description, link, image):
+def create_item(name, description, link, image):
     """ Create and return a new item """
 
-    item = Item(description=description, link=link, img_id=image)
+    item = Item(name=name, description=description, link=link, img_id=image)
 
     db.session.add(item)
     db.session.commit()

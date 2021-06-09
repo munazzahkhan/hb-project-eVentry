@@ -6,10 +6,14 @@
 
 {% for item in event %}
 
-    <p><img src="{{ item.image.url }}"></p>
-
     <p>
-    {{ item.description }}
+        <img src="{{ item.image.url }}">
+    </p>
+    <p>
+        {{ item.name }}
+    </p>
+    <p>
+        {{ item.description }}
     </p>
 {% endfor %}
 

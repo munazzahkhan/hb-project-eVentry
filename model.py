@@ -28,7 +28,6 @@ class Theme(db.Model):
     __tablename__ = "themes"
 
     theme_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    name = db.Column(db.String(30))
     color = db.Column(db.String(30))
 
     def __repr__(self):
@@ -106,6 +105,7 @@ class Item(db.Model):
     __tablename__ = "items"
 
     item_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    name = db.Column(db.String(30))
     description = db.Column(db.Text)
     link = db.Column(db.String)
     img_id = db.Column(db.Integer, db.ForeignKey('images.img_id'))
