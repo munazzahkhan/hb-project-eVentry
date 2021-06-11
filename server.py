@@ -1,15 +1,26 @@
 """Server for eVentry app."""
 
-from flask import Flask, render_template, request, flash, session, redirect
+import os
+import urllib.request
+from flask import Flask, render_template, request, flash, session, redirect, url_for
 from jinja2 import StrictUndefined
+from werkzeug.utils import secure_filename
 from model import connect_to_db
 import crud
 
+UPLOAD_FOLDER = 'static/images/'
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
 app.secret_key = "dev"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.jinja_env.undefined = StrictUndefined
 
+
+def allowed_file(filename):
+	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+	
 
 @app.route('/')
 def homepage():
@@ -33,11 +44,6 @@ def signin_user():
 
     email = request.args.get('email')
     password = request.args.get('password')
-
-    print("*"*20)
-    print("in server: email = ", request.args.get('email'))
-    print("in server: password = ", password)
-    print("*"*20)
 
     user = crud.get_user_by_email(email)
 
@@ -70,9 +76,9 @@ def signout_user():
     """ Sign out user """
 
     del session["signed_in_user_email"]
+    del session["signed_in_user_id"]
     flash("Logged out.")
     return redirect('/')
-
 
 @app.route('/sign-up-page')
 def show_signup_page_to_user():
@@ -117,10 +123,6 @@ def show_event_details(category, event_id):
     """ Show event details """
 
     event = crud.get_event_by_id(event_id)
-
-    # print("*"*20)
-    # print("in server: events = ", event)
-    # print("*"*20)
  
     return render_template('event_details.html', event=event)
 
@@ -142,36 +144,94 @@ def show_new_event_page_to_user():
     return render_template('new_event.html', categories=categories)
 
 
-@app.route('/new-event', methods=['POST'])
-def new_event():
-    """ Create a new event """
+def upload_image(i):
+    """ Upload image taken as input from user """
 
-    category_id = request.form.get('category')
-    print("*"*20)
-    print("in server: category_id = ", category_id)
-    print("*"*20)
+    if 'file' not in request.files:
+        flash('No file part')
+        return redirect(request.url)
+    files = request.files.getlist('file')
+    j = 0
+    while j < i:
+        files.append(request.files[f'file-{j}'])
+        j += 1
+    print("*"*30)
+    print('files: ', files)
+    print("*"*30)
+    file_names = []
+    for file in files:
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file_names.append(filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        else:
+            print("*"*30)
+            print('file_names: ', file_names)
+            print("*"*30)
+            flash('Allowed image types are -> png, jpg, jpeg, gif')
+            return redirect(request.url)
 
-    color = request.form.get('theme')
-    name = request.form.get('name')
-    description = request.form.get('description')
-    link = request.form.get('link')
-    item_image = crud.create_image('/static/images/item-2.jpeg')
+    return file_names
+
+# def upload_image():
+# 	if 'file' not in request.files:
+# 		flash('No file part')
+# 		return redirect(request.url)
+# 	file = request.files['file']
+# 	if file.filename == '':
+# 		flash('No image selected for uploading')
+# 		return redirect(request.url)
+# 	if file and allowed_file(file.filename):
+# 		filename = secure_filename(file.filename)
+# 		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+# 		flash('Image successfully uploaded and displayed below')
+# 		return filename
+# 	else:
+# 		flash('Allowed image types are -> png, jpg, jpeg, gif')
+# 		return redirect(request.url)
+
+def create_new_item(i, image):
+    """ Create new item from user input """
+
+    name = request.form.get(f'name-{i}')
+    description = request.form.get(f'description-{i}')
+    link = request.form.get(f'link-{i}')
+    item_image = crud.create_image(f'/{UPLOAD_FOLDER}{image}')
     img_id = item_image.img_id
-    theme = crud.create_theme(color)
-    theme_id = theme.theme_id
+    
     item = crud.create_item(name, description, link, img_id)
 
-    event_image = crud.create_image('/static/images/event-2.jpeg')
+    return item
+
+
+def create_new_event(image):
+    """ Create new event from user input """
+
+    category_id = request.form.get('category')
+    color = request.form.get('theme')
+    event_image = crud.create_image(f'/{UPLOAD_FOLDER}{image}')
     img_id = event_image.img_id
     user_id = session["signed_in_user_id"]
-
-    # category = crud.create_category(category_name)
-    # category_id = category_id
+    theme = crud.create_theme(color)
+    theme_id = theme.theme_id
     event = crud.create_event(user_id, category_id, theme_id, img_id)
 
-    crud.create_events_items(event.event_id, item.item_id)
+    return event
 
-    events = crud.get_events_by_category(category_id)
+
+@app.route('/new-event', methods=['POST'])
+def new_event():
+    """ Create a new event with items in it """
+    
+    number_of_items = int(request.form.get('number-of-items'))
+    image_list = upload_image(number_of_items)
+    event = create_new_event(image_list[0]) 
+    i = 0
+    while i < number_of_items:
+        item = create_new_item(i, image_list[i+1])
+        crud.create_events_items(event.event_id, item.item_id)
+        i += 1
+    events = crud.get_events_by_category(event.category_id)
 
     return redirect('/')
 
