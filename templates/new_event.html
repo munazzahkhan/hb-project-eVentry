@@ -28,7 +28,7 @@
         Event category:
         <select name="category">
             {% for category in categories %}
-                <option value="{{ category.category_id }}">{{ category.category }}</option>
+                <option value="{{ category.category_id }}">{{ category.name }}</option>
             {% endfor %}
         </select>   
     </p>

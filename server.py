@@ -122,9 +122,12 @@ def show_event_category(category):
 def show_event_details(category, event_id):
     """ Show event details """
 
-    event = crud.get_event_by_id(event_id)
+    items, event = crud.get_event_by_id(event_id)
+    print("*"*30)
+    print('event: ', event)
+    print("*"*30)
  
-    return render_template('event_details.html', event=event)
+    return render_template('event_details.html', event=event, items=items)
 
 
 @app.route('/view-user-events')
@@ -144,58 +147,60 @@ def show_new_event_page_to_user():
     return render_template('new_event.html', categories=categories)
 
 
-def upload_image(i):
-    """ Upload image taken as input from user """
+# def upload_image(i):
+#     """ Upload image taken as input from user """
 
-    if 'file' not in request.files:
+#     if 'file' not in request.files:
+#         flash('No file part')
+#         return redirect(request.url)
+#     files = request.files.getlist('file')
+#     j = 0
+#     while j < i:
+#         files.append(request.files[f'file-{j}'])
+#         j += 1
+#     print("*"*30)
+#     print('files: ', files)
+#     print("*"*30)
+#     file_names = []
+#     for file in files:
+#         if file and allowed_file(file.filename):
+#             filename = secure_filename(file.filename)
+#             file_names.append(filename)
+#             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+#         else:
+#             print("*"*30)
+#             print('file_names: ', file_names)
+#             print("*"*30)
+#             flash('Allowed image types are -> png, jpg, jpeg, gif')
+#             return redirect(request.url)
+
+#     return file_names
+
+def upload_image(file_name):
+    if file_name not in request.files:
         flash('No file part')
         return redirect(request.url)
-    files = request.files.getlist('file')
-    j = 0
-    while j < i:
-        files.append(request.files[f'file-{j}'])
-        j += 1
-    print("*"*30)
-    print('files: ', files)
-    print("*"*30)
-    file_names = []
-    for file in files:
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file_names.append(filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        else:
-            print("*"*30)
-            print('file_names: ', file_names)
-            print("*"*30)
-            flash('Allowed image types are -> png, jpg, jpeg, gif')
-            return redirect(request.url)
+    file = request.files[file_name]
+    if file.filename == '':
+        print()
+        flash('No image selected for uploading')
+        return redirect(request.url)
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        # flash('Image successfully uploaded')
+        return filename
+    else:
+        flash('Allowed image types are -> png, jpg, jpeg, gif')
+        return redirect(request.url)
 
-    return file_names
-
-# def upload_image():
-# 	if 'file' not in request.files:
-# 		flash('No file part')
-# 		return redirect(request.url)
-# 	file = request.files['file']
-# 	if file.filename == '':
-# 		flash('No image selected for uploading')
-# 		return redirect(request.url)
-# 	if file and allowed_file(file.filename):
-# 		filename = secure_filename(file.filename)
-# 		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-# 		flash('Image successfully uploaded and displayed below')
-# 		return filename
-# 	else:
-# 		flash('Allowed image types are -> png, jpg, jpeg, gif')
-# 		return redirect(request.url)
-
-def create_new_item(i, image):
+def create_new_item(i, file_name):
     """ Create new item from user input """
 
     name = request.form.get(f'name-{i}')
     description = request.form.get(f'description-{i}')
     link = request.form.get(f'link-{i}')
+    image = upload_image(file_name)
     item_image = crud.create_image(f'/{UPLOAD_FOLDER}{image}')
     img_id = item_image.img_id
     
@@ -204,11 +209,12 @@ def create_new_item(i, image):
     return item
 
 
-def create_new_event(image):
+def create_new_event(file_name):
     """ Create new event from user input """
 
     category_id = request.form.get('category')
     color = request.form.get('theme')
+    image = upload_image(file_name)
     event_image = crud.create_image(f'/{UPLOAD_FOLDER}{image}')
     img_id = event_image.img_id
     user_id = session["signed_in_user_id"]
@@ -224,11 +230,11 @@ def new_event():
     """ Create a new event with items in it """
     
     number_of_items = int(request.form.get('number-of-items'))
-    image_list = upload_image(number_of_items)
-    event = create_new_event(image_list[0]) 
+    # image_list = upload_image(number_of_items)
+    event = create_new_event('file') 
     i = 0
     while i < number_of_items:
-        item = create_new_item(i, image_list[i+1])
+        item = create_new_item(i, f'file-{i}')
         crud.create_events_items(event.event_id, item.item_id)
         i += 1
     events = crud.get_events_by_category(event.category_id)

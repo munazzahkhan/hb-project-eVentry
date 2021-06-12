@@ -1,14 +1,22 @@
 {% extends 'base.html' %}
 
+{% block head %}
+    <link rel="stylesheet" href="/static/css/event_details.css">
+{% endblock %}
+
 {% block title %}Details{% endblock %}
 
 {% block body %}
+<br>
+<div class="header">
+    <img src="{{ event.image.url }}">
+</div>
+<br>
+{% for item in items %}
 
-{% for item in event %}
-
-    <p>
+    <div class="thumbnail">
         <img src="{{ item.image.url }}">
-    </p>
+    </div>
     <p>
         {{ item.name }}
     </p>

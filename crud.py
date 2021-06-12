@@ -44,7 +44,7 @@ def create_image(url):
 def create_category(category):
     """ Create and return a new category """
 
-    category = Category(category=category)
+    category = Category(name=category)
     db.session.add(category)
     db.session.commit()
 
@@ -60,7 +60,7 @@ def get_categories():
 def get_category(category):
     """ Return a specific category """
 
-    return Category.query.filter_by(category=category).first()
+    return Category.query.filter_by(name=category).first()
 
 
 def create_event(user, category, theme, image):
@@ -96,13 +96,14 @@ def get_event_by_id(event_id):
     """ Return the event """
 
     items_list = EventsItems.query.filter_by(event_id=event_id)
+    event = Event.query.filter_by(event_id=event_id).first()
 
     item_objs = []
     for item in items_list:
         res = Item.query.get(item.item_id)
         item_objs.append(res)
 
-    return item_objs
+    return (item_objs, event)
 
 
 def create_events_items(event, item):

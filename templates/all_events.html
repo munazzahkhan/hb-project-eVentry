@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/css/all_events.css">
+{% endblock %}
+
 {% block title %}All Events{% endblock %}
 
 {% block body %}
+<br>
 <p>
     {% for event in events %}
-        <li>
-            <a href="/events/{{ event.category.category }}/{{ event.event_id }}">
+        <div class='thumbnail'>
+            <p>{{ event.theme.color }} {{ event.category.name }}</p>
+            <a href="/events/{{ event.category.name }}/{{ event.event_id }}">
                 <img src="{{ event.image.url }}">
             </a>
-        </li>
+        </div><br>
     {% endfor %}
 </p>
 {% endblock %}

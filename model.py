@@ -54,10 +54,10 @@ class Category(db.Model):
     __tablename__ = "categories"
 
     category_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    category = db.Column(db.String(50))
+    name = db.Column(db.String(50))
 
     def __repr__(self):
-        return f'<Category category_id={self.category_id} category={self.category}>'
+        return f'<Category category_id={self.category_id} name={self.name}>'
 
 
 class Event(db.Model):
