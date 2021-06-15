@@ -63,10 +63,10 @@ def get_category(category):
     return Category.query.filter_by(name=category).first()
 
 
-def create_event(user, category, theme, image):
+def create_event(description, user, category, theme, image):
     """ Create and return a new event """
 
-    event = Event(user_id=user, category_id=category, theme_id=theme, img_id=image)
+    event = Event(description=description, user_id=user, category_id=category, theme_id=theme, img_id=image)
 
     db.session.add(event)
     db.session.commit()

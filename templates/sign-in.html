@@ -6,14 +6,19 @@
   <h1>eVentry!</h1>
 
   <h2>Please, Sign in</h2>
-  <form action="/sign-in">
-    <p>
-      Email <input type="text" name="email">
-    </p>
-
-    <p>
-      Password <input type="password" name="password">
-    </p>
+  <form action="/sign-in" method="POST">
+    {{ form.hidden_tag() }}
+    <div>
+      <label>Email </label>
+      {{ form.email(placeholder="Enter email") }}
+      <!-- Email <input type="text" name="email"> -->
+    </div>
+    <br>
+    <div>
+      <label>Password </label>
+      {{ form.password(placeholder="Password") }}
+      <!-- Password <input type="password" name="password"> -->
+    </div>
 
     <p>
       <input type="submit">

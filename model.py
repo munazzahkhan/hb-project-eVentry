@@ -67,6 +67,7 @@ class Event(db.Model):
     __tablename__ = "events"
 
     event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    description = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     category_id = db.Column(db.Integer, db.ForeignKey('categories.category_id'))
     theme_id = db.Column(db.Integer, db.ForeignKey('themes.theme_id'))
