@@ -314,7 +314,7 @@ class NewEventForm(FlaskForm):
     )
     event_image = FileField(
         'Upload an event image', 
-        validators=[FileRequired(), 
+        validators=[FileRequired('File was empty!'), 
         FileAllowed(ALLOWED_EXTENSIONS, 'Images only!')]
     )
 
@@ -329,7 +329,7 @@ class NewItemForm(FlaskForm):
     )
     item_image = FileField(
         'Upload an item image', 
-        validators=[FileRequired(), 
+        validators=[FileRequired('File was empty!'), 
         FileAllowed(ALLOWED_EXTENSIONS, 'Images only!')]
     )
     link = StringField(
@@ -341,36 +341,44 @@ class NewItemForm(FlaskForm):
 def show_new_event_page_to_user():
     """ Show new event page to the user """
 
-    event_form = NewEventForm()
-    item_form = NewItemForm()
+    form = NewEventForm()
     categories = crud.get_categories()
 
-    return render_template('new_event.html', categories=categories, event_form=event_form, item_form=item_form)
+    return render_template('new_event.html', categories=categories, form=form)
 
 
+
+# def upload_image(file_name, type, form):
+#     if file_name not in request.files:
+#         flash('No file part')
+#         return redirect(request.url)
+#     file = request.files[file_name]
+#     if file.filename == '':
+#         print()
+#         flash('No image selected for uploading')
+#         return redirect(request.url)
+#     if file and allowed_file(file.filename):
+#         filename = secure_filename(file.filename)
+#         if type == "item":
+#             file.save(os.path.join(app.config['UPLOAD_FOLDER_ITEMS'], filename))
+#         elif type == "event":
+#             file.save(os.path.join(app.config['UPLOAD_FOLDER_EVENTS'], filename))
+#         # flash('Image successfully uploaded')
+#         return filename
+#     else:
+#         flash('Allowed image types are -> png, jpg, jpeg, gif')
+#         return redirect(request.url)
 
 def upload_image(file_name, type, form):
-    if file_name not in request.files:
-        flash('No file part')
-        return redirect(request.url)
     file = request.files[file_name]
-    if file.filename == '':
-        print()
-        flash('No image selected for uploading')
-        return redirect(request.url)
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        if type == "item":
-            file.save(os.path.join(app.config['UPLOAD_FOLDER_ITEMS'], filename))
-        elif type == "event":
-            file.save(os.path.join(app.config['UPLOAD_FOLDER_EVENTS'], filename))
-        # flash('Image successfully uploaded')
-        return filename
-    else:
-        flash('Allowed image types are -> png, jpg, jpeg, gif')
-        return redirect(request.url)
+    filename = secure_filename(file.filename)
+    if type == "item":
+        file.save(os.path.join(app.config['UPLOAD_FOLDER_ITEMS'], filename))
+    elif type == "event":
+        file.save(os.path.join(app.config['UPLOAD_FOLDER_EVENTS'], filename))
+    return filename
 
-def create_new_item(i, file_name):
+def create_new_item(file_name):
     """ Create new item from user input """
 
     form = NewItemForm()
@@ -404,23 +412,42 @@ def create_new_event(file_name):
     return event
 
 
+@app.route('/add-item', methods=['POST'])
+def new_item():
+    if request.form['submit'] == 'Add this item':
+        item_form = NewItemForm()
+        item = create_new_item(item_form.item_image.name)
+        event_id = session["new_event_id"]
+        crud.create_events_items(event_id, item.item_id)
+        item_form.name.data = ""
+        item_form.item_description.data = ""
+        item_form.link.data = ""
+        return render_template('new_item.html', event_id=event_id, item_form=item_form)
+    elif request.form['submit'] == 'Done':
+        del session["new_event_id"]
+        return redirect('/')
+
+
 @app.route('/new-event', methods=['POST'])
 def new_event():
     """ Create a new event with items in it """
     
     event_form = NewEventForm()
-    item_form = NewItemForm()
-    number_of_items = int(request.form.get('number-of-items'))
     event = create_new_event(event_form.event_image.name) 
-    
-    i = 0
-    while i < number_of_items:
-        item = create_new_item(i, item_form.item_image.name)
-        crud.create_events_items(event.event_id, item.item_id)
-        i += 1
-    events = crud.get_events_by_category(event.category_id)
+    session["new_event_id"] = event.event_id
+    item_form = NewItemForm()
 
-    return redirect('/')
+    # item_form = NewItemForm()
+    # number_of_items = int(request.form.get('number-of-items'))
+    
+    # i = 0
+    # while i < number_of_items:
+    #     item = create_new_item(item_form.item_image.name)
+    #     crud.create_events_items(event.event_id, item.item_id)
+    #     i += 1
+    # events = crud.get_events_by_category(event.category_id)
+
+    return render_template('new_item.html', item_form=item_form)
 
 
 if __name__ == '__main__':
