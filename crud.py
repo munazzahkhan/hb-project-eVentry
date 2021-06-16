@@ -14,9 +14,15 @@ def create_user(fname, lname, email, password):
     return user
 
 
+def get_user_details_by_id(user_id):
+    """Return a user details by user_id """
+    
+    return User.query.filter(User.user_id == user_id).first()
+
+
 def get_user_by_email(email):
-    """Return a user by email."""
-    print(email)
+    """Return a user by email """
+
     return User.query.filter(User.email == email).first()
 
 

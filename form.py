@@ -1,3 +1,6 @@
+""" Classes for flask forms """
+
+
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SelectField, TextAreaField, validators
 import email_validator
@@ -8,6 +11,8 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 
 class SigninForm(FlaskForm):
+    """ Class for user sign in form """
+
     email = StringField(
         "Email", 
         validators=[validators.DataRequired(), validators.Email()]
@@ -17,8 +22,9 @@ class SigninForm(FlaskForm):
         validators=[validators.DataRequired(), validators.Length(min=4, max=30)]
     )
 
-
 class SignupForm(FlaskForm):
+    """ Class for user sign up form """
+
     fname = StringField(
         "First Name", 
         validators=[validators.DataRequired(), validators.Length(min=2, max=30)]
@@ -36,8 +42,9 @@ class SignupForm(FlaskForm):
         validators=[validators.DataRequired(), validators.Length(min=4, max=30)]
     )
 
-
 class NewEventForm(FlaskForm):
+    """ Class for creating new event form """
+
     category = SelectField(
         "Event category", 
         validators=[validators.DataRequired()],
@@ -68,6 +75,8 @@ class NewEventForm(FlaskForm):
     )
 
 class NewItemForm(FlaskForm):
+    """ Class for creating new item of the event form """
+
     name = StringField(
         "Item Name", 
         validators=[validators.DataRequired()]

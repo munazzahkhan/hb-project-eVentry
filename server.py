@@ -115,6 +115,16 @@ def register_user():
     return redirect('/')
 
 
+@app.route('/user-profile')
+def show_user_profile():
+    """ Show profile of the signed in user """
+
+    user_id = session["signed_in_user_id"]
+    user = crud.get_user_details_by_id(user_id)
+ 
+    return render_template('user_profile.html', user=user)
+
+
 @app.route('/events/<category>')
 def show_event_category(category):
     """ Show categories of events """

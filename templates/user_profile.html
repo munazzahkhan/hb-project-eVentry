@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block body %}
+<br>
+<div>
+    <h2>
+        {{ user.fname }} {{ user.lname }} 
+    </h2>
+</div>
+<br>
+<div>
+    <b>
+        First Name: 
+    </b>
+    {{ user.fname }} 
+</div>
+<br>
+<div>
+    <b>
+        Last Name: 
+    </b>
+    {{ user.lname }} 
+</div>
+<br>
+<div>
+    <b>
+        Email: 
+    </b>
+    {{ user.email }} 
+</div>
+<br>
+<div>
+    <b>
+        Password: 
+    </b>
+    {% for letter in user.password %}
+        *
+    {% endfor %}
+</div>
+
+{% endblock %}
