@@ -3,18 +3,14 @@
 import os
 import urllib.request
 from flask import Flask, render_template, request, flash, session, redirect, url_for
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SelectField, TextAreaField, validators
-import email_validator
-from flask_wtf.file import FileField, FileRequired, FileAllowed
 from jinja2 import StrictUndefined
 from werkzeug.utils import secure_filename, validate_arguments
+from form import SigninForm, SignupForm, NewEventForm, NewItemForm
 from model import connect_to_db
 import crud
 
 UPLOAD_FOLDER_EVENTS = 'static/images/events/'
 UPLOAD_FOLDER_ITEMS = 'static/images/items/'
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
 app.secret_key = "dev"
@@ -23,10 +19,6 @@ app.config['UPLOAD_FOLDER_ITEMS'] = UPLOAD_FOLDER_ITEMS
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.jinja_env.undefined = StrictUndefined
 
-
-def allowed_file(filename):
-	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-	
 
 @app.route('/')
 def homepage():
@@ -51,17 +43,6 @@ def flash_errors(form):
             flash(f"Error: '{getattr(form, key).label.text}' - {error}", "error")
 
 
-class SigninForm(FlaskForm):
-    email = StringField(
-        "Email", 
-        validators=[validators.DataRequired(), validators.Email()]
-    )
-    password = PasswordField(
-        "Password",
-        validators=[validators.DataRequired(), validators.Length(min=4, max=30)]
-    )
-
-
 @app.route('/sign-in-page')
 def show_signin_page_to_user():
     """ Show sign in page to the user """
@@ -69,13 +50,6 @@ def show_signin_page_to_user():
     form = SigninForm()
 
     return render_template('sign-in.html', form=form)
-
-
-# @app.route('/sign-in-page')
-# def show_signin_page_to_user():
-#     """ Show sign in page to the user """
-
-#     return render_template('sign-in.html')
 
 
 @app.route('/sign-in', methods=["POST"])
@@ -98,39 +72,6 @@ def signin_user():
         return redirect('/sign-in-page')
 
 
-# @app.route('/sign-in')
-# def signin_user():
-#     """ Sign in an existing user """
-
-#     email = request.args.get('email')
-#     password = request.args.get('password')
-
-#     user = crud.get_user_by_email(email)
-
-#     # if not user:
-#     #     flash("No such email address.")
-#     #     return redirect('/sign-in')
-
-#     # if user.password != password:
-#     #     flash("Incorrect password.")
-#     #     return redirect('/sign-in')
-
-#     # session["signed_in_user_email"] = user.email
-#     # flash("Logged in.")
-
-#     # return redirect('/')
-
-#     if user:
-#         if user.email == email and user.password == password:
-#             session["signed_in_user_email"] = user.email
-#             session["signed_in_user_id"] = user.user_id
-#             flash('Signed in!')
-#         return redirect('/')
-#     else:
-#         flash('Account does not exist.')
-#         return render_template('sign-in.html')
-
-
 @app.route("/sign-out")
 def signout_user():
     """ Sign out user """
@@ -140,26 +81,6 @@ def signout_user():
     return redirect('/')
 
 
-class SignupForm(FlaskForm):
-    fname = StringField(
-        "First Name", 
-        validators=[validators.DataRequired(), validators.Length(min=2, max=30)]
-    )
-    lname = StringField(
-        "Last Name", 
-        validators=[validators.DataRequired(), validators.Length(min=2, max=30)]
-    )
-    email = StringField(
-        "Email", 
-        validators=[validators.DataRequired(), validators.Email()]
-    )
-    password = PasswordField(
-        "Password",
-        validators=[validators.DataRequired(), validators.Length(min=4, max=30)]
-    )
-
-
-
 @app.route('/sign-up-page')
 def show_signup_page_to_user():
     """ Show sign up page to the user """
@@ -167,13 +88,6 @@ def show_signup_page_to_user():
     form = SignupForm()
 
     return render_template('sign-up.html', form=form)
-
-
-# @app.route('/sign-up-page')
-# def show_signup_page_to_user():
-#     """ Show sign up page to the user """
-
-#     return render_template('sign-up.html')
 
 
 @app.route('/sign-up', methods=['POST'])
@@ -201,27 +115,6 @@ def register_user():
     return redirect('/')
 
 
-# @app.route('/sign-up', methods=['POST'])
-# def register_user():
-#     """ Create a new user """
-
-
-#     fname = request.form.get('fname')
-#     lname = request.form.get('lname')
-#     email = request.form.get('email')
-#     password = request.form.get('password')
-
-#     user = crud.get_user_by_email(email)
-#     if user:
-#         flash('That email is already in use. Try again.')
-#         return render_template('sign-up.html')
-#     else:
-#         crud.create_user(fname, lname, email, password)
-#         flash('Account created! Please sign in.')
-
-#     return redirect('/')
-
-
 @app.route('/events/<category>')
 def show_event_category(category):
     """ Show categories of events """
@@ -243,98 +136,12 @@ def show_event_details(category, event_id):
 
 @app.route('/view-user-events')
 def show_events_by_user():
+    """ Show events by a user """
 
     user_id = session["signed_in_user_id"]
     events = crud.get_events_by_user(user_id)
 
     return render_template('all_events.html', events=events)
-
-# @app.route('/new-event-page')
-# def show_new_event_page_to_user():
-#     """ Show new event page to the user """
-
-#     categories = crud.get_categories()
-
-#     return render_template('new_event.html', categories=categories)
-
-
-# def upload_image(i):
-#     """ Upload image taken as input from user """
-
-#     if 'file' not in request.files:
-#         flash('No file part')
-#         return redirect(request.url)
-#     files = request.files.getlist('file')
-#     j = 0
-#     while j < i:
-#         files.append(request.files[f'file-{j}'])
-#         j += 1
-#     print("*"*30)
-#     print('files: ', files)
-#     print("*"*30)
-#     file_names = []
-#     for file in files:
-#         if file and allowed_file(file.filename):
-#             filename = secure_filename(file.filename)
-#             file_names.append(filename)
-#             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-#         else:
-#             print("*"*30)
-#             print('file_names: ', file_names)
-#             print("*"*30)
-#             flash('Allowed image types are -> png, jpg, jpeg, gif')
-#             return redirect(request.url)
-
-#     return file_names
-
-
-class NewEventForm(FlaskForm):
-    category = SelectField(
-        "Event category", 
-        validators=[validators.DataRequired()],
-        choices=[
-            (1, 'Anniversary'),
-            (2, 'Baby Shower'),
-            (3, 'Birthday'),
-            (4, 'Bridal Shower'),
-            (5, 'Graduation'),
-            (6, 'Halloween'),
-            (7, 'Pool Party'),
-            (8, 'Wedding Reception'),
-            (9, '4th of July')
-        ]
-    )
-    theme = StringField(
-        "Event theme color",
-        validators=[validators.DataRequired()]
-    )
-    event_description = TextAreaField(
-        "Description of the event",
-        validators=[validators.DataRequired()]
-    )
-    event_image = FileField(
-        'Upload an event image', 
-        validators=[FileRequired('File was empty!'), 
-        FileAllowed(ALLOWED_EXTENSIONS, 'Images only!')]
-    )
-
-class NewItemForm(FlaskForm):
-    name = StringField(
-        "Item Name", 
-        validators=[validators.DataRequired()]
-    )
-    item_description = TextAreaField(
-        "Description",
-        validators=[validators.DataRequired()]
-    )
-    item_image = FileField(
-        'Upload an item image', 
-        validators=[FileRequired('File was empty!'), 
-        FileAllowed(ALLOWED_EXTENSIONS, 'Images only!')]
-    )
-    link = StringField(
-        "Link where to get it from"
-    )
 
 
 @app.route('/new-event-page')
@@ -347,29 +154,9 @@ def show_new_event_page_to_user():
     return render_template('new_event.html', categories=categories, form=form)
 
 
-
-# def upload_image(file_name, type, form):
-#     if file_name not in request.files:
-#         flash('No file part')
-#         return redirect(request.url)
-#     file = request.files[file_name]
-#     if file.filename == '':
-#         print()
-#         flash('No image selected for uploading')
-#         return redirect(request.url)
-#     if file and allowed_file(file.filename):
-#         filename = secure_filename(file.filename)
-#         if type == "item":
-#             file.save(os.path.join(app.config['UPLOAD_FOLDER_ITEMS'], filename))
-#         elif type == "event":
-#             file.save(os.path.join(app.config['UPLOAD_FOLDER_EVENTS'], filename))
-#         # flash('Image successfully uploaded')
-#         return filename
-#     else:
-#         flash('Allowed image types are -> png, jpg, jpeg, gif')
-#         return redirect(request.url)
-
 def upload_image(file_name, type, form):
+    """ Get the image from user and upload it """
+
     file = request.files[file_name]
     filename = secure_filename(file.filename)
     if type == "item":
@@ -388,7 +175,6 @@ def create_new_item(file_name):
     image = upload_image(file_name, "item", form)
     item_image = crud.create_image(f'/{UPLOAD_FOLDER_ITEMS}{image}')
     img_id = item_image.img_id
-    
     item = crud.create_item(name, description, link, img_id)
 
     return item
@@ -414,6 +200,8 @@ def create_new_event(file_name):
 
 @app.route('/add-item', methods=['POST'])
 def new_item():
+    """ Add new item from user input to the event """
+
     if request.form['submit'] == 'Add this item':
         item_form = NewItemForm()
         item = create_new_item(item_form.item_image.name)
@@ -424,28 +212,23 @@ def new_item():
         item_form.link.data = ""
         return render_template('new_item.html', event_id=event_id, item_form=item_form)
     elif request.form['submit'] == 'Done':
+        event_id = session["new_event_id"]
+        category = session["new_event_category"]
+        show_event_details(category, event_id)
         del session["new_event_id"]
-        return redirect('/')
+        del session["new_event_category"]
+        return redirect(f'/events/{category}/{event_id}')
 
 
 @app.route('/new-event', methods=['POST'])
 def new_event():
-    """ Create a new event with items in it """
+    """ Add a new event with user input """
     
     event_form = NewEventForm()
     event = create_new_event(event_form.event_image.name) 
     session["new_event_id"] = event.event_id
+    session["new_event_category"] = event_form.category.name
     item_form = NewItemForm()
-
-    # item_form = NewItemForm()
-    # number_of_items = int(request.form.get('number-of-items'))
-    
-    # i = 0
-    # while i < number_of_items:
-    #     item = create_new_item(item_form.item_image.name)
-    #     crud.create_events_items(event.event_id, item.item_id)
-    #     i += 1
-    # events = crud.get_events_by_category(event.category_id)
 
     return render_template('new_item.html', item_form=item_form)
 
