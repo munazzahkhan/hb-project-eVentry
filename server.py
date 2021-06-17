@@ -115,12 +115,49 @@ def register_user():
     return redirect('/')
 
 
+# @app.route('/user-profile')
+# def show_user_profile():
+#     """ Show profile of the signed in user """
+
+#     user_id = session["signed_in_user_id"]
+#     user = crud.get_user_details_by_id(user_id)
+ 
+#     return render_template('user_profile.html', user=user)
+
+
 @app.route('/user-profile')
 def show_user_profile():
     """ Show profile of the signed in user """
 
     user_id = session["signed_in_user_id"]
     user = crud.get_user_details_by_id(user_id)
+ 
+    return render_template('user_profile.html', user=user)
+
+
+@app.route('/edit-profile-page')
+def edit_user_profile():
+    """ Show edit profile page to the signed in user """
+
+    user_id = session["signed_in_user_id"]
+    user = crud.get_user_details_by_id(user_id)
+    form = SignupForm(obj=user)
+
+    return render_template('edit_profile.html', form=form)
+
+
+@app.route('/edit-profile', methods=['POST'])
+def save_edited_user_profile():
+    """ Save edited profile of the signed in user """
+
+    user_id = session["signed_in_user_id"]
+    form = SignupForm()
+    fname = form.fname.data
+    lname = form.lname.data
+    email = form.email.data
+    password = form.password.data
+
+    user = crud.edit_user_details(user_id, fname, lname, email, password)
  
     return render_template('user_profile.html', user=user)
 

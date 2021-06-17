@@ -15,16 +15,32 @@ def create_user(fname, lname, email, password):
 
 
 def get_user_details_by_id(user_id):
-    """Return a user details by user_id """
+    """ Return a user details by user_id """
     
     return User.query.filter(User.user_id == user_id).first()
 
 
 def get_user_by_email(email):
-    """Return a user by email """
+    """ Return a user by email """
 
     return User.query.filter(User.email == email).first()
 
+
+def edit_user_details(user_id, fname, lname, email, password):
+    """ Edit user details and save them """
+
+    user = get_user_details_by_id(user_id)
+    User.query.filter(User.user_id == user_id).update(
+        {
+            "fname" : fname,
+            "lname" : lname,
+            "email" : email,
+            "password" : password
+        }
+    )
+    db.session.commit()
+
+    return user
 
 def create_theme(color):
     """ Create and return a new theme """

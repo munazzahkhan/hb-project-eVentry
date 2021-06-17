@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}eVentry Home{% endblock %}
 
+{% block head %}
+    <script src="https://code.jquery.com/jquery-3.6.0.js" 
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" 
+            crossorigin="anonymous"></script>
+{% endblock %}
+
 {% block body %}
 
   <h2>Create an Account</h2>
@@ -24,11 +30,15 @@
     <div>
       <label>Password </label>
       {{ form.password(placeholder="Password") }}
+      <input type="checkbox" onclick="toggleShowHide()">
+      Show Password
     </div>
-
-    <p>
+    <br>
+    <div>
       <input type="submit">
-    </p>
+    </div>
   </form>
+
+  <script src="/static/js/events.js"></script>
   
 {% endblock %}

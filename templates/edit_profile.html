@@ -8,12 +8,20 @@
 {% endblock %}
 
 {% block body %}
-  
-  <h1>eVentry!</h1>
 
-  <h2>Please, Sign in</h2>
-  <form action="/sign-in" method="POST">
+  <h2>Update Profile</h2>
+  <form action="/edit-profile" method="POST">
     {{ form.hidden_tag() }}
+    <div>
+      <label>First Name </label>
+      {{ form.fname(placeholder="First name") }}
+    </div>
+    <br>
+    <div>
+      <label>Last Name </label>
+      {{ form.lname(placeholder="Last name") }}
+    </div>
+    <br>
     <div>
       <label>Email </label>
       {{ form.email(placeholder="Enter email") }}
@@ -27,10 +35,12 @@
     </div>
     <br>
     <div>
-      <input type="submit">
+        <input type="submit" value = "Save Changes" name="save" id="save">
     </div>
   </form>
 
   <script src="/static/js/events.js"></script>
-
+  
 {% endblock %}
+        
+    
