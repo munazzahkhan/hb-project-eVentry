@@ -132,11 +132,15 @@ def edit_user_profile():
     user_id = session["signed_in_user_id"]
     user = crud.get_user_details_by_id(user_id)
     form = SignupForm(obj=user)
+    if request.args.get("edit"):
+        return render_template('edit_profile.html', form=form)
+    if request.args.get("pw"):
+        session["signed_in_user_pw"] = form.password.data
+        return render_template('change_password.html', form=form)
+    
 
-    return render_template('edit_profile.html', form=form)
 
-
-@app.route('/edit-profile', methods=['POST'])
+@app.route('/edit-profile', methods=['GET', 'POST'])
 def save_edited_user_profile():
     """ Save edited profile of the signed in user """
 
@@ -144,12 +148,33 @@ def save_edited_user_profile():
     form = SignupForm()
     fname = form.fname.data
     lname = form.lname.data
-    email = form.email.data
-    password = form.password.data
 
-    user = crud.edit_user_details(user_id, fname, lname, email, password)
+    user = crud.edit_user_details(user_id, fname, lname)
  
     return render_template('user_profile.html', user=user)
+
+
+@app.route('/change-password', methods=['GET', 'POST'])
+def save_change_password():
+    """ Check old password and then change it to new password """
+
+    user_id = session["signed_in_user_id"]
+    if request.form.get("save"):
+        old_password = request.form.get("old_pw")
+        if old_password == session["signed_in_user_pw"]:
+            form = SignupForm()
+            password = form.password.data
+            user = crud.edit_user_password(user_id, password)
+            del session["signed_in_user_pw"]
+            return render_template('user_profile.html', user=user)
+        else:
+            flash("The Old Password is not correct. Please try again.")
+            user = crud.get_user_details_by_id(user_id)
+            form = SignupForm(obj=user)
+            return render_template('change_password.html', form=form)
+    if request.form.get("cancel"):
+        user = crud.get_user_details_by_id(user_id)
+        return render_template('user_profile.html', user=user)
 
 
 @app.route('/events/<category>')
@@ -181,6 +206,7 @@ def edit_event_details():
     event_id = request.args.get("event_id")
     item = crud.get_item_by_id(item_id)
     form = NewItemForm(obj=item)
+    form.item_description.process_data(item.description)
  
     return render_template('edit_event.html', form=form, item_id=item_id, event_id=event_id)
 

@@ -26,7 +26,7 @@ def get_user_by_email(email):
     return User.query.filter(User.email == email).first()
 
 
-def edit_user_details(user_id, fname, lname, email, password):
+def edit_user_details(user_id, fname, lname):
     """ Edit user details and save them """
 
     user = get_user_details_by_id(user_id)
@@ -34,7 +34,18 @@ def edit_user_details(user_id, fname, lname, email, password):
         {
             "fname" : fname,
             "lname" : lname,
-            "email" : email,
+        }
+    )
+    db.session.commit()
+
+    return user
+
+def edit_user_password(user_id, password):
+    """ Edit user password and save it """
+
+    user = get_user_details_by_id(user_id)
+    User.query.filter(User.user_id == user_id).update(
+        {
             "password" : password
         }
     )
