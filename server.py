@@ -115,16 +115,6 @@ def register_user():
     return redirect('/')
 
 
-# @app.route('/user-profile')
-# def show_user_profile():
-#     """ Show profile of the signed in user """
-
-#     user_id = session["signed_in_user_id"]
-#     user = crud.get_user_details_by_id(user_id)
- 
-#     return render_template('user_profile.html', user=user)
-
-
 @app.route('/user-profile')
 def show_user_profile():
     """ Show profile of the signed in user """
@@ -176,9 +166,49 @@ def show_event_category(category):
 def show_event_details(category, event_id):
     """ Show event details """
 
+    user_id = session["signed_in_user_id"]
+    is_event_by_user = crud.is_event_by_user(user_id, event_id)
     items, event = crud.get_event_by_id(event_id)
  
-    return render_template('event_details.html', event=event, items=items)
+    return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user)
+
+
+@app.route("/edit-event-page")
+def edit_event_details():
+    """ Show edit event page to the signed in user """
+
+    item_id = request.args.get("item_id")
+    event_id = request.args.get("event_id")
+    item = crud.get_item_by_id(item_id)
+    form = NewItemForm(obj=item)
+ 
+    return render_template('edit_event.html', form=form, item_id=item_id, event_id=event_id)
+
+
+@app.route("/edit-item", methods=['POST'])
+def edit_item_details():
+    """ Save changes made by the signed in user """
+
+    form = NewItemForm()
+    name = form.name.data
+    description = form.item_description.data
+    link = form.link.data
+    image = upload_image(form.item_image.name, "item", form)
+    item_image = crud.create_image(f'/{UPLOAD_FOLDER_ITEMS}{image}')
+    img_id = item_image.img_id
+    item_id = request.form.get("item_id")
+    event_id = request.form.get("event_id")
+    # print("*"*40)
+    # print("name : ", name)
+    # print("description : ", description)
+    # print("*"*40)
+    item = crud.update_item(item_id, name, description, link, img_id)
+    user_id = session["signed_in_user_id"]
+    is_event_by_user = crud.is_event_by_user(user_id, event_id)
+
+    items, event = crud.get_event_by_id(event_id)
+ 
+    return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user)
 
 
 @app.route('/view-user-events')

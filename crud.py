@@ -114,6 +114,17 @@ def get_events_by_user(user_id):
     return Event.query.filter(Event.user_id==user_id).all()
 
 
+def is_event_by_user(user_id, event_id):
+    """ Return True if the event is by signed in user """
+
+    events = Event.query.filter(Event.user_id==user_id).all()
+    for event in events:
+        if int(event_id) == int(event.event_id):
+            return True
+
+    return False
+
+
 def get_event_by_id(event_id):
     """ Return the event """
 
@@ -145,6 +156,30 @@ def create_item(name, description, link, image):
     item = Item(name=name, description=description, link=link, img_id=image)
 
     db.session.add(item)
+    db.session.commit()
+
+    return item
+
+
+def get_item_by_id(item_id):
+    """ Return an item but its id """
+
+    item_id = int(item_id)
+    return Item.query.filter(Item.item_id==item_id).first()
+
+def update_item(item_id, name, description, link, img_id):
+    """ Edit item details and save them """
+
+    item = Item.query.filter(Item.item_id == item_id).first()
+    Item.query.filter(Item.item_id == item_id).update(
+        {
+            "name" : name,
+            "description" : description,
+            "link" : link,
+            "img_id" : img_id
+        }
+    )
+
     db.session.commit()
 
     return item
