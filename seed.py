@@ -26,10 +26,14 @@ for n in range(10):
 
     fname = f'first{n}'
     lname = f'last{n}'
+    handle = f'fl{n}'
     email = f'user{n}@test.com'
     password = 'test'
+    k = randint(1,3)
+    p_url = f'/static/images/profiles/profile-{k}.png'
+    image = crud.create_image(p_url)
 
-    new_user = crud.create_user(fname, lname, email, password)
+    new_user = crud.create_user(fname, lname, handle, email, password, image.img_id)
 
     color = choice(colors)
 

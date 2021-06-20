@@ -3,10 +3,10 @@
 from model import db, User, Theme, Image, Event, EventsItems, Item, Category, connect_to_db
 
 
-def create_user(fname, lname, email, password):
+def create_user(fname, lname, handle, email, password, img_id):
     """ Create and return a new user """
 
-    user = User(fname=fname, lname=lname, email=email, password=password)
+    user = User(fname=fname, lname=lname, handle=handle, email=email, password=password, img_id=img_id)
 
     db.session.add(user)
     db.session.commit()
@@ -26,7 +26,13 @@ def get_user_by_email(email):
     return User.query.filter(User.email == email).first()
 
 
-def edit_user_details(user_id, fname, lname):
+def get_user_by_handle(handle):
+    """ Return a user by handle """
+
+    return User.query.filter(User.handle == handle).first()
+
+
+def edit_user_details(user_id, fname, lname, handle):
     """ Edit user details and save them """
 
     user = get_user_details_by_id(user_id)
@@ -34,6 +40,7 @@ def edit_user_details(user_id, fname, lname):
         {
             "fname" : fname,
             "lname" : lname,
+            "handle" : handle
         }
     )
     db.session.commit()
@@ -52,6 +59,21 @@ def edit_user_password(user_id, password):
     db.session.commit()
 
     return user
+
+
+def edit_user_profile_picture(user_id, img_id):
+    """ Edit user profile picture and save it """
+
+    user = get_user_details_by_id(user_id)
+    User.query.filter(User.user_id == user_id).update(
+        {
+            "img_id" : img_id
+        }
+    )
+    db.session.commit()
+
+    return user
+
 
 def create_theme(color):
     """ Create and return a new theme """
@@ -150,6 +172,35 @@ def get_event_by_id(event_id):
     return (item_objs, event)
 
 
+def update_event(event_id, description):
+    """ Edit event details and save them """
+
+    event = get_event_by_id(event_id)
+    Event.query.filter(Event.event_id == event_id).update(
+        {
+            "description" : description
+        }
+    )
+
+    db.session.commit()
+
+    return event
+
+
+def edit_event_image(event_id, img_id):
+    """ Edit event image and save it """
+
+    event = get_event_by_id(event_id)
+    Event.query.filter(Event.event_id == event_id).update(
+        {
+            "img_id" : img_id
+        }
+    )
+    db.session.commit()
+
+    return event
+
+
 def create_events_items(event, item):
     """ Create and return a new event & item relationship """
 
@@ -178,19 +229,32 @@ def get_item_by_id(item_id):
     item_id = int(item_id)
     return Item.query.filter(Item.item_id==item_id).first()
 
-def update_item(item_id, name, description, link, img_id):
+def update_item(item_id, name, description, link):
     """ Edit item details and save them """
 
-    item = Item.query.filter(Item.item_id == item_id).first()
+    item = get_item_by_id(item_id)
     Item.query.filter(Item.item_id == item_id).update(
         {
             "name" : name,
             "description" : description,
-            "link" : link,
-            "img_id" : img_id
+            "link" : link
         }
     )
 
+    db.session.commit()
+
+    return item
+
+
+def edit_item_image(item_id, img_id):
+    """ Edit item image and save it """
+
+    item = get_item_by_id(item_id)
+    Item.query.filter(Item.item_id == item_id).update(
+        {
+            "img_id" : img_id
+        }
+    )
     db.session.commit()
 
     return item

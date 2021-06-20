@@ -11,11 +11,13 @@ import crud
 
 UPLOAD_FOLDER_EVENTS = 'static/images/events/'
 UPLOAD_FOLDER_ITEMS = 'static/images/items/'
+UPLOAD_FOLDER_PROFILES = 'static/images/profiles/'
 
 app = Flask(__name__)
 app.secret_key = "dev"
 app.config['UPLOAD_FOLDER_EVENTS'] = UPLOAD_FOLDER_EVENTS
 app.config['UPLOAD_FOLDER_ITEMS'] = UPLOAD_FOLDER_ITEMS
+app.config['UPLOAD_FOLDER_PROFILES'] = UPLOAD_FOLDER_PROFILES
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.jinja_env.undefined = StrictUndefined
 
@@ -60,7 +62,7 @@ def signin_user():
     if not form.validate_on_submit():
         flash_errors(form)
         return redirect('/sign-in-page')
-
+    
     user = crud.get_user_by_email(form.email.data)
 
     if user:
@@ -101,15 +103,28 @@ def register_user():
 
     fname = form.fname.data
     lname = form.lname.data
+    handle = form.handle.data
     email = form.email.data
     password = form.password.data
+    file_name = form.image.name
+    image = upload_image(file_name, "profile", form)
+    profile_image = crud.create_image(f'/{UPLOAD_FOLDER_PROFILES}{image}')
+    img_id = profile_image.img_id
 
-    user = crud.get_user_by_email(email)
-    if user:
+    user_email = crud.get_user_by_email(email)
+    user_handle = crud.get_user_by_handle(handle)
+
+    if user_email and user_handle:
+        flash('This email and handle are already in use. Try again.')
+        return redirect('/sign-up-page')
+    elif user_email:
         flash('This email is already in use. Try again.')
         return redirect('/sign-up-page')
+    elif user_handle:
+        flash('This handle is already in use. Try again.')
+        return redirect('/sign-up-page')
     else:
-        crud.create_user(fname, lname, email, password)
+        crud.create_user(fname, lname, handle, email, password, img_id)
         flash('Account created! Please sign in.')
 
     return redirect('/')
@@ -137,7 +152,9 @@ def edit_user_profile():
     if request.args.get("pw"):
         session["signed_in_user_pw"] = form.password.data
         return render_template('change_password.html', form=form)
-    
+    if request.args.get("picture"):
+        session["image_type"] = "profile"
+        return render_template('edit_image.html', form=form)
 
 
 @app.route('/edit-profile', methods=['GET', 'POST'])
@@ -148,8 +165,17 @@ def save_edited_user_profile():
     form = SignupForm()
     fname = form.fname.data
     lname = form.lname.data
+    handle = form.handle.data
 
-    user = crud.edit_user_details(user_id, fname, lname)
+    user_handle = crud.get_user_by_handle(handle)
+    user_id = session["signed_in_user_id"]
+    user = crud.get_user_details_by_id(user_id)
+
+    if user_handle:
+        flash('This handle is already in use. Try again.')
+        return render_template('user_profile.html', user=user)
+
+    user = crud.edit_user_details(user_id, fname, lname, handle)
  
     return render_template('user_profile.html', user=user)
 
@@ -177,6 +203,61 @@ def save_change_password():
         return render_template('user_profile.html', user=user)
 
 
+@app.route('/upload-image', methods=['POST'])
+def save_new_image():
+    """ Uploade a new image """
+
+    user_id = session["signed_in_user_id"]
+    if request.form.get("save"):
+        form = SignupForm()
+        file_name = form.image.name
+        if session["image_type"] == "profile":
+            image = upload_image(file_name, "profile", form)
+            profile_image = crud.create_image(f'/{UPLOAD_FOLDER_PROFILES}{image}')
+            img_id = profile_image.img_id
+            user = crud.edit_user_profile_picture(user_id, img_id)
+            del session["image_type"]
+            return render_template('user_profile.html', user=user)
+        if session["image_type"] == "event":
+            image = upload_image(file_name, "event", form)
+            event_image = crud.create_image(f'/{UPLOAD_FOLDER_EVENTS}{image}')
+            img_id = event_image.img_id
+            event_id = session["event_id"]
+            event = crud.edit_event_image(event_id, img_id)
+            items, event = crud.get_event_by_id(event_id)
+            is_event_by_user = crud.is_event_by_user(user_id, event_id)
+            del session["event_id"]
+            del session["image_type"]
+            return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user)
+        if session["image_type"] == "item":
+            image = upload_image(file_name, "item", form)
+            item_image = crud.create_image(f'/{UPLOAD_FOLDER_ITEMS}{image}')
+            img_id = item_image.img_id
+            item_id = session["item_id"]
+            event_id = session["event_id"]
+            item = crud.edit_item_image(item_id, img_id)
+            items, event = crud.get_event_by_id(event_id)
+            is_event_by_user = crud.is_event_by_user(user_id, event_id)
+            del session["item_id"]
+            del session["event_id"]
+            del session["image_type"]
+            return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user)
+    if request.form.get("cancel"):
+        if session["image_type"] == "profile":
+            user = crud.get_user_details_by_id(user_id)
+            del session["image_type"]
+            return render_template('user_profile.html', user=user)
+        if session["image_type"] == "event" or session["image_type"] == "item":
+            event_id = session["event_id"]
+            items, event = crud.get_event_by_id(event_id)
+            is_event_by_user = crud.is_event_by_user(user_id, event_id)
+            if "item_id" in session:
+                del session["item_id"]
+            del session["event_id"]
+            del session["image_type"]
+            return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user)
+
+
 @app.route('/events/<category>')
 def show_event_category(category):
     """ Show categories of events """
@@ -202,14 +283,37 @@ def show_event_details(category, event_id):
 def edit_event_details():
     """ Show edit event page to the signed in user """
 
-    item_id = request.args.get("item_id")
     event_id = request.args.get("event_id")
-    item = crud.get_item_by_id(item_id)
-    form = NewItemForm(obj=item)
-    form.item_description.process_data(item.description)
- 
-    return render_template('edit_event.html', form=form, item_id=item_id, event_id=event_id)
+    item_obj, event = crud.get_event_by_id(event_id)
+    print("*"*40)
+    print("item_obj : ", item_obj)
+    print("*"*40)
+    event_form = NewEventForm(obj=event)
+    event_form.event_description.process_data(event.description)
+    if request.args.get("description"):
+        return render_template('edit_event.html', form=event_form, event_id=event_id)
+    if request.args.get("edit_event_image"):
+        session["event_id"] = event_id
+        session["image_type"] = "event"
+        return render_template('edit_image.html', form=event_form)
+    item_id = request.args.get("item_id")
 
+    print("*"*40)
+    print("item_id : ", item_id)
+    print("*"*40)
+    item = crud.get_item_by_id(item_id)
+    print("*"*40)
+    print("item : ", item)
+    print("*"*40)
+    item_form = NewItemForm(obj=item)
+    item_form.item_description.process_data(item.description)
+    if request.args.get("item"):
+        return render_template('edit_item.html', form=item_form, item_id=item_id, event_id=event_id)
+    if request.args.get("edit_item_image"):
+        session["event_id"] = event_id
+        session["item_id"] = item_id
+        session["image_type"] = "item"
+        return render_template('edit_image.html', form=item_form)
 
 @app.route("/edit-item", methods=['POST'])
 def edit_item_details():
@@ -219,16 +323,25 @@ def edit_item_details():
     name = form.name.data
     description = form.item_description.data
     link = form.link.data
-    image = upload_image(form.item_image.name, "item", form)
-    item_image = crud.create_image(f'/{UPLOAD_FOLDER_ITEMS}{image}')
-    img_id = item_image.img_id
     item_id = request.form.get("item_id")
     event_id = request.form.get("event_id")
-    # print("*"*40)
-    # print("name : ", name)
-    # print("description : ", description)
-    # print("*"*40)
-    item = crud.update_item(item_id, name, description, link, img_id)
+    item = crud.update_item(item_id, name, description, link)
+    user_id = session["signed_in_user_id"]
+    is_event_by_user = crud.is_event_by_user(user_id, event_id)
+
+    items, event = crud.get_event_by_id(event_id)
+ 
+    return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user)
+
+
+@app.route("/edit-event", methods=['POST'])
+def edit_event_description():
+    """ Save changes made by the signed in user """
+
+    form = NewEventForm()
+    description = form.event_description.data
+    event_id = request.form.get("event_id")
+    event = crud.update_event(event_id, description)
     user_id = session["signed_in_user_id"]
     is_event_by_user = crud.is_event_by_user(user_id, event_id)
 
@@ -266,6 +379,8 @@ def upload_image(file_name, type, form):
         file.save(os.path.join(app.config['UPLOAD_FOLDER_ITEMS'], filename))
     elif type == "event":
         file.save(os.path.join(app.config['UPLOAD_FOLDER_EVENTS'], filename))
+    elif type == "profile":
+        file.save(os.path.join(app.config['UPLOAD_FOLDER_PROFILES'], filename))
     return filename
 
 def create_new_item(file_name):
@@ -307,7 +422,7 @@ def new_item():
 
     if request.form['submit'] == 'Add this item':
         item_form = NewItemForm()
-        item = create_new_item(item_form.item_image.name)
+        item = create_new_item(item_form.image.name)
         event_id = session["new_event_id"]
         crud.create_events_items(event_id, item.item_id)
         item_form.name.data = ""
@@ -328,7 +443,7 @@ def new_event():
     """ Add a new event with user input """
     
     event_form = NewEventForm()
-    event = create_new_event(event_form.event_image.name) 
+    event = create_new_event(event_form.image.name) 
     session["new_event_id"] = event.event_id
     session["new_event_category"] = event_form.category.name
     item_form = NewItemForm()

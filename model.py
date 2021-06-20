@@ -14,11 +14,15 @@ class User(db.Model):
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     fname = db.Column(db.String(30))
     lname = db.Column(db.String(30))
+    handle = db.Column(db.String(20))
     email = db.Column(db.String(30))
     password = db.Column(db.String(20))
+    img_id = db.Column(db.Integer, db.ForeignKey('images.img_id'))
+
+    image = db.relationship('Image', backref='user')
 
     def __repr__(self):
-        return f'<User user_id={self.user_id} fname={self.fname} lname={self.lname} email={self.email}>'
+        return f'<User user_id={self.user_id} fname={self.fname} lname={self.lname} handle={self.handle} email={self.email}>'
 
 
 class Theme(db.Model):

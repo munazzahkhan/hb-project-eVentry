@@ -27,11 +27,20 @@ class SignupForm(FlaskForm):
 
     fname = StringField(
         "First Name", 
-        validators=[validators.DataRequired(), validators.Length(min=2, max=30)]
+        validators=[validators.DataRequired(), validators.Length(min=3, max=30)]
     )
     lname = StringField(
         "Last Name", 
-        validators=[validators.DataRequired(), validators.Length(min=2, max=30)]
+        validators=[validators.DataRequired(), validators.Length(min=3, max=30)]
+    )
+    handle = StringField(
+        "Last Name", 
+        validators=[validators.DataRequired(), validators.Length(min=3, max=20)]
+    )
+    image = FileField(
+        'Upload your profile picture', 
+        validators=[FileRequired('File was empty!'), 
+        FileAllowed(ALLOWED_EXTENSIONS, 'Images only!')]
     )
     email = StringField(
         "Email", 
@@ -68,7 +77,7 @@ class NewEventForm(FlaskForm):
         "Description of the event",
         validators=[validators.DataRequired()]
     )
-    event_image = FileField(
+    image = FileField(
         'Upload an event image', 
         validators=[FileRequired('File was empty!'), 
         FileAllowed(ALLOWED_EXTENSIONS, 'Images only!')]
@@ -85,7 +94,7 @@ class NewItemForm(FlaskForm):
         "Description",
         validators=[validators.DataRequired()]
     )
-    item_image = FileField(
+    image = FileField(
         'Upload an item image', 
         validators=[FileRequired('File was empty!'), 
         FileAllowed(ALLOWED_EXTENSIONS, 'Images only!')]

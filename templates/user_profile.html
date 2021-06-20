@@ -1,10 +1,22 @@
 {% extends 'base.html' %}
 
+{% block head %}
+    <link rel="stylesheet" href="/static/css/user_profile.css">
+{% endblock %}
+
 {% block title %}User Profile{% endblock %}
 
 {% block body %}
 
 <form action="/edit-profile-page">
+    <br>
+    <div class="profile_thumbnail">
+        <img src="{{ user.image.url }}">
+    </div>
+    <br>
+    <div>
+        <input type="submit" value="Edit Profile Picture" name="picture" id="picture">
+    </div>
     <br>
     <div>
         <h2>
@@ -24,6 +36,13 @@
             Last Name: 
         </b>
             {{ user.lname }} 
+    </div>
+    <br>
+    <div>
+        <b>
+            Handle: 
+        </b>
+            {{ user.handle }} 
     </div>
     <br>
     <div>

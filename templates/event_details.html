@@ -11,30 +11,51 @@
     <br>
     <div class="header">
         <img src="{{ event.image.url }}">
+        <p align="right">
+            {% if is_event_by_user == True %}
+                <input type="submit" value="Edit Event Image" name="edit_event_image" id="edit_event_image">
+            {% endif %}
+        </p>
     </div>
     <br>
     <div>
-        {{ event.description }}
+        <center>
+            {{ event.description }}
+            <p>
+                {% if is_event_by_user == True %}
+                    <input type="submit" value="Edit Event Description" name="description" id="description">
+                {% endif %}
+            </p>
+        </center>
     </div>
     <br>
     {% for item in items %}
-
+    <form action="/edit-event-page">
         <div class="thumbnail">
             <img src="{{ item.image.url }}">
         </div>
+        <p>
+            {% if is_event_by_user == True %}
+                <input type="submit" value="Edit Item Image" name="edit_item_image" id="edit_item_image">
+            {% endif %}
+        </p>
         <p>
             {{ item.name }}
         </p>
         <p>
             {{ item.description }}
         </p>
+        <p>
+            {{ item.link }}
+        </p>
         <input type="hidden" value="{{ event.event_id }}" name="event_id" id="event_id">
         <input type="hidden" value="{{ item.item_id }}" name="item_id" id="item_id">
         <p>
             {% if is_event_by_user == True %}
-                <input type="submit" value="Edit Item Details" name="edit" id="edit">
+                <input type="submit" value="Edit Item Details" name="item" id="item">
             {% endif %}
         </p>
+    </form>
     {% endfor %}
 </form>
 {% endblock %}

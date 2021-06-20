@@ -9,11 +9,11 @@ function toggleShowHide() {
       x.type = "password";
     }
 }
-    function toggleShowHidef() {
-    const y = document.getElementById("old_pw");
-    if (y.type === "password") {
-        y.type = "text";
-      } else {
-        y.type = "password";
-      }
-  }
+function toggleShowHidef() {
+  const y = document.getElementById("old_pw");
+  if (y.type === "password") {
+      y.type = "text";
+    } else {
+      y.type = "password";
+    }
+}

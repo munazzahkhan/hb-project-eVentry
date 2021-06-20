@@ -22,21 +22,31 @@
 	{% endwith %}
 </p>
 
-<form action="/edit-event" method="POST">
+<form action="/edit-item" method="POST">
     {{ form.hidden_tag() }}
-    <h4>Update event description</h4>
+    <h4>Update item details</h4>
     <table id="items-table" border="3">
         <tr>
             <td>
                 <br>
                 <div>
+                    <label>Item name: </label>
+                    {{ form.name(placeholder="Item Name") }}
+                </div>
+                <br>
+                <div>
                     <label>Description: </label>
-                    {{ form.event_description(placeholder="Event description") }}
+                    {{ form.item_description(placeholder="Item description") }}
+                </div>
+                <br>
+                <div>
+                    <label>Link where to get it from: </label>
+                    {{ form.link(placeholder="Item link/source") }}
                 </div>
                 <br>
                 <div>
                     <input type="hidden" value="{{ event_id }}" name="event_id" id="event_id">
-                    
+                    <input type="hidden" value="{{ item_id }}" name="item_id" id="item_id">
                     <input type="submit" value = "Save Changes" name="save" id="save">
                 </div>
                 <br>
