@@ -285,9 +285,6 @@ def edit_event_details():
 
     event_id = request.args.get("event_id")
     item_obj, event = crud.get_event_by_id(event_id)
-    print("*"*40)
-    print("item_obj : ", item_obj)
-    print("*"*40)
     event_form = NewEventForm(obj=event)
     event_form.event_description.process_data(event.description)
     if request.args.get("description"):
@@ -296,15 +293,13 @@ def edit_event_details():
         session["event_id"] = event_id
         session["image_type"] = "event"
         return render_template('edit_image.html', form=event_form)
+    if request.args.get("add"):
+        session["new_event_category"] = event_form.category.name
+        session["new_event_id"] = event_id
+        item_form = NewItemForm()
+        return render_template('new_item.html', event_id=event_id, item_form=item_form)
     item_id = request.args.get("item_id")
-
-    print("*"*40)
-    print("item_id : ", item_id)
-    print("*"*40)
     item = crud.get_item_by_id(item_id)
-    print("*"*40)
-    print("item : ", item)
-    print("*"*40)
     item_form = NewItemForm(obj=item)
     item_form.item_description.process_data(item.description)
     if request.args.get("item"):
@@ -429,7 +424,7 @@ def new_item():
         item_form.item_description.data = ""
         item_form.link.data = ""
         return render_template('new_item.html', event_id=event_id, item_form=item_form)
-    elif request.form['submit'] == 'Done':
+    elif request.form['submit'] == 'Done' or request.form['submit'] == 'Cancel':
         event_id = session["new_event_id"]
         category = session["new_event_category"]
         show_event_details(category, event_id)

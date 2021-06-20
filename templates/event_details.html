@@ -16,6 +16,11 @@
                 <input type="submit" value="Edit Event Image" name="edit_event_image" id="edit_event_image">
             {% endif %}
         </p>
+        <p align="right">
+            {% if is_event_by_user == True %}
+                <input type="submit" value="Add Items" name="add" id="add">
+            {% endif %}
+        </p>
     </div>
     <br>
     <div>
