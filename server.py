@@ -66,9 +66,13 @@ def signin_user():
     user = crud.get_user_by_email(form.email.data)
 
     if user:
-        session["signed_in_user_id"] = user.user_id
-        flash('Signed in!')
-        return redirect('/')
+        if user.password == form.password.data:
+            session["signed_in_user_id"] = user.user_id
+            flash('Signed in!')
+            return redirect('/')
+        else:
+            flash('Email and password do not match.')
+            return redirect('/sign-in-page')
     else:
         flash('Account does not exist.')
         return redirect('/sign-in-page')
