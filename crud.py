@@ -158,6 +158,15 @@ def get_events_by_user(user_id):
     return Event.query.filter(Event.user_id==user_id).all()
 
 
+def get_handle_for_event(event_id):
+    """ Return event handle for an event """
+
+    event = Event.query.filter(Event.event_id==event_id).first()
+    user_id = event.user_id
+    user = get_user_details_by_id(user_id)
+    return user.handle
+
+
 def is_event_by_user(user_id, event_id):
     """ Return True if the event is by signed in user """
 

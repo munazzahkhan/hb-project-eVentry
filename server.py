@@ -183,7 +183,7 @@ def save_edited_user_profile():
             return render_template('user_profile.html', user=user)
         else:
             user = crud.edit_user_details(user_id, fname, lname, handle)
-            
+
         return render_template('user_profile.html', user=user)
 
 
@@ -233,9 +233,10 @@ def save_new_image():
             event = crud.edit_event_image(event_id, img_id)
             items, event = crud.get_event_by_id(event_id)
             is_event_by_user = crud.is_event_by_user(user_id, event_id)
+            handle = crud.get_handle_for_event(event_id)
             del session["event_id"]
             del session["image_type"]
-            return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user)
+            return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user, handle=handle)
         if session["image_type"] == "item":
             image = upload_image(file_name, "item", form)
             item_image = crud.create_image(f'/{UPLOAD_FOLDER_ITEMS}{image}')
@@ -245,10 +246,11 @@ def save_new_image():
             item = crud.edit_item_image(item_id, img_id)
             items, event = crud.get_event_by_id(event_id)
             is_event_by_user = crud.is_event_by_user(user_id, event_id)
+            handle = crud.get_handle_for_event(event_id)
             del session["item_id"]
             del session["event_id"]
             del session["image_type"]
-            return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user)
+            return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user, handle=handle)
     if request.form.get("cancel"):
         if session["image_type"] == "profile":
             user = crud.get_user_details_by_id(user_id)
@@ -258,11 +260,12 @@ def save_new_image():
             event_id = session["event_id"]
             items, event = crud.get_event_by_id(event_id)
             is_event_by_user = crud.is_event_by_user(user_id, event_id)
+            handle = crud.get_handle_for_event(event_id)
             if "item_id" in session:
                 del session["item_id"]
             del session["event_id"]
             del session["image_type"]
-            return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user)
+            return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user, handle=handle)
 
 
 @app.route('/events/<category>')
@@ -281,9 +284,10 @@ def show_event_details(category, event_id):
 
     user_id = session["signed_in_user_id"]
     is_event_by_user = crud.is_event_by_user(user_id, event_id)
+    handle = crud.get_handle_for_event(event_id)
     items, event = crud.get_event_by_id(event_id)
  
-    return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user)
+    return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user, handle=handle)
 
 
 @app.route("/edit-event-page")
@@ -330,7 +334,8 @@ def edit_event_details():
         user_id = session["signed_in_user_id"]
         items, event = crud.get_event_by_id(event_id)
         is_event_by_user = crud.is_event_by_user(user_id, event_id)
-        return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user)
+        handle = crud.get_handle_for_event(event_id)
+        return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user, handle=handle)
 
 
 @app.route("/edit-item", methods=['POST'])
@@ -349,9 +354,10 @@ def edit_item_details():
 
     user_id = session["signed_in_user_id"]
     is_event_by_user = crud.is_event_by_user(user_id, event_id)
+    handle = crud.get_handle_for_event(event_id)
     items, event = crud.get_event_by_id(event_id)
     
-    return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user)
+    return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user, handle=handle)
 
 
 @app.route("/edit-event", methods=['POST'])
@@ -364,10 +370,10 @@ def edit_event_description():
     event = crud.update_event(event_id, description)
     user_id = session["signed_in_user_id"]
     is_event_by_user = crud.is_event_by_user(user_id, event_id)
-
+    handle = crud.get_handle_for_event(event_id)
     items, event = crud.get_event_by_id(event_id)
  
-    return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user)
+    return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user, handle=handle)
 
 
 @app.route('/view-user-events')
