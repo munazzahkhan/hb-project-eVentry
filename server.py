@@ -167,22 +167,24 @@ def save_edited_user_profile():
     """ Save edited profile of the signed in user """
 
     user_id = session["signed_in_user_id"]
-    form = SignupForm()
-    fname = form.fname.data
-    lname = form.lname.data
-    handle = form.handle.data
-
-    user_handle = crud.get_user_by_handle(handle)
-    user_id = session["signed_in_user_id"]
     user = crud.get_user_details_by_id(user_id)
 
-    if user_handle:
-        flash('This handle is already in use. Try again.')
+    if request.form.get("cancel"):
         return render_template('user_profile.html', user=user)
+    if request.form.get("save"):
 
-    user = crud.edit_user_details(user_id, fname, lname, handle)
- 
-    return render_template('user_profile.html', user=user)
+        form = SignupForm()
+        fname = form.fname.data
+        lname = form.lname.data
+        handle = form.handle.data
+        user_handle = crud.get_user_by_handle(handle)
+        if user_handle and user.handle != user_handle.handle:
+            flash('This handle is already in use. Try again.')
+            return render_template('user_profile.html', user=user)
+        else:
+            user = crud.edit_user_details(user_id, fname, lname, handle)
+            
+        return render_template('user_profile.html', user=user)
 
 
 @app.route('/change-password', methods=['GET', 'POST'])
@@ -305,6 +307,7 @@ def edit_event_details():
     if request.args.get("add"):
         session["new_event_category"] = event_form.category.name
         session["new_event_id"] = event_id
+        session["item-added"] = 1
         item_form = NewItemForm()
         return render_template('new_item.html', event_id=event_id, item_form=item_form)
     item_id = request.args.get("item_id")
