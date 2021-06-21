@@ -21,6 +21,11 @@
                 <input type="submit" value="Add Items" name="add" id="add">
             {% endif %}
         </p>
+        <p align="right">
+            {% if is_event_by_user == True %}
+            <input type="submit" value="Delete Event" name="delete_event" id="delete_event">
+            {% endif %}
+        </p>
     </div>
     <br>
     <div>
@@ -58,6 +63,7 @@
         <p>
             {% if is_event_by_user == True %}
                 <input type="submit" value="Edit Item Details" name="item" id="item">
+                <input type="submit" value="Delete" name="delete_item" id="delete_item">
             {% endif %}
         </p>
     </form>

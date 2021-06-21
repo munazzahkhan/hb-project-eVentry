@@ -1,69 +1,69 @@
-{% extends 'base.html' %}
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <script src="https://code.jquery.com/jquery-3.6.0.js" 
+                integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" 
+                crossorigin="anonymous"></script>
+    </head>
+    <body>
 
-{% block title %}New Event{% endblock %}
+        <p>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            {% endwith %}
+        </p>
 
-{% block head %}
-    <script src="https://code.jquery.com/jquery-3.6.0.js" 
-            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" 
-            crossorigin="anonymous"></script>
-{% endblock %}
+        <form action="/add-item" method="POST" enctype="multipart/form-data">
+            {{ item_form.hidden_tag() }}
+            <h4>Enter an item from your event and some details about that item</h4>
+            <table id="items-table" border="3">
+                <tr>
+                    <td>
+                        <br>
+                        <div>
+                            <label>Item name: </label>
+                            {{ item_form.name(placeholder="Item Name") }}
+                        </div>
+                        <br>
+                        <div>
+                            <label>Description: </label>
+                            {{ item_form.item_description(placeholder="Item description") }}
+                        </div>
+                        <br>
+                        <div>
+                            <label>Upload an item image: </label>
+                            {{ item_form.image() }}
+                        </div>
+                        <br>
+                        <div>
+                            <label>Link where to get it from: </label>
+                            {{ item_form.link(placeholder="Item link/source") }}
+                        </div>
+                        <br>
+                        <div>
+                            <input type="submit" value="Add this item" name="submit">
+                        </div>
+                        <br>
+                </td>
+                </tr>
+            </table>
+            <!-- <input type="hidden" name="number-of-items" id="number-of-items" value = "1"> -->
+            <br>
+            <div>
+                <input type="submit" value="Done" name="submit" formnovalidate>
+                <input type="submit" value="Cancel" name="submit" formnovalidate>
+            </div>
+        </form>
 
-{% block body %}
+        <script src="/static/js/events.js"></script>
 
-<p>
-	{% with messages = get_flashed_messages() %}
-	  {% if messages %}
-		<ul>
-		{% for message in messages %}
-		  <li>{{ message }}</li>
-		{% endfor %}
-		</ul>
-	  {% endif %}
-	{% endwith %}
-</p>
-
-<form action="/add-item" method="POST" enctype="multipart/form-data">
-    {{ item_form.hidden_tag() }}
-    <h4>Enter an item from your event and some details about that item</h4>
-    <table id="items-table" border="3">
-        <tr>
-            <td>
-                <br>
-                <div>
-                    <label>Item name: </label>
-                    {{ item_form.name(placeholder="Item Name") }}
-                </div>
-                <br>
-                <div>
-                    <label>Description: </label>
-                    {{ item_form.item_description(placeholder="Item description") }}
-                </div>
-                <br>
-                <div>
-                    <label>Upload an item image: </label>
-                    {{ item_form.image() }}
-                </div>
-                <br>
-                <div>
-                    <label>Link where to get it from: </label>
-                    {{ item_form.link(placeholder="Item link/source") }}
-                </div>
-                <br>
-                <div>
-                    <input type="submit" value="Add this item" name="submit">
-                </div>
-                <br>
-        </td>
-        </tr>
-    </table>
-    <!-- <input type="hidden" name="number-of-items" id="number-of-items" value = "1"> -->
-    <br>
-    <div>
-        <input type="submit" value="Done" name="submit" formnovalidate>
-        <input type="submit" value="Cancel" name="submit" formnovalidate>
-    </div>
-</form>
-
-<script src="/static/js/events.js"></script>
-
-{% endblock %}
+    </body>
+</html>

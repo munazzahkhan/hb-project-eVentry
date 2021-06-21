@@ -284,7 +284,10 @@ def edit_event_details():
     """ Show edit event page to the signed in user """
 
     event_id = request.args.get("event_id")
-    item_obj, event = crud.get_event_by_id(event_id)
+    items, event = crud.get_event_by_id(event_id)
+    if request.args.get("delete_event"):
+        crud.delete_event(event_id)
+        return redirect('/view-user-events')
     event_form = NewEventForm(obj=event)
     event_form.event_description.process_data(event.description)
     if request.args.get("description"):
@@ -309,23 +312,32 @@ def edit_event_details():
         session["item_id"] = item_id
         session["image_type"] = "item"
         return render_template('edit_image.html', form=item_form)
+    if request.args.get("delete_item"):
+        crud.delete_item(item_id)
+        user_id = session["signed_in_user_id"]
+        items, event = crud.get_event_by_id(event_id)
+        is_event_by_user = crud.is_event_by_user(user_id, event_id)
+        return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user)
+
 
 @app.route("/edit-item", methods=['POST'])
 def edit_item_details():
     """ Save changes made by the signed in user """
 
-    form = NewItemForm()
-    name = form.name.data
-    description = form.item_description.data
-    link = form.link.data
-    item_id = request.form.get("item_id")
     event_id = request.form.get("event_id")
-    item = crud.update_item(item_id, name, description, link)
+    if request.form.get("save"):
+        form = NewItemForm()
+        name = form.name.data
+        description = form.item_description.data
+        link = form.link.data
+        item_id = request.form.get("item_id")
+        # event_id = request.form.get("event_id")
+        item = crud.update_item(item_id, name, description, link)
+
     user_id = session["signed_in_user_id"]
     is_event_by_user = crud.is_event_by_user(user_id, event_id)
-
     items, event = crud.get_event_by_id(event_id)
- 
+    
     return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user)
 
 
@@ -419,31 +431,41 @@ def new_item():
         item_form = NewItemForm()
         item = create_new_item(item_form.image.name)
         event_id = session["new_event_id"]
+        session["item-added"] = 1
         crud.create_events_items(event_id, item.item_id)
         item_form.name.data = ""
         item_form.item_description.data = ""
         item_form.link.data = ""
         return render_template('new_item.html', event_id=event_id, item_form=item_form)
     elif request.form['submit'] == 'Done' or request.form['submit'] == 'Cancel':
-        event_id = session["new_event_id"]
-        category = session["new_event_category"]
-        show_event_details(category, event_id)
-        del session["new_event_id"]
-        del session["new_event_category"]
-        return redirect(f'/events/{category}/{event_id}')
-
+        if "item-added" in session:
+            event_id = session["new_event_id"]
+            category = session["new_event_category"]
+            show_event_details(category, event_id)
+            del session["new_event_id"]
+            del session["new_event_category"]
+            del session["item-added"]
+            return redirect(f'/events/{category}/{event_id}')
+        else:
+            flash("Please add atleast 1 item")
+            event_id = session["new_event_id"]
+            item_form = NewItemForm()
+            return render_template('new_item.html', event_id=event_id, item_form=item_form)
 
 @app.route('/new-event', methods=['POST'])
 def new_event():
     """ Add a new event with user input """
     
-    event_form = NewEventForm()
-    event = create_new_event(event_form.image.name) 
-    session["new_event_id"] = event.event_id
-    session["new_event_category"] = event_form.category.name
-    item_form = NewItemForm()
+    if request.form.get("add"):
+        event_form = NewEventForm()
+        event = create_new_event(event_form.image.name) 
+        session["new_event_id"] = event.event_id
+        session["new_event_category"] = event_form.category.name
+        item_form = NewItemForm()
 
-    return render_template('new_item.html', item_form=item_form)
+        return render_template('new_item.html', item_form=item_form)
+    if request.form.get("cancel"):
+        return redirect("/view-user-events")
 
 
 if __name__ == '__main__':

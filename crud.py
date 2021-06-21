@@ -163,6 +163,9 @@ def get_event_by_id(event_id):
 
     items_list = EventsItems.query.filter_by(event_id=event_id)
     event = Event.query.filter_by(event_id=event_id).first()
+    print("*"*50)
+    print("EVENT: ", event)
+    print("*"*50)
 
     item_objs = []
     for item in items_list:
@@ -199,6 +202,32 @@ def edit_event_image(event_id, img_id):
     db.session.commit()
 
     return event
+
+
+def delete_event(event_id):
+    """ Delete event from Events table """
+
+    print("*"*50)
+    print("IN CRUD")
+    print("*"*50)
+    items, event = get_event_by_id(event_id)
+    print("*"*50)
+    print("ITEMS: ", items)
+    print("*"*50)
+    print("EVENTS-1: ", event)
+    print("*"*50)
+    if items:
+        for item in items:
+            delete_item(item.item_id)
+        print("*"*50)
+        print("EVENTS-2: ", event)
+        print("*"*50)
+        EventsItems.query.filter(EventsItems.event_id == event_id).delete()
+    Event.query.filter(Event.event_id == event_id).delete()
+    print("*"*50)
+    print("EVENTS-3: ", event)
+    print("*"*50)
+    db.session.commit()
 
 
 def create_events_items(event, item):
@@ -258,6 +287,15 @@ def edit_item_image(item_id, img_id):
     db.session.commit()
 
     return item
+
+
+def delete_item(item_id):
+    """ Delete item from the Items table """
+
+    item = get_item_by_id(item_id)
+    EventsItems.query.filter(EventsItems.item_id == item_id).delete()
+    Item.query.filter(Item.item_id == item_id).delete()
+    db.session.commit()
 
 
 if __name__ == '__main__':
