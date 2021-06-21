@@ -155,6 +155,11 @@ def edit_user_profile():
     if request.args.get("picture"):
         session["image_type"] = "profile"
         return render_template('edit_image.html', form=form)
+    if request.args.get("delete"):
+        crud.delete_user(user_id)
+        del session["signed_in_user_id"]
+        flash("Account deleted")
+        return redirect('/')
 
 
 @app.route('/edit-profile', methods=['GET', 'POST'])
@@ -287,6 +292,7 @@ def edit_event_details():
     items, event = crud.get_event_by_id(event_id)
     if request.args.get("delete_event"):
         crud.delete_event(event_id)
+        flash("Event deleted")
         return redirect('/view-user-events')
     event_form = NewEventForm(obj=event)
     event_form.event_description.process_data(event.description)
@@ -313,7 +319,11 @@ def edit_event_details():
         session["image_type"] = "item"
         return render_template('edit_image.html', form=item_form)
     if request.args.get("delete_item"):
-        crud.delete_item(item_id)
+        if len(items) == 1:
+            flash("Sorry you cannot delete this item. There should be atleast 1 item in an event.")
+        else:
+            crud.delete_item(item_id)
+            flash("Item deleted")
         user_id = session["signed_in_user_id"]
         items, event = crud.get_event_by_id(event_id)
         is_event_by_user = crud.is_event_by_user(user_id, event_id)

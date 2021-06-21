@@ -75,6 +75,17 @@ def edit_user_profile_picture(user_id, img_id):
     return user
 
 
+def delete_user(user_id):
+    """ Delete user from Users table """
+
+    events = get_events_by_user(user_id)
+    if events:
+        for event in events:
+            delete_event(event.event_id)
+    User.query.filter(User.user_id == user_id).delete()
+    db.session.commit()
+
+
 def create_theme(color):
     """ Create and return a new theme """
 
@@ -207,26 +218,12 @@ def edit_event_image(event_id, img_id):
 def delete_event(event_id):
     """ Delete event from Events table """
 
-    print("*"*50)
-    print("IN CRUD")
-    print("*"*50)
     items, event = get_event_by_id(event_id)
-    print("*"*50)
-    print("ITEMS: ", items)
-    print("*"*50)
-    print("EVENTS-1: ", event)
-    print("*"*50)
     if items:
         for item in items:
             delete_item(item.item_id)
-        print("*"*50)
-        print("EVENTS-2: ", event)
-        print("*"*50)
         EventsItems.query.filter(EventsItems.event_id == event_id).delete()
     Event.query.filter(Event.event_id == event_id).delete()
-    print("*"*50)
-    print("EVENTS-3: ", event)
-    print("*"*50)
     db.session.commit()
 
 
