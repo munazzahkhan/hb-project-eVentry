@@ -9,6 +9,8 @@ function toggleShowHide() {
       x.type = "password";
     }
 }
+
+
 function toggleShowHidef() {
   const y = document.getElementById("old_pw");
   if (y.type === "password") {
@@ -16,4 +18,9 @@ function toggleShowHidef() {
     } else {
       y.type = "password";
     }
+}
+
+
+function toggleGrey() {
+  document.getElementById("heart").style.color = "red";
 }

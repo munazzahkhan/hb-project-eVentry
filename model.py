@@ -86,6 +86,20 @@ class Event(db.Model):
         return f'<Event event_id={self.event_id} category={self.category}>'
 
 
+class Favorite(db.Model):
+    """ Middle table for Events and Users """
+
+    # creating a favorites table
+    __tablename__ = "favorites"
+
+    favorite_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+
+    def __repr__(self):
+        return f'<Favorites favorite_id={self.favorite_id} event_id={self.event_id} user_id={self.user_id}>'
+
+
 class EventsItems(db.Model):
     """ Association table for Events and Items """
 
@@ -95,9 +109,6 @@ class EventsItems(db.Model):
     events_items = db.Column(db.Integer, autoincrement=True, primary_key=True)
     event_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
     item_id = db.Column(db.Integer, db.ForeignKey('items.item_id'))
-
-    # event = db.relationship('Event', backref='event_item')
-    # item = db.relationship('Item', backref='event_item')
 
     def __repr__(self):
         return f'<EventsItems events_items={self.events_items} event_id={self.event_id} item_id={self.item_id}>'

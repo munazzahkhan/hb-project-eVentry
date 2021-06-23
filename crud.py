@@ -1,6 +1,6 @@
 """ CRUD operations for eVentry app """
 
-from model import db, User, Theme, Image, Event, EventsItems, Item, Category, connect_to_db
+from model import db, User, Theme, Image, Event, EventsItems, Favorite, Item, Category, connect_to_db
 
 
 def create_user(fname, lname, handle, email, password, img_id):
@@ -183,9 +183,6 @@ def get_event_by_id(event_id):
 
     items_list = EventsItems.query.filter_by(event_id=event_id)
     event = Event.query.filter_by(event_id=event_id).first()
-    print("*"*50)
-    print("EVENT: ", event)
-    print("*"*50)
 
     item_objs = []
     for item in items_list:
@@ -233,6 +230,45 @@ def delete_event(event_id):
             delete_item(item.item_id)
         EventsItems.query.filter(EventsItems.event_id == event_id).delete()
     Event.query.filter(Event.event_id == event_id).delete()
+    db.session.commit()
+
+
+def create_favorite(event, user):
+    """ Create and return a new favorite event by the user """
+
+    favorite = Favorite(event_id=event, user_id=user)
+
+    db.session.add(favorite)
+    db.session.commit()
+
+    return favorite
+
+
+def is_favorite(event, user):
+    """ Return True if the event has already been favorited by the user """
+
+    if Favorite.query.filter(Favorite.user_id == user, Favorite.event_id == event).first():
+        return True
+    else:
+        return False
+
+
+def get_favorite_events_by_user(user_id):
+    """ Return all favorite events by a user """
+
+    favorites = Favorite.query.filter(Favorite.user_id==user_id).all()
+    events = []
+    if favorites:
+        for favorite in favorites:
+            items, event = get_event_by_id(favorite.event_id)
+            events.append(event)
+
+    return events
+
+def remove_favorite(event, user):
+    """ Remove event from favorite by the user """
+
+    Favorite.query.filter(Favorite.user_id == user, Favorite.event_id == event).delete()
     db.session.commit()
 
 

@@ -1,4 +1,3 @@
-
 .header img {
     height:300px;
     width:80%;
@@ -10,4 +9,29 @@
 .thumbnail img {
     height:150px;
     width:150px;
+}
+
+
+.inline {
+    display: inline-block;
+}
+
+
+.greyColor {
+    color: grey;
+}
+
+
+.redColor {
+    color: red;
+}
+
+
+#thumb:hover {
+    color: blue;
+  }
+
+  
+#heart:hover {
+    color:red;
 }

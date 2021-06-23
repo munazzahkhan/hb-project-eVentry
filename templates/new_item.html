@@ -40,7 +40,7 @@
                         <br>
                         <div>
                             <label>Upload an item image: </label>
-                            {{ item_form.image() }}
+                            {{ item_form.image((**{"onchange":"this.form.submit()"})) }}
                         </div>
                         <br>
                         <div>

@@ -238,9 +238,14 @@ def save_new_image():
             items, event = crud.get_event_by_id(event_id)
             is_event_by_user = crud.is_event_by_user(user_id, event_id)
             handle = crud.get_handle_for_event(event_id)
+            favorite = crud.is_favorite(event_id, user_id)
             del session["event_id"]
             del session["image_type"]
-            return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user, handle=handle)
+            return render_template('event_details.html', event=event, 
+                                                         items=items, 
+                                                         is_event_by_user=is_event_by_user, 
+                                                         handle=handle,
+                                                         favorite=favorite)
         if session["image_type"] == "item":
             image = upload_image(file_name, "item", form)
             item_image = crud.create_image(f'/{UPLOAD_FOLDER_ITEMS}{image}')
@@ -251,10 +256,15 @@ def save_new_image():
             items, event = crud.get_event_by_id(event_id)
             is_event_by_user = crud.is_event_by_user(user_id, event_id)
             handle = crud.get_handle_for_event(event_id)
+            favorite = crud.is_favorite(event_id, user_id)
             del session["item_id"]
             del session["event_id"]
             del session["image_type"]
-            return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user, handle=handle)
+            return render_template('event_details.html', event=event, 
+                                                         items=items, 
+                                                         is_event_by_user=is_event_by_user, 
+                                                         handle=handle,
+                                                         favorite=favorite)
     if request.form.get("cancel"):
         if session["image_type"] == "profile":
             user = crud.get_user_details_by_id(user_id)
@@ -265,11 +275,16 @@ def save_new_image():
             items, event = crud.get_event_by_id(event_id)
             is_event_by_user = crud.is_event_by_user(user_id, event_id)
             handle = crud.get_handle_for_event(event_id)
+            favorite = crud.is_favorite(event_id, user_id)
             if "item_id" in session:
                 del session["item_id"]
             del session["event_id"]
             del session["image_type"]
-            return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user, handle=handle)
+            return render_template('event_details.html', event=event, 
+                                                         items=items, 
+                                                         is_event_by_user=is_event_by_user, 
+                                                         handle=handle,
+                                                         favorite=favorite)
 
 
 @app.route('/events/<category>')
@@ -290,8 +305,13 @@ def show_event_details(category, event_id):
     is_event_by_user = crud.is_event_by_user(user_id, event_id)
     handle = crud.get_handle_for_event(event_id)
     items, event = crud.get_event_by_id(event_id)
+    favorite = crud.is_favorite(event_id, user_id)
  
-    return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user, handle=handle)
+    return render_template('event_details.html', event=event, 
+                                                 items=items, 
+                                                 is_event_by_user=is_event_by_user, 
+                                                 handle=handle,
+                                                 favorite=favorite)
 
 
 @app.route("/edit-event-page")
@@ -339,7 +359,12 @@ def edit_event_details():
         items, event = crud.get_event_by_id(event_id)
         is_event_by_user = crud.is_event_by_user(user_id, event_id)
         handle = crud.get_handle_for_event(event_id)
-        return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user, handle=handle)
+        favorite = crud.is_favorite(event_id, user_id)
+        return render_template('event_details.html', event=event, 
+                                                     items=items, 
+                                                     is_event_by_user=is_event_by_user, 
+                                                     handle=handle,
+                                                     favorite=favorite)
 
 
 @app.route("/edit-item", methods=['POST'])
@@ -360,8 +385,13 @@ def edit_item_details():
     is_event_by_user = crud.is_event_by_user(user_id, event_id)
     handle = crud.get_handle_for_event(event_id)
     items, event = crud.get_event_by_id(event_id)
+    favorite = crud.is_favorite(event_id, user_id)
     
-    return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user, handle=handle)
+    return render_template('event_details.html', event=event, 
+                                                 items=items, 
+                                                 is_event_by_user=is_event_by_user, 
+                                                 handle=handle,
+                                                 favorite=favorite)
 
 
 @app.route("/edit-event", methods=['POST'])
@@ -376,8 +406,13 @@ def edit_event_description():
     is_event_by_user = crud.is_event_by_user(user_id, event_id)
     handle = crud.get_handle_for_event(event_id)
     items, event = crud.get_event_by_id(event_id)
+    favorite = crud.is_favorite(event_id, user_id)
  
-    return render_template('event_details.html', event=event, items=items, is_event_by_user=is_event_by_user, handle=handle)
+    return render_template('event_details.html', event=event, 
+                                                 items=items, 
+                                                 is_event_by_user=is_event_by_user, 
+                                                 handle=handle, 
+                                                 favorite=favorite)
 
 
 @app.route('/view-user-events')
@@ -388,6 +423,39 @@ def show_events_by_user():
     events = crud.get_events_by_user(user_id)
 
     return render_template('all_events.html', events=events)
+
+
+@app.route('/view-user-favorites')
+def show_favorites_by_user():
+    """ Show favorite events by a user """
+
+    user_id = session["signed_in_user_id"]
+    events = crud.get_favorite_events_by_user(user_id)
+    if not events:
+        flash("Your 'Favorite' list is empty")
+
+    return render_template('all_events.html', events=events)
+
+
+@app.route('/<event_id>')
+def favorite_an_event(event_id):
+    """ Favorite this event """
+
+    user_id = session["signed_in_user_id"]
+    if crud.is_favorite(event_id, user_id):
+        crud.remove_favorite(event_id, user_id)
+    else: 
+        crud.create_favorite(event_id, user_id)
+    items, event = crud.get_event_by_id(event_id)
+    is_event_by_user = crud.is_event_by_user(user_id, event_id)
+    handle = crud.get_handle_for_event(event_id)
+    favorite = crud.is_favorite(event_id, user_id)
+ 
+    return render_template('event_details.html', event=event, 
+                                                 items=items, 
+                                                 is_event_by_user=is_event_by_user, 
+                                                 handle=handle, 
+                                                 favorite=favorite)
 
 
 @app.route('/new-event-page')

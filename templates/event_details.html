@@ -2,6 +2,10 @@
 
 {% block head %}
     <link rel="stylesheet" href="/static/css/event_details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" 
+                integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" 
+                crossorigin="anonymous"></script>
 {% endblock %}
 
 {% block title %}Details{% endblock %}
@@ -29,7 +33,21 @@
     </div>
     <br>
     <div>
-        Event by: <b>{{ handle }}</b>
+        <div class="inline">
+            Event by: <b>{{ handle }} </b>
+        </div>
+        <div class="inline heart">
+            <a href="/{{ event.event_id }}">
+                {% if favorite == True %}
+                <i onclick="toggleGrey()" class="fa fa-heart redColor" id="heart"></i>
+                {% else %}
+                <i onclick="toggleGrey()" class="fa fa-heart greyColor" id="heart"></i>
+                {% endif %}
+            </a>
+        </div>
+        <div class="inline">
+            <i onclick="toggleGrey()" class="fa fa-thumbs-up greyColor" id="thumb"></i>
+        </div>
     </div>
     <br>
     <div>
@@ -73,4 +91,7 @@
     </form>
     {% endfor %}
 </form>
+
+<script src="/static/js/events.js"></script>
+
 {% endblock %}
