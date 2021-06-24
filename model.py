@@ -87,7 +87,7 @@ class Event(db.Model):
 
 
 class Favorite(db.Model):
-    """ Middle table for Events and Users """
+    """ Middle table for Events and Users (Favorites for Users) """
 
     # creating a favorites table
     __tablename__ = "favorites"
@@ -97,7 +97,37 @@ class Favorite(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
 
     def __repr__(self):
-        return f'<Favorites favorite_id={self.favorite_id} event_id={self.event_id} user_id={self.user_id}>'
+        return f'<Favorite favorite_id={self.favorite_id} event_id={self.event_id} user_id={self.user_id}>'
+
+
+class Like(db.Model):
+    """ Middle table for Events and Users (Likes for Events) """
+
+    # creating a likes table
+    __tablename__ = "likes"
+
+    like_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+
+    def __repr__(self):
+        return f'<Like like_id={self.like_id} event_id={self.event_id} user_id={self.user_id}>'
+
+
+class Comment(db.Model):
+    """ A Comments Table """
+
+    # creating a comments table
+    __tablename__ = "comments"
+
+    comment_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    comment = db.Column(db.Text)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.event_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+
+    def __repr__(self):
+        return f'<Comment comment_id={self.like_id} comment={self.comment}>'
+
 
 
 class EventsItems(db.Model):

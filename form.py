@@ -84,7 +84,7 @@ class NewEventForm(FlaskForm):
     )
 
 class NewItemForm(FlaskForm):
-    """ Class for creating new item of the event form """
+    """ Class for creating new item of the event """
 
     name = StringField(
         "Item Name", 
@@ -103,3 +103,10 @@ class NewItemForm(FlaskForm):
         "Link where to get it from"
     )
 
+
+# class NewCommentForm(FlaskForm):
+#     """ Class for creating new comment on the event by the user """
+
+#     comment = TextAreaField(
+#         "Comment"
+#     )

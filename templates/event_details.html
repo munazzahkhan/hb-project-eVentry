@@ -36,17 +36,23 @@
         <div class="inline">
             Event by: <b>{{ handle }} </b>
         </div>
-        <div class="inline heart">
-            <a href="/{{ event.event_id }}">
+        <div class="inline">
+            <a href="/{{ event.event_id }}/favorite">
                 {% if favorite == True %}
-                <i onclick="toggleGrey()" class="fa fa-heart redColor" id="heart"></i>
+                    <i onclick="toggleRed()" class="fa fa-heart redColor" name="heart" id="heart"></i>
                 {% else %}
-                <i onclick="toggleGrey()" class="fa fa-heart greyColor" id="heart"></i>
+                    <i onclick="toggleRed()" class="fa fa-heart greyColor" name="heart" id="heart"></i>
                 {% endif %}
             </a>
         </div>
         <div class="inline">
-            <i onclick="toggleGrey()" class="fa fa-thumbs-up greyColor" id="thumb"></i>
+            <a href="/{{ event.event_id }}/like">
+                {% if like == True %}
+                    <i onclick="toggleBlue()" class="fa fa-thumbs-up blueColor" name="thumb" id="thumb"></i>
+                {% else %}
+                    <i onclick="toggleBlue()" class="fa fa-thumbs-up greyColor" name="thumb" id="thumb"></i>
+                {% endif %}
+            </a>
         </div>
     </div>
     <br>
@@ -90,6 +96,26 @@
         </p>
     </form>
     {% endfor %}
+    <form action="/events/{{ event.category }}/{{ event.event_id }}" method="POST">
+        <div>
+            <h4>
+                Comments
+            </h4>
+            {% for dict_comment in comments %}
+                {% for handle, comment in dict_comment.items() %}
+                    <p>
+                        <b>{{ handle }}:</b> {{ comment }}
+                    </p>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <div>
+            <textarea name="comment" id="comment" placeholder="Write a comment ..." rows="3" cols="30"></textarea>
+        </div>
+        <div>
+            <input type="submit" value="Add Comment" name="add_comment" id="add_comment">
+        </div>
+    </form>
 </form>
 
 <script src="/static/js/events.js"></script>

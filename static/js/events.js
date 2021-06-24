@@ -21,6 +21,10 @@ function toggleShowHidef() {
 }
 
 
-function toggleGrey() {
+function toggleRed() {
   document.getElementById("heart").style.color = "red";
+}
+
+function toggleBlue() {
+  document.getElementById("thumb").style.color = "blue";
 }

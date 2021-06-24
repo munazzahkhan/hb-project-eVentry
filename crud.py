@@ -1,6 +1,6 @@
 """ CRUD operations for eVentry app """
 
-from model import db, User, Theme, Image, Event, EventsItems, Favorite, Item, Category, connect_to_db
+from model import db, User, Theme, Image, Event, EventsItems, Favorite, Like, Item, Comment, Category, connect_to_db
 
 
 def create_user(fname, lname, handle, email, password, img_id):
@@ -32,6 +32,14 @@ def get_user_by_handle(handle):
     return User.query.filter(User.handle == handle).first()
 
 
+def get_handle_by_user_id(user_id):
+    """ Return handle of the user """
+
+    user = get_user_details_by_id(user_id)
+
+    return user.handle
+
+
 def edit_user_details(user_id, fname, lname, handle):
     """ Edit user details and save them """
 
@@ -46,6 +54,7 @@ def edit_user_details(user_id, fname, lname, handle):
     db.session.commit()
 
     return user
+
 
 def edit_user_password(user_id, password):
     """ Edit user password and save it """
@@ -233,6 +242,32 @@ def delete_event(event_id):
     db.session.commit()
 
 
+def create_comment(comment, event, user):
+    """ Create and return a new comment on an event by the user """
+
+    new_comment = Comment(comment=comment, event_id=event, user_id=user)
+
+    db.session.add(new_comment)
+    db.session.commit()
+
+    return new_comment
+
+
+def get_all_comments_on_an_event(event_id):
+    """ Return all comments on an event """
+
+    comments = Comment.query.filter(Comment.event_id == event_id).all()
+    list_comments = []
+    if comments:
+        for comment in comments:
+            dict_comments = {}
+            handle = get_handle_by_user_id(comment.user_id)
+            dict_comments[handle] = comment.comment
+            list_comments.append(dict_comments)
+
+    return list_comments
+
+
 def create_favorite(event, user):
     """ Create and return a new favorite event by the user """
 
@@ -269,6 +304,33 @@ def remove_favorite(event, user):
     """ Remove event from favorite by the user """
 
     Favorite.query.filter(Favorite.user_id == user, Favorite.event_id == event).delete()
+    db.session.commit()
+
+
+def create_like(event, user):
+    """ Create and return a new like for the event """
+
+    like = Like(event_id=event, user_id=user)
+
+    db.session.add(like)
+    db.session.commit()
+
+    return like
+
+
+def is_like(event, user):
+    """ Return True if the event is liked """
+
+    if Like.query.filter(Like.user_id == user, Like.event_id == event).first():
+        return True
+    else:
+        return False
+
+
+def remove_like(event, user):
+    """ Remove like from an event """
+
+    Like.query.filter(Like.user_id == user, Like.event_id == event).delete()
     db.session.commit()
 
 

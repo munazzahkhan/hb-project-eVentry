@@ -27,11 +27,16 @@
 }
 
 
+.blueColor {
+    color: blue;
+}
+
+
 #thumb:hover {
     color: blue;
   }
 
-  
+
 #heart:hover {
     color:red;
 }
