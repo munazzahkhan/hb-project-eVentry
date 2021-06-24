@@ -1,20 +1,41 @@
 {% extends 'base.html' %}
+
+{% block head %}
+  <link rel="stylesheet" href="/static/css/homepage.css">
+{% endblock %}
+
 {% block title %}eVentry Home{% endblock %}
 
 {% block body %}
   
   <h1>Welcome to eVentry!</h1>
 
-  <h2>Event Categories</h2>
+  <div>
+    <div class="leftDiv" id="lDiv">
+      <h2>Event Categories</h2>
 
-  {% for c in categories %}
-    <ul>
-      <li>
-          <a href="/events/{{ c.name }}">
-            {{ c.name }}
-          </a>
-        </li>
-    </ul>
-  {% endfor %}
+      {% for c in categories %}
+        <ul>
+          <li>
+              <a href="/events/{{ c.name }}">
+                {{ c.name }}
+              </a>
+            </li>
+        </ul>
+      {% endfor %}
+    </div>
+    <div class="rightDiv" id="rDiv">
+      <br>
+      <h3>&nbsp; Most Liked Events</h3>
+      {% for event in events %}
+        <div class='thumbnail left_div'>
+            <p>&nbsp; {{ event.theme.color }} {{ event.category.name }}</p>
+            <a href="/events/{{ event.category.name }}/{{ event.event_id }}">
+              &nbsp; <img src="{{ event.image.url }}">
+            </a>
+        </div><br>
+    {% endfor %}
+    </div>
+  </div>
 
 {% endblock %}

@@ -46,6 +46,9 @@
             </a>
         </div>
         <div class="inline">
+            {% if num_likes > 0 %}
+                {{ num_likes }}
+            {% endif %}
             <a href="/{{ event.event_id }}/like">
                 {% if like == True %}
                     <i onclick="toggleBlue()" class="fa fa-thumbs-up blueColor" name="thumb" id="thumb"></i>

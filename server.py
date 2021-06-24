@@ -27,8 +27,9 @@ def homepage():
     """ View homepage """
 
     categories = crud.get_categories()
+    events = crud.get_events_in_order_of_most_liked()
 
-    return render_template('homepage.html', categories=categories)
+    return render_template('homepage.html', categories=categories, events=events)
 
 
 def is_user_signed_in():
@@ -241,6 +242,7 @@ def save_new_image():
             favorite = crud.is_favorite(event_id, user_id)
             like = crud.is_like(event_id, user_id)
             comments = crud.get_all_comments_on_an_event(event_id)
+            num_likes = crud.get_likes_of_event(event_id)
             del session["event_id"]
             del session["image_type"]
             return render_template('event_details.html', event=event, 
@@ -249,7 +251,8 @@ def save_new_image():
                                                          handle=handle,
                                                          favorite=favorite,
                                                          like=like,
-                                                         comments=comments)
+                                                         comments=comments,
+                                                         num_likes=num_likes)
         if session["image_type"] == "item":
             image = upload_image(file_name, "item", form)
             item_image = crud.create_image(f'/{UPLOAD_FOLDER_ITEMS}{image}')
@@ -263,6 +266,7 @@ def save_new_image():
             favorite = crud.is_favorite(event_id, user_id)
             like = crud.is_like(event_id, user_id)
             comments = crud.get_all_comments_on_an_event(event_id)
+            num_likes = crud.get_likes_of_event(event_id)
             del session["item_id"]
             del session["event_id"]
             del session["image_type"]
@@ -272,7 +276,8 @@ def save_new_image():
                                                          handle=handle,
                                                          favorite=favorite,
                                                          like=like,
-                                                         comments=comments)
+                                                         comments=comments,
+                                                         num_likes=num_likes)
     if request.form.get("cancel"):
         if session["image_type"] == "profile":
             user = crud.get_user_details_by_id(user_id)
@@ -286,6 +291,7 @@ def save_new_image():
             favorite = crud.is_favorite(event_id, user_id)
             like = crud.is_like(event_id, user_id)
             comments = crud.get_all_comments_on_an_event(event_id)
+            num_likes = crud.get_likes_of_event(event_id)
             if "item_id" in session:
                 del session["item_id"]
             del session["event_id"]
@@ -296,7 +302,8 @@ def save_new_image():
                                                          handle=handle,
                                                          favorite=favorite,
                                                          like=like,
-                                                         comments=comments)
+                                                         comments=comments,
+                                                         num_likes=num_likes)
 
 
 @app.route('/events/<category>')
@@ -313,39 +320,48 @@ def show_event_category(category):
 def show_event_details(category, event_id):
     """ Show event details """
 
-    user_id = session["signed_in_user_id"]
-    if request.form.get("add_comment"):
-        comment = request.form.get("comment")
+    if is_user_signed_in():
         user_id = session["signed_in_user_id"]
-        crud.create_comment(comment, event_id, user_id)
-        # items, event = crud.get_event_by_id(event_id)
-        # is_event_by_user = crud.is_event_by_user(user_id, event_id)
-        # handle = crud.get_handle_for_event(event_id)
-        # favorite = crud.is_favorite(event_id, user_id)
-        # like = crud.is_like(event_id, user_id)
-        # comments = crud.get_all_comments_on_an_event(event_id)
-        return redirect(f"/events/{category}/{event_id}")
-        # return render_template('event_details.html', event=event, 
-        #                                              items=items, 
-        #                                              is_event_by_user=is_event_by_user, 
-        #                                              handle=handle,
-        #                                              favorite=favorite,
-        #                                              like=like,
-        #                                              comments=comments)
-    comments = crud.get_all_comments_on_an_event(event_id)
-    is_event_by_user = crud.is_event_by_user(user_id, event_id)
-    handle = crud.get_handle_for_event(event_id)
-    items, event = crud.get_event_by_id(event_id)
-    favorite = crud.is_favorite(event_id, user_id)
-    like = crud.is_like(event_id, user_id)
- 
-    return render_template('event_details.html', event=event, 
-                                                 items=items, 
-                                                 is_event_by_user=is_event_by_user, 
-                                                 handle=handle,
-                                                 favorite=favorite,
-                                                 like=like,
-                                                 comments=comments)
+        if request.form.get("add_comment"):
+            comment = request.form.get("comment")
+            user_id = session["signed_in_user_id"]
+            crud.create_comment(comment, event_id, user_id)
+            # items, event = crud.get_event_by_id(event_id)
+            # is_event_by_user = crud.is_event_by_user(user_id, event_id)
+            # handle = crud.get_handle_for_event(event_id)
+            # favorite = crud.is_favorite(event_id, user_id)
+            # like = crud.is_like(event_id, user_id)
+            # comments = crud.get_all_comments_on_an_event(event_id)
+            # num_likes = crud.get_likes_of_event(event_id)
+            return redirect(f"/events/{category}/{event_id}")
+            # return render_template('event_details.html', event=event, 
+            #                                              items=items, 
+            #                                              is_event_by_user=is_event_by_user, 
+            #                                              handle=handle,
+            #                                              favorite=favorite,
+            #                                              like=like,
+            #                                              comments=comments,
+            #                                              num_likes=num_likes)
+        comments = crud.get_all_comments_on_an_event(event_id)
+        is_event_by_user = crud.is_event_by_user(user_id, event_id)
+        handle = crud.get_handle_for_event(event_id)
+        items, event = crud.get_event_by_id(event_id)
+        favorite = crud.is_favorite(event_id, user_id)
+        like = crud.is_like(event_id, user_id)
+        num_likes = crud.get_likes_of_event(event_id)
+    
+        return render_template('event_details.html', event=event, 
+                                                    items=items, 
+                                                    is_event_by_user=is_event_by_user, 
+                                                    handle=handle,
+                                                    favorite=favorite,
+                                                    like=like,
+                                                    comments=comments,
+                                                    num_likes=num_likes)
+    else:
+        flash("Please sign in/sign up to view the details")
+
+        return redirect("/")
 
 
 @app.route("/edit-event-page")
@@ -395,6 +411,7 @@ def edit_event_details():
         handle = crud.get_handle_for_event(event_id)
         favorite = crud.is_favorite(event_id, user_id)
         like = crud.is_like(event_id, user_id)
+        num_likes = crud.get_likes_of_event(event_id)
         comments = crud.get_all_comments_on_an_event(event_id)
         return render_template('event_details.html', event=event, 
                                                      items=items, 
@@ -402,7 +419,8 @@ def edit_event_details():
                                                      handle=handle,
                                                      favorite=favorite,
                                                      like=like,
-                                                     comments=comments)
+                                                     comments=comments, 
+                                                     num_likes=num_likes)
 
 
 @app.route("/edit-item", methods=['POST'])
@@ -426,6 +444,7 @@ def edit_item_details():
     favorite = crud.is_favorite(event_id, user_id)
     like = crud.is_like(event_id, user_id)
     comments = crud.get_all_comments_on_an_event(event_id)
+    num_likes = crud.get_likes_of_event(event_id)
     
     return render_template('event_details.html', event=event, 
                                                  items=items, 
@@ -433,7 +452,8 @@ def edit_item_details():
                                                  handle=handle,
                                                  favorite=favorite,
                                                  like=like,
-                                                 comments=comments)
+                                                 comments=comments,
+                                                 num_likes=num_likes)
 
 
 @app.route("/edit-event", methods=['POST'])
@@ -451,6 +471,7 @@ def edit_event_description():
     favorite = crud.is_favorite(event_id, user_id)
     like = crud.is_like(event_id, user_id)
     comments = crud.get_all_comments_on_an_event(event_id)
+    num_likes = crud.get_likes_of_event(event_id)
  
     return render_template('event_details.html', event=event, 
                                                  items=items, 
@@ -458,7 +479,8 @@ def edit_event_description():
                                                  handle=handle, 
                                                  favorite=favorite,
                                                  like=like,
-                                                 comments=comments)
+                                                 comments=comments,
+                                                 num_likes=num_likes)
 
 
 @app.route('/view-user-events')
@@ -498,6 +520,7 @@ def favorite_an_event(event_id):
     favorite = crud.is_favorite(event_id, user_id)
     like = crud.is_like(event_id, user_id)
     comments = crud.get_all_comments_on_an_event(event_id)
+    num_likes = crud.get_likes_of_event(event_id)
  
     return render_template('event_details.html', event=event, 
                                                  items=items, 
@@ -505,7 +528,8 @@ def favorite_an_event(event_id):
                                                  handle=handle, 
                                                  favorite=favorite,
                                                  like=like,
-                                                 comments=comments)
+                                                 comments=comments, 
+                                                 num_likes=num_likes)
 
 
 @app.route('/<event_id>/like')
@@ -523,6 +547,7 @@ def like_an_event(event_id):
     favorite = crud.is_favorite(event_id, user_id)
     like = crud.is_like(event_id, user_id)
     comments = crud.get_all_comments_on_an_event(event_id)
+    num_likes = crud.get_likes_of_event(event_id)
  
     return render_template('event_details.html', event=event, 
                                                  items=items, 
@@ -530,7 +555,8 @@ def like_an_event(event_id):
                                                  handle=handle, 
                                                  favorite=favorite,
                                                  like=like,
-                                                 comments=comments)
+                                                 comments=comments,
+                                                 num_likes=num_likes)
 
 
 @app.route('/new-event-page')

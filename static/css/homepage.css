@@ -1,0 +1,28 @@
+.leftDiv {
+    float: left;
+    width: 15%;
+}
+
+.rightDiv {
+    float: right;
+    width: 85%;
+}
+
+.left_div {
+    float: left;
+}
+
+#rDiv::before{
+    content: "";
+    background-color: #000;
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    top: 15%;
+    display: block;
+}
+
+.thumbnail img {
+    height:100px;
+    width:200px;
+}

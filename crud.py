@@ -1,5 +1,6 @@
 """ CRUD operations for eVentry app """
 
+from sqlalchemy import *
 from model import db, User, Theme, Image, Event, EventsItems, Favorite, Like, Item, Comment, Category, connect_to_db
 
 
@@ -325,6 +326,27 @@ def is_like(event, user):
         return True
     else:
         return False
+
+
+def get_likes_of_event(event_id):
+    """ Return likes of an event """
+
+    likes = db.session.query(Like).filter(Like.event_id == event_id).count()
+
+    return likes
+
+def get_events_in_order_of_most_liked():
+    """ Return list if events in order on most liked """
+
+    events_count = db.session.query(func.count(Like.user_id), Like.event_id).group_by(Like.event_id).order_by(desc(func.count(Like.user_id))).all()
+    events = []
+    if events_count:
+        for event_count in events_count:
+            event_id = event_count[1]
+            items, event = get_event_by_id(event_id)
+            events.append(event)
+
+    return events
 
 
 def remove_like(event, user):
