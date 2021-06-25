@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/css/all_events.css">
+{% endblock %}
+
+{% block title %}All Events{% endblock %}
+
+{% block body %}
+<br>
+<p>
+    {% if events %}
+    <h2>Events matching your search</h2>
+        {% for event in events %}
+            <div class='thumbnail'>
+                <p>{{ event.theme.color }} {{ event.category.name }}</p>
+                <a href="/events/{{ event.category.name }}/{{ event.event_id }}">
+                    <img src="{{ event.image.url }}">
+                </a>
+            </div><br>
+        {% endfor %}
+    {% endif %}
+    {% if item_events %}
+        <h2>Event Items matching your search</h2>
+        {% for item, event in item_events.items() %}
+            <div class='thumbnail'>
+                <p>"{{ item.name }}" from <b>{{ event.theme.color }} {{ event.category.name }}</b></p>
+                <a href="/events/{{ event.category.name }}/{{ event.event_id }}">
+                    <img src="{{ event.image.url }}">
+                </a>
+            </div><br>
+        {% endfor %}
+    {% else %}
+        <h2>No Event Items matching your search</h2>
+    {% endif %}
+</p>
+{% endblock %}

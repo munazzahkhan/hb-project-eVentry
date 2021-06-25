@@ -168,6 +168,18 @@ def get_events_by_user(user_id):
     return Event.query.filter(Event.user_id==user_id).all()
 
 
+def get_events_by_keyword(keyword):
+    """ Search by keyword and return all events """
+
+    events = Event.query.filter(Event.description.like(f'%{keyword}%')).all()
+    themes = Theme.query.filter(Theme.color.like(f'%{keyword}%')).all()
+    for theme in themes:
+        event = Event.query.filter(Event.theme_id==theme.theme_id).all()
+        events.extend(event)
+    
+    return events
+
+
 def get_handle_for_event(event_id):
     """ Return event handle for an event """
 
@@ -383,6 +395,27 @@ def get_item_by_id(item_id):
 
     item_id = int(item_id)
     return Item.query.filter(Item.item_id==item_id).first()
+
+
+def get_items_by_keyword(keyword):
+    """ Search by keyword and return all events """
+
+    items = Item.query.filter((Item.description.like(f'%{keyword}%')) | (Item.name.like(f'%{keyword}%'))).all()
+    
+    return items
+
+
+def get_event_by_item(item):
+    """ Return event that has that item """
+
+    event_item = EventsItems.query.filter(EventsItems.item_id==item.item_id).first()
+    items, event = get_event_by_id(event_item.event_id)
+    print("*"*50)
+    print("||||||||| event : ", event)
+    print("*"*50)
+
+    return get_event_by_id(event_item.event_id)
+
 
 def update_item(item_id, name, description, link):
     """ Edit item details and save them """

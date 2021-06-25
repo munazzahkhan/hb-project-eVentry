@@ -37,6 +37,7 @@
             Event by: <b>{{ handle }} </b>
         </div>
         <div class="inline">
+            &nbsp;
             <a href="/{{ event.event_id }}/favorite">
                 {% if favorite == True %}
                     <i onclick="toggleRed()" class="fa fa-heart redColor" name="heart" id="heart"></i>
@@ -46,6 +47,7 @@
             </a>
         </div>
         <div class="inline">
+            &nbsp;
             {% if num_likes > 0 %}
                 {{ num_likes }}
             {% endif %}

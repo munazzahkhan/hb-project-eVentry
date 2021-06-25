@@ -135,6 +135,26 @@ def register_user():
     return redirect('/')
 
 
+@app.route('/search')
+def search():
+    """ Search the keyword and return the events/items matching that keyword """
+
+    request.args.get("button")
+    keyword = request.args.get("search")
+    events = crud.get_events_by_keyword(keyword)
+    items = crud.get_items_by_keyword(keyword)
+    item_events = {}
+    if items:
+        for item in items:
+            item_objs, item_event = crud.get_event_by_item(item)
+            item_events[item] = item_event
+    if events or items:
+        return render_template('search_results.html', events=events, item_events=item_events)
+    else:
+        flash("No results mached your search!")
+        return redirect("/")
+
+
 @app.route('/user-profile')
 def show_user_profile():
     """ Show profile of the signed in user """
@@ -326,22 +346,7 @@ def show_event_details(category, event_id):
             comment = request.form.get("comment")
             user_id = session["signed_in_user_id"]
             crud.create_comment(comment, event_id, user_id)
-            # items, event = crud.get_event_by_id(event_id)
-            # is_event_by_user = crud.is_event_by_user(user_id, event_id)
-            # handle = crud.get_handle_for_event(event_id)
-            # favorite = crud.is_favorite(event_id, user_id)
-            # like = crud.is_like(event_id, user_id)
-            # comments = crud.get_all_comments_on_an_event(event_id)
-            # num_likes = crud.get_likes_of_event(event_id)
             return redirect(f"/events/{category}/{event_id}")
-            # return render_template('event_details.html', event=event, 
-            #                                              items=items, 
-            #                                              is_event_by_user=is_event_by_user, 
-            #                                              handle=handle,
-            #                                              favorite=favorite,
-            #                                              like=like,
-            #                                              comments=comments,
-            #                                              num_likes=num_likes)
         comments = crud.get_all_comments_on_an_event(event_id)
         is_event_by_user = crud.is_event_by_user(user_id, event_id)
         handle = crud.get_handle_for_event(event_id)

@@ -11,6 +11,7 @@
   </head>
   <body>
     <div>
+      <div class="inline" align="left">
         <a href="/">Home</a>
         {% if session.get('signed_in_user_id') %}
           <a href="/user-profile">My Profile</a>
@@ -22,6 +23,12 @@
           <a href="/sign-in-page">Sign in</a>
           <a href="/sign-up-page">Sign up</a>
         {% endif %}
+      </div>
+      <div class="inline" align="right">
+        <form action="/search">
+          <input type="search" placeholder="Search eVentry" name="search"> <input type="submit" value="search" name="button">
+        </form>
+      </div>
     </div>
     {% for msg in get_flashed_messages() %}
       <p class="flash-msg">
