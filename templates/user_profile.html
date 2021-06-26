@@ -11,7 +11,11 @@
 <form action="/edit-profile-page">
     <br>
     <div class="profile_thumbnail">
+        {% if user.img_id %}
         <img src="{{ user.image.url }}">
+        {% else %}
+        <img src="/static/images/profiles/profile-1.png">
+        {% endif %}
     </div>
     <br>
     <div>

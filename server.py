@@ -111,10 +111,14 @@ def register_user():
     handle = form.handle.data
     email = form.email.data
     password = form.password.data
+    import pdb; pdb.set_trace()
     file_name = form.image.name
     image = upload_image(file_name, "profile", form)
-    profile_image = crud.create_image(f'/{UPLOAD_FOLDER_PROFILES}{image}')
-    img_id = profile_image.img_id
+
+    img_id = None
+    if image:
+        profile_image = crud.create_image(f'/{UPLOAD_FOLDER_PROFILES}{image}')
+        img_id = profile_image.img_id
 
     user_email = crud.get_user_by_email(email)
     user_handle = crud.get_user_by_handle(handle)
@@ -577,7 +581,14 @@ def show_new_event_page_to_user():
 def upload_image(file_name, type, form):
     """ Get the image from user and upload it """
 
+    if not file_name:
+        return None
+
+    # import pdb; pdb.set_trace()
     file = request.files[file_name]
+    if not file or not file.filename:
+        return None
+
     filename = secure_filename(file.filename)
     if type == "item":
         file.save(os.path.join(app.config['UPLOAD_FOLDER_ITEMS'], filename))

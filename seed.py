@@ -15,7 +15,7 @@ model.db.create_all()
 
 
 colors = ['red', 'green', 'blue', 'yellow', 'teal', 'pink', 'peach', 'white', 'gold', 'orange']
-categories = ['anniversary', 'baby shower', 'birthday', 'bridal shower', 'graduation', 'halloween', 'pool party', 'wedding reception', '4th of july']
+categories = ['Anniversary', 'Baby Shower', 'Birthday', 'Bridal Shower', 'Graduation', 'Halloween', 'Pool Party', 'Wedding Reception', '4th of July']
 
 for category in categories:
     crud.create_category(category)
