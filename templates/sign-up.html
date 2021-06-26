@@ -2,34 +2,21 @@
 {% block title %}eVentry Home{% endblock %}
 
 {% block head %}
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-  crossorigin="anonymous"></script>
 
-<!-- http://jsbin.com/uboqu3/1/edit?html,js,output -->
-<link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet"
-  type="text/css" />
-<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="/static/css/user_profile.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+
+  <!-- http://jsbin.com/uboqu3/1/edit?html,js,output -->
+  <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet"
+    type="text/css" />
+  <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
 
 {% endblock %}
 
 {% block body %}
-<script>
-  function readURL(input) {
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
 
-      reader.onload = function (e) {
-        $('#blah')
-          .attr('src', e.target.result)
-          .width(150)
-          .height(200);
-      };
-
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
-</script>
 <h2>Create an Account</h2>
 <form action="/sign-up" method="POST" enctype="multipart/form-data">
   {{ form.hidden_tag() }}
@@ -48,12 +35,12 @@
     {{ form.handle(placeholder="Handle") }}
   </div>
   <br>
-  <div>
+  <div class="profile_thumbnail">
     <label>Upload a profile picture: </label>
+    <img id="pro" src="/static/images/profiles/profile-1.png" alt="your image" />
     {{ form.image(onchange="readURL(this);") }}
   </div>
   <!-- TODO move it to a better place and add a blank image-->
-  <img id="blah" src="/static/images/profiles/profile-1.png" alt="your image" />
   <br>
   <div>
     <label>Email </label>

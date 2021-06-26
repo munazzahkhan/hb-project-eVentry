@@ -159,12 +159,24 @@ def get_events():
 def get_events_by_category(category):
     """ Return all categories of events """
 
+    events = Event.query.filter(Event.category_id==category).all()
+    for event in events:
+        i, e = get_event_by_id(event.event_id)
+        if not i:
+            delete_event(event.event_id)
+
     return Event.query.filter(Event.category_id==category).all()
 
 
 def get_events_by_user(user_id):
     """ Return all events by a user """
 
+    events = Event.query.filter(Event.user_id==user_id).all()
+    for event in events:
+        i, e = get_event_by_id(event.event_id)
+        if not i:
+            delete_event(event.event_id)
+    
     return Event.query.filter(Event.user_id==user_id).all()
 
 

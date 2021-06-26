@@ -111,7 +111,6 @@ def register_user():
     handle = form.handle.data
     email = form.email.data
     password = form.password.data
-    import pdb; pdb.set_trace()
     file_name = form.image.name
     image = upload_image(file_name, "profile", form)
 

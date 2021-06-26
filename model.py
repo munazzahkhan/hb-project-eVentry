@@ -7,7 +7,7 @@ db = SQLAlchemy()
 
 
 class User(db.Model):
-    """A user"""
+    """ A user """
 
     # creating a users table
     __tablename__ = "users"
@@ -27,7 +27,7 @@ class User(db.Model):
 
 
 class Theme(db.Model):
-    """An event theme"""
+    """ An event theme """
 
     # creating a themes table
     __tablename__ = "themes"
@@ -40,7 +40,7 @@ class Theme(db.Model):
 
 
 class Image(db.Model):
-    """An image"""
+    """ An image """
 
     # creating a images table
     __tablename__ = "images"
@@ -53,7 +53,7 @@ class Image(db.Model):
 
 
 class Category(db.Model):
-    """A category"""
+    """ A category """
 
     # creating a categories table
     __tablename__ = "categories"
@@ -66,7 +66,7 @@ class Category(db.Model):
 
 
 class Event(db.Model):
-    """An event"""
+    """ An event """
 
     # creating an events table
     __tablename__ = "events"
@@ -88,7 +88,7 @@ class Event(db.Model):
 
 
 class Favorite(db.Model):
-    """Middle table for Events and Users (Favorites for Users)"""
+    """ Middle table for Events and Users (Favorites for Users) """
 
     # creating a favorites table
     __tablename__ = "favorites"
@@ -102,7 +102,7 @@ class Favorite(db.Model):
 
 
 class Like(db.Model):
-    """Middle table for Events and Users (Likes for Events)"""
+    """ Middle table for Events and Users (Likes for Events) """
 
     # creating a likes table
     __tablename__ = "likes"
@@ -116,7 +116,7 @@ class Like(db.Model):
 
 
 class Comment(db.Model):
-    """A Comments Table"""
+    """ A Comments Table """
 
     # creating a comments table
     __tablename__ = "comments"
@@ -131,7 +131,7 @@ class Comment(db.Model):
 
 
 class EventsItems(db.Model):
-    """Association table for Events and Items"""
+    """ Association table for Events and Items """
 
     # creating an events_items table
     __tablename__ = "events_items"
@@ -145,7 +145,7 @@ class EventsItems(db.Model):
 
 
 class Item(db.Model):
-    """An event item"""
+    """ An event item """
 
     # creating an items table
     __tablename__ = "items"
