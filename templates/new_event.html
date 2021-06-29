@@ -29,35 +29,38 @@
 	{% endwith %}
 </p>
 
-<form action="/new-event" method="POST" enctype="multipart/form-data">
-    {{ form.hidden_tag() }}
-    <h4>Please enter the details below to add your event</h4>
-    <div>
-        <label>Event category: </label>
-        {{ form.category}}
-    </div>
-    <br>
-    <div>
-        <label>Event theme color: </label>
-        {{ form.theme(placeholder="Theme color") }}
-    </div>
-    <br>
-    <div>
-        <label>Description of the event: </label>
-        {{ form.event_description(placeholder="Event description") }}
-    </div>
-    <br>
-    <div class="thumbnail">
-        <label>Upload an event image: </label>
-        <img id="event" src="/static/images/events/event-0.png" alt="your image" />
-        {{ form.image(onchange="readURL(this);") }}
-    </div>
-    <br>
-    <div>
-        <input type="submit" value="Add Items" name="add" id="add">
-        <input type="submit" value = "Cancel" name="cancel" id="cancel" formnovalidate>
-    </div>
-</form>
+<div class="container">
+  <form action="/new-event" method="POST" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+      <h4>Please enter the details below to add your event</h4>
+      <br>
+      <div>
+          <label>Event category: </label>
+          {{ form.category}}
+      </div>
+      <br>
+      <div>
+          <label>Event theme color: </label>
+          {{ form.theme(placeholder="Theme color") }}
+      </div>
+      <br>
+      <div>
+          <label>Description of the event: </label>
+          {{ form.event_description(placeholder="Event description") }}
+      </div>
+      <br>
+      <div class="thumbnail">
+          <label>Upload an event image: </label>
+          <img id="event" src="/static/images/events/event-0.png" alt="your image" />
+          {{ form.image(onchange="readURL(this);") }}
+      </div>
+      <br>
+      <div>
+          <input class="btn btn-light" type="submit" value="Add Items" name="add" id="add">
+          <input class="btn btn-light" type="submit" value = "Cancel" name="cancel" id="cancel" formnovalidate>
+      </div>
+  </form>
+</div>
 
 <script src="/static/js/events.js"></script>
 

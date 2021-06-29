@@ -7,15 +7,18 @@
 {% block title %}All Events{% endblock %}
 
 {% block body %}
-<br>
-<p>
-    {% for event in events %}
-        <div class='thumbnail'>
-            <p>{{ event.theme.color }} {{ event.category.name }}</p>
-            <a href="/events/{{ event.category.name }}/{{ event.event_id }}">
-                <img src="{{ event.image.url }}">
-            </a>
-        </div><br>
-    {% endfor %}
-</p>
+<div class="container">
+    <br>
+    <p>
+        {% for event in events %}
+            <div class='thumbnail'>
+                <p>{{ event.theme.color }} {{ event.category.name }}</p>
+                <a href="/events/{{ event.category.name }}/{{ event.event_id }}">
+                    <img src="{{ event.image.url }}">
+                </a>
+            </div><br>
+        {% endfor %}
+    </p>
+</div>
+
 {% endblock %}

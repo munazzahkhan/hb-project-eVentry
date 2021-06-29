@@ -10,8 +10,8 @@
   
   <h1>Welcome to eVentry!</h1>
 
-  <div>
-    <div class="leftDiv" id="lDiv">
+  <div class="row">
+    <div class="col-2" id="lDiv">
       <h2>Event Categories</h2>
 
       {% for c in categories %}
@@ -24,7 +24,7 @@
         </ul>
       {% endfor %}
     </div>
-    <div class="rightDiv" id="rDiv">
+    <div class="col-10" id="rDiv">
       <br>
       <h3>&nbsp; Most Liked Events</h3>
       {% for event in events %}

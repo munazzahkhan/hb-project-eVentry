@@ -11,118 +11,127 @@
 {% block title %}Details{% endblock %}
 
 {% block body %}
-<form action="/edit-event-page">
-    <br>
-    <div class="header">
-        <img src="{{ event.image.url }}">
-        <p align="right">
-            {% if is_event_by_user == True %}
-                <input type="submit" value="Edit Event Image" name="edit_event_image" id="edit_event_image">
-            {% endif %}
-        </p>
-        <p align="right">
-            {% if is_event_by_user == True %}
-                <input type="submit" value="Add Items" name="add" id="add">
-            {% endif %}
-        </p>
-        <p align="right">
-            {% if is_event_by_user == True %}
-            <input type="submit" value="Delete Event" name="delete_event" id="delete_event">
-            {% endif %}
-        </p>
-    </div>
-    <br>
-    <div>
-        <div class="inline">
-            Event by: <b>{{ handle }} </b>
-        </div>
-        <div class="inline">
-            &nbsp;
-            <a href="/{{ event.event_id }}/favorite">
-                {% if favorite == True %}
-                    <i onclick="toggleRed()" class="fa fa-heart redColor" name="heart" id="heart"></i>
-                {% else %}
-                    <i onclick="toggleRed()" class="fa fa-heart greyColor" name="heart" id="heart"></i>
-                {% endif %}
-            </a>
-        </div>
-        <div class="inline">
-            &nbsp;
-            {% if num_likes > 0 %}
-                {{ num_likes }}
-            {% endif %}
-            <a href="/{{ event.event_id }}/like">
-                {% if like == True %}
-                    <i onclick="toggleBlue()" class="fa fa-thumbs-up blueColor" name="thumb" id="thumb"></i>
-                {% else %}
-                    <i onclick="toggleBlue()" class="fa fa-thumbs-up greyColor" name="thumb" id="thumb"></i>
-                {% endif %}
-            </a>
-        </div>
-    </div>
-    <br>
-    <div>
-        <center>
-            {{ event.description }}
-            <p>
-                {% if is_event_by_user == True %}
-                    <input type="submit" value="Edit Event Description" name="description" id="description">
-                {% endif %}
-            </p>
-        </center>
-    </div>
-    <br>
-    {% for item in items %}
+<div class="container">
     <form action="/edit-event-page">
-        <div class="thumbnail">
-            <img src="{{ item.image.url }}">
+        <div class="row">
+            <div class="col">
+                <br>
+                <div class="header">
+                    <img src="{{ event.image.url }}">
+                    <br>
+                    <br>
+                    <div class="d-grid gap-2 col-2 pull-right">
+                        {% if is_event_by_user == True %}
+                            <input class="btn btn-light" type="submit" value="Edit Event Image" name="edit_event_image" id="edit_event_image">
+                            <input class="btn btn-light" type="submit" value="Edit Event Description" name="description" id="description">
+                            <input class="btn btn-secondary" type="submit" value="Add Items" name="add" id="add">
+                            <input class="btn btn-danger" type="submit" value="Delete Event" name="delete_event" id="delete_event">
+                        {% endif %}
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <div class="inline">
+                        Event by: <b>{{ handle }} </b>
+                    </div>
+                    <div class="inline">
+                        &nbsp;
+                        <a href="/{{ event.event_id }}/favorite">
+                            {% if favorite == True %}
+                                <i onclick="toggleRed()" class="fa fa-heart redColor" name="heart" id="heart"></i>
+                            {% else %}
+                                <i onclick="toggleRed()" class="fa fa-heart greyColor" name="heart" id="heart"></i>
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="inline">
+                        &nbsp;
+                        {% if num_likes > 0 %}
+                            {{ num_likes }}
+                        {% endif %}
+                        <a href="/{{ event.event_id }}/like">
+                            {% if like == True %}
+                                <i onclick="toggleBlue()" class="fa fa-thumbs-up blueColor" name="thumb" id="thumb"></i>
+                            {% else %}
+                                <i onclick="toggleBlue()" class="fa fa-thumbs-up greyColor" name="thumb" id="thumb"></i>
+                            {% endif %}
+                        </a>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <center>
+                        {{ event.description }}
+                        <p>
+                            
+                        </p>
+                    </center>
+                </div>
+            </div>
         </div>
-        <p>
-            {% if is_event_by_user == True %}
-                <input type="submit" value="Edit Item Image" name="edit_item_image" id="edit_item_image">
-            {% endif %}
-        </p>
-        <p>
-            {{ item.name }}
-        </p>
-        <p>
-            {{ item.description }}
-        </p>
-        <p>
-            {{ item.link }}
-        </p>
-        <input type="hidden" value="{{ event.event_id }}" name="event_id" id="event_id">
-        <input type="hidden" value="{{ item.item_id }}" name="item_id" id="item_id">
-        <p>
-            {% if is_event_by_user == True %}
-                <input type="submit" value="Edit Item Details" name="item" id="item">
-                <input type="submit" value="Delete" name="delete_item" id="delete_item">
-            {% endif %}
-        </p>
-    </form>
-    {% endfor %}
-    <form action="/events/{{ event.category }}/{{ event.event_id }}" method="POST">
-        <div>
-            <h4>
-                Comments
-            </h4>
-            {% for dict_comment in comments %}
-                {% for handle, comment in dict_comment.items() %}
-                    <p>
-                        <b>{{ handle }}:</b> {{ comment }}
-                    </p>
-                {% endfor %}
+        <br>
+        <div class="row">
+            {% for item in items %}
+                <div class="col-3">
+                    <form action="/edit-event-page">
+                        <div class="card" style="width: 18rem;">
+                                <img src="{{ item.image.url }}">
+                            
+                                {% if is_event_by_user == True %}
+                                    <input class="btn btn-secondary" type="submit" value="Edit Item Image" name="edit_item_image" id="edit_item_image">
+                                {% endif %}
+                            
+                            <div class="card-body">
+                                <p>
+                                    {{ item.name }}
+                                </p>
+                                <p>
+                                    {{ item.description }}
+                                </p>
+                                <p>
+                                    {{ item.link }}
+                                </p>
+                                <input type="hidden" value="{{ event.event_id }}" name="event_id" id="event_id">
+                                <input type="hidden" value="{{ item.item_id }}" name="item_id" id="item_id">
+                                <p>
+                                    {% if is_event_by_user == True %}
+                                        <input class="btn btn-secondary" type="submit" value="Edit Item Details" name="item" id="item">
+                                        <input class="btn btn-danger" type="submit" value="Delete" name="delete_item" id="delete_item">
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <br>
+                    </form>
+                </div>
             {% endfor %}
         </div>
-        <div>
-            <textarea name="comment" id="comment" placeholder="Write a comment ..." rows="3" cols="30"></textarea>
-        </div>
-        <div>
-            <input type="submit" value="Add Comment" name="add_comment" id="add_comment">
+        <div class="row">
+            <form action="/events/{{ event.category }}/{{ event.event_id }}" method="POST">
+                <div>
+                    <h4>
+                        Comments
+                    </h4>
+                    {% for dict_comment in comments %}
+                        {% for handle, comment in dict_comment.items() %}
+                            <p>
+                                <b>{{ handle }}:</b> {{ comment }}
+                            </p>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                <div>
+                    <textarea name="comment" id="comment" placeholder="Write a comment ..." rows="2" cols="80"></textarea>
+                </div>
+                <div>
+                    <input class="btn btn-light" type="submit" value="Add Comment" name="add_comment" id="add_comment">
+                </div>
+            </form>
         </div>
     </form>
-</form>
+</div>
 
 <script src="/static/js/events.js"></script>
 
 {% endblock %}
+

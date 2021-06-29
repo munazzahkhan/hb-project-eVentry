@@ -12,6 +12,11 @@
 }
 
 
+.card-img-top img {
+    height:300px;
+    width:300px;
+}
+
 .inline {
     display: inline-block;
 }

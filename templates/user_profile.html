@@ -9,71 +9,73 @@
 
 {% block body %}
 
-<form action="/edit-profile-page">
-    <br>
-    <div class="profile_thumbnail">
-        {% if user.img_id %}
-        <img src="{{ user.image.url }}">
-        {% else %}
-        <img src="/static/images/profiles/profile-1.png">
-        {% endif %}
-    </div>
-    <br>
-    <div>
-        <input type="submit" value="Edit Profile Picture" name="picture" id="picture">
-    </div>
-    <br>
-    <div>
-        <h2>
-            {{ user.fname }} {{ user.lname }} 
-        </h2>
-    </div>
-    <br>
-    <div>
-        <b>
-            First Name: 
-        </b>
-            {{ user.fname }} 
-    </div>
-    <br>
-    <div>
-        <b>
-            Last Name: 
-        </b>
-            {{ user.lname }} 
-    </div>
-    <br>
-    <div>
-        <b>
-            Handle: 
-        </b>
-            {{ user.handle }} 
-    </div>
-    <br>
-    <div>
-        <b>
-            Email: 
-        </b>
-            {{ user.email }} 
-    </div>
-    <br>
-    <div>
-        <b>
-            Password: 
-        </b>
-            {% for letter in user.password %}
-                *
-            {% endfor %}
-    </div>
-    <br>
-    <div>
-        <input type="submit" value="Edit Profile" name="edit" id="edit">
-        <input type="submit" value="Change Password" name="pw" id="pw">
-    </div>
-    <br>
-    <div>
-        <input type="submit" value="Delete Account" name="delete" id="delete">
-    </div>
-</form>
+<div class="container">
+    <form action="/edit-profile-page">
+        <br>
+        <div class="profile_thumbnail">
+            {% if user.img_id %}
+            <img src="{{ user.image.url }}">
+            {% else %}
+            <img src="/static/images/profiles/profile-1.png">
+            {% endif %}
+        </div>
+        <br>
+        <div>
+            <input class="btn btn-light" type="submit" value="Edit Profile Picture" name="picture" id="picture">
+        </div>
+        <br>
+        <div>
+            <h2>
+                {{ user.fname }} {{ user.lname }} 
+            </h2>
+        </div>
+        <br>
+        <div>
+            <b>
+                First Name: 
+            </b>
+                {{ user.fname }} 
+        </div>
+        <br>
+        <div>
+            <b>
+                Last Name: 
+            </b>
+                {{ user.lname }} 
+        </div>
+        <br>
+        <div>
+            <b>
+                Handle: 
+            </b>
+                {{ user.handle }} 
+        </div>
+        <br>
+        <div>
+            <b>
+                Email: 
+            </b>
+                {{ user.email }} 
+        </div>
+        <br>
+        <div>
+            <b>
+                Password: 
+            </b>
+                {% for letter in user.password %}
+                    *
+                {% endfor %}
+        </div>
+        <br>
+        <div>
+            <input class="btn btn-light" type="submit" value="Edit Profile" name="edit" id="edit">
+            <input class="btn btn-light" type="submit" value="Change Password" name="pw" id="pw">
+        </div>
+        <br>
+        <div>
+            <input class="btn btn-danger" type="submit" value="Delete Account" name="delete" id="delete">
+        </div>
+    </form>
+</div>
 
 {% endblock %}
