@@ -1,0 +1,82 @@
+[
+    {
+        "fname": "Munazzah",
+        "lname": "Khan",
+        "handle": "mhk",
+        "email": "munazzah@outlook.com",
+        "password": "mhktest",
+        "image": "/static/images/profiles/munazzah.jpg"
+    },
+    {
+        "fname": "Madiha",
+        "lname": "Latif",
+        "handle": "mlg",
+        "email": "madiha@outlook.com",
+        "password": "mlgtest",
+        "image": "/static/images/profiles/profile-3.png"
+    },
+    {
+        "fname": "Madiha",
+        "lname": "Omer",
+        "handle": "madds",
+        "email": "madiha@gmail.com",
+        "password": "maddstest",
+        "image": "/static/images/profiles/profile-3.png"
+    },
+    {
+        "fname": "Sadiya",
+        "lname": "Hameed",
+        "handle": "sid",
+        "email": "sadiya@outlook.com",
+        "password": "sidtest",
+        "image": "/static/images/profiles/profile-3.png"
+    },
+    {
+        "fname": "Amanda",
+        "lname": "Right",
+        "handle": "ama",
+        "email": "amanda@outlook.com",
+        "password": "amatest",
+        "image": "/static/images/profiles/profile-3.png"
+    },
+    {
+        "fname": "Hassan",
+        "lname": "Khan",
+        "handle": "mukha",
+        "email": "hassan@outlook.com",
+        "password": "mukhatest",
+        "image": "/static/images/profiles/hassan.jpg"
+    },
+    {
+        "fname": "Asim",
+        "lname": "Goheer",
+        "handle": "agoh",
+        "email": "asim@outlook.com",
+        "password": "agohtest",
+        "image": "/static/images/profiles/profile-2.jpg"
+    },
+    {
+        "fname": "Omer",
+        "lname": "Shahid",
+        "handle": "asha",
+        "email": "omer@outlook.com",
+        "password": "ashatest",
+        "image": "/static/images/profiles/profile-2.jpg"
+    },
+    {
+        "fname": "Umair",
+        "lname": "Saeed",
+        "handle": "usaeed",
+        "email": "umair@outlook.com",
+        "password": "usaeedtest",
+        "image": "/static/images/profiles/profile-2.jpg"
+    },
+    {
+        "fname": "Jason",
+        "lname": "Peterson",
+        "handle": "json",
+        "email": "jason@outlook.com",
+        "password": "jsontest",
+        "image": "/static/images/profiles/profile-2.jpg"
+    }
+]

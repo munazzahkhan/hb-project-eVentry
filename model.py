@@ -151,7 +151,7 @@ class Item(db.Model):
     __tablename__ = "items"
 
     item_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    name = db.Column(db.String(30))
+    name = db.Column(db.String())
     description = db.Column(db.Text)
     link = db.Column(db.String)
     img_id = db.Column(db.Integer, db.ForeignKey("images.img_id"))

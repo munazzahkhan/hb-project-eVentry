@@ -1,0 +1,910 @@
+[
+    {
+        "color": "Red Blue",
+        "category": 9,
+        "event_image": "/static/images/events/event_july_a.png",
+        "event_description": "Hosted this simple 4th of July party in my backyard. Its a simplistic style but was a hit among friends.",
+        "items": [
+                    {
+                        "name": "Drink Station",
+                        "item_description": "Red cool-aid in my drink dispenser and mason jar mugs. Decorated them with the red and blue starred paper straws.",
+                        "link": "Got the straws online from amazon",
+                        "item_image": "/static/images/items/item_july_a_1.png"
+                    },
+                    {
+                        "name": "Tiered Stand",
+                        "item_description": "Already had the tiered stand. Used bottom two tiers to display cookies and mini cupcakes. On top tier just put a bunch of flags in a bag.",
+                        "link": "Got the mini flags from dollar tree",
+                        "item_image": "/static/images/items/item_july_a_2.png"
+                    }
+                ]
+    },
+    {
+        "color": "Red Blue White",
+        "category": 9,
+        "event_image": "/static/images/events/event_july_b.jpeg",
+        "event_description": "My small effort to decorate a corner table on 4th of July with the items found at home and some from dollar tree.",
+        "items": [
+                    {
+                        "name": "Small Banner",
+                        "item_description": "got this banner and then added red ribbons after each star and it enhanced its beauty.",
+                        "link": "Got the banner from dollar tree",
+                        "item_image": "/static/images/items/item_july_b_1.png"
+                    },
+                    {
+                        "name": "Fruit Skewers",
+                        "item_description": "Got this small blue bin and added fruit skewers which were so easy to make with blueberries, strawberries and marshmellows.",
+                        "link": "Got the blue bucket from dollar tree",
+                        "item_image": "/static/images/items/item_july_b_2.png"
+                    },
+                    {
+                        "name": "USA",
+                        "item_description": "Just painted these USA letters and added glitter to the U and A",
+                        "link": "Got the letters from micheals",
+                        "item_image": "/static/images/items/item_july_b_3.png"
+                    }
+                ]   
+    },
+    {
+        "color": "Red Blue White",
+        "category": 9,
+        "event_image": "/static/images/events/event_july_d.jpeg",
+        "event_description": "This was a very basic decor for my family. We loved the 4th of July vibes while enjoying our meal.",
+        "items": [
+                    {
+                        "name": "Balloons",
+                        "item_description": "Saw a tutorial online of how to make this balloons arch and to my surprise it wasn't even too tough.",
+                        "link": "Got the balloons online from amazon",
+                        "item_image": "/static/images/items/item_july_d_1.png"
+                    },
+                    {
+                        "name": "USA & Stars",
+                        "item_description": "Got the USA and star blocks and just glued on the crafts paper that I already had lying around the house.",
+                        "link": "Got the USA and star blocks from a local thrift store.",
+                        "item_image": "/static/images/items/item_july_d_2.png"
+                    }
+                ]
+    },
+    {
+        "color": "Red",
+        "category": 1,
+        "event_image": "/static/images/events/event_anniversary_a.jpeg",
+        "event_description": "Our 10th Anniversary was a special one. Decorated our breakfast nook and it was amazing.",
+        "items": [
+                    {
+                        "name": "Balloons",
+                        "item_description": "Got hellium filled red balloons and just let them float above the breakfast nook.",
+                        "link": "Got the balloons from safeway",
+                        "item_image": "/static/images/items/item_anniversary_a_1.png"
+                    },
+                    {
+                        "name": "Number 10 Balloons",
+                        "item_description": "Got the helium filled number 1 and number 0 balloons.",
+                        "link": "Got the number balloons from party city.",
+                        "item_image": "/static/images/items/item_anniversary_a_2.png"
+                    },
+                    {
+                        "name": "Rose Petals Path",
+                        "item_description": "Layed some rose petals on the floor in the shape of a pathway to the table.",
+                        "link": "Got the petals from safeway.",
+                        "item_image": "/static/images/items/item_anniversary_a_3.png"
+                    }
+                ]
+    },
+    {
+        "color": "Rose Gold",
+        "category": 1,
+        "event_image": "/static/images/events/event_anniversary_b.png",
+        "event_description": "This was a surprise decoration by our kids. We loved it.",
+        "items": [
+                    {
+                        "name": "Happy Anniversary Balloons",
+                        "item_description": "Got Happy Anniversary balloons and used them as a banner on our living room wall.",
+                        "link": "Got the balloons online from amazon",
+                        "item_image": "/static/images/items/item_anniversary_b_1.png"
+                    },
+                    {
+                        "name": "Floating balloons",
+                        "item_description": "Got the helium filled pink and silver balloons and let them float.",
+                        "link": "Got the balloons from safeway.",
+                        "item_image": "/static/images/items/item_anniversary_b_2.png"
+                    },
+                    {
+                        "name": "Balloons",
+                        "item_description": "Covered the whole living room floor with the balloons.",
+                        "link": "Got balloons online from amazon.",
+                        "item_image": "/static/images/items/item_anniversary_b_3.png"
+                    }
+                ]
+    },
+    {
+        "color": "Gold White",
+        "category": 1,
+        "event_image": "/static/images/events/event_anniversary_c.jpeg",
+        "event_description": "Our 50th Anniversary. WOW we made it!!! Golden!!!",
+        "items": [
+                    {
+                        "name": "50 Balloons",
+                        "item_description": "Got the number 5 and 0 balloons and stuck them on the wall.",
+                        "link": "Got the number balloons online from amazon",
+                        "item_image": "/static/images/items/item_anniversary_c_1.png"
+                    },
+                    {
+                        "name": "Chalkboard Sign",
+                        "item_description": "Found a chalkboard sign and it was a perfect display.",
+                        "link": "Luckily got it from dollar store.",
+                        "item_image": "/static/images/items/item_anniversary_c_2.png"
+                    },
+                    {
+                        "name": "Balloon Arch",
+                        "item_description": "Tried making the white and gold balloon arch. Wasn't perfect but worth the try.",
+                        "link": "Got balloons online from amazon.",
+                        "item_image": "/static/images/items/item_anniversary_c_3.png"
+                    }
+                ]
+    },
+    {
+        "color": "Black Gold White",
+        "category": 1,
+        "event_image": "/static/images/events/event_anniversary_d.jpeg",
+        "event_description": "50th Anniversary. Big one. A simple corner table with 50 pictures down the memory lane. One from each year.",
+        "items": [
+                    {
+                        "name": "50 Pictures",
+                        "item_description": "Chose one pic from each year we are married and made the number 50 using them.",
+                        "link": "Printed them all at home.",
+                        "item_image": "/static/images/items/item_anniversary_d_1.png"
+                    },
+                    {
+                        "name": "Number 50 on a Padestal",
+                        "item_description": "Displayed the golden number 50 on a black padestal",
+                        "link": "Got them from micheals.",
+                        "item_image": "/static/images/items/item_anniversary_d_2.png"
+                    },
+                    {
+                        "name": "Flowers on a Padestal",
+                        "item_description": "Displayed small flowers on two black padestals.",
+                        "link": "Got them from micheals.",
+                        "item_image": "/static/images/items/item_anniversary_d_3.png"
+                    }
+                ]
+    },
+    {
+        "color": "Pastel",
+        "category": 2,
+        "event_image": "/static/images/events/event_baby_a.jpeg",
+        "event_description": "My sister threw me a baby shower and this was the perfect decor.",
+        "items": [
+                    {
+                        "name": "Wrapped Gift Boxes",
+                        "item_description": "She used the empty boxes of different sizes and wrapped them in the brown wrapping paper and then tied the ribbons on them. Also cut out 'BABY' and pasted on them.",
+                        "link": "She used empty amazon boxes.",
+                        "item_image": "/static/images/items/item_baby_a_1.png"
+                    },
+                    {
+                        "name": "Raining Cloud",
+                        "item_description": "My sister is very artistic and she made this cloud using a white crafts paper and then stringed the raindrop cutouts and it was beautiful.",
+                        "link": "She got the white crafts paper from micheals.",
+                        "item_image": "/static/images/items/item_baby_a_2.png"
+                    }
+                ]
+    },
+    {
+        "color": "Pink Gold",
+        "category": 2,
+        "event_image": "/static/images/events/event_baby_b.jpeg",
+        "event_description": "My friend threw me this baby shower and it was amazing.",
+        "items": [
+                    {
+                        "name": "Backdrop Rings",
+                        "item_description": "Got the rings and wrapped the middle ring with the leaves garland and then added some flowers to it. For the side rings, just added some flowers.",
+                        "link": "Got the rings from amazon and the garland and flowers from dollar store.",
+                        "item_image": "/static/images/items/item_baby_b_1.png"
+                    },
+                    {
+                        "name": "Name Boxes",
+                        "item_description": "Added the letters in the small boxes and displayed them on a wooden crate",
+                        "link": "Got the small boxes from dollar store.",
+                        "item_image": "/static/images/items/item_baby_b_2.png"
+                    },
+                    {
+                        "name": "Small Tent",
+                        "item_description": "Gathered 3 sticka and tied  them together and then wrapped a white sheet so it looks like a small tent.",
+                        "link": "Got the sheet from dollar store.",
+                        "item_image": "/static/images/items/item_baby_b_3.png"
+                    },
+                    {
+                        "name": "Chocolate Covered Breadsticks",
+                        "item_description": "DIYed these chocolate covered breadsticks and then sprinkled chopped up nuts on them. So divine.",
+                        "link": "Got all the ingredients from safeway.",
+                        "item_image": "/static/images/items/item_baby_b_4.png"
+                    }
+                ]
+    },
+    {
+        "color": "Peach Teal",
+        "event_image": "/static/images/events/event_baby_c.jpg",
+        "category": 2,
+        "event_description": "I hosted and put together my friend's baby shower. I made everything myself and it was so much fun.",
+        "items": [
+                    {
+                        "name": "Banner and Paper Fans",
+                        "item_description": "Got both premade. Added letters on the banner myself by cutting the crafs paper.",
+                        "link": "Got them from amazon.",
+                        "item_image": "/static/images/items/item_baby_c_1.png"
+                    },
+                    {
+                        "name": "Games Corner",
+                        "item_description": "Got the clear wooden blocks and everyone drew abc on them for the baby. Letter H was for guest sign ins for baby H",
+                        "link": "Got the wooden blocks and letter H from micheals.",
+                        "item_image": "/static/images/items/item_baby_c_2.jpg"
+                    },
+                    {
+                        "name": "Photo Backdrop",
+                        "item_description": "Made the backdrop by cutting the crape paper and gluing it to a dtring. Decorated with paper lanterns and balloons.",
+                        "link": "Got the crape paper from dollar store and the paper lanterns from amazon.",
+                        "item_image": "/static/images/items/item_baby_c_3.jpg"
+                    },
+                    {
+                        "name": "Homemade Peach Preserve",
+                        "item_description": "This was the baby shower favor. Homemade peach preserve. Got the recipe online.",
+                        "link": "https://www.stockpilingmoms.com/homemade-peach-preserves/",
+                        "item_image": "/static/images/items/item_baby_c_4.jpg"
+                    },
+                    {
+                        "name": "Food Table",
+                        "item_description": "The wall decor is just some streamers, balloons, and a string of pom poms. For drinks used empty coconut drink bottles.",
+                        "link": "Streamers and pompoms from amazon. Balloons from safeway.",
+                        "item_image": "/static/images/items/item_baby_c_5.jpg"
+                    }
+                ]
+    },
+    {
+        "color": "Peach",
+        "event_image": "/static/images/events/event_baby_d.jpg",
+        "category": 2,
+        "event_description": "It was my friend's first baby and I loved hosting a baby shower for her and totally enjoyed it.",
+        "items": [
+                    {
+                        "name": "Cake Table",
+                        "item_description": "Homemade peach cheesecake cups. Handmade cake topper garland using crafts paper and paper straws.",
+                        "link": "Straws & confetti from amazon.",
+                        "item_image": "/static/images/items/item_baby_d_1.jpg"
+                    },
+                    {
+                        "name": "Food Table",
+                        "item_description": "Empty boxes wrapped up and decorated as gifts. Wall decorated wyth pompoms and balloons. Empty jam jars used as glasses for the drink.",
+                        "link": "Pompoms from amazon.",
+                        "item_image": "/static/images/items/item_baby_d_2.jpg"
+                    },
+                    {
+                        "name": "Cake Back Wall",
+                        "item_description": "Peach paper fans, banner with DIYed letters in it and balloons. ",
+                        "link": "Banner and paper fans from amazon, balloons from safeway.",
+                        "item_image": "/static/images/items/item_baby_d_3.jpg"
+                    },
+                    {
+                        "name": "Games & Guest Notes",
+                        "item_description": "Some baby shower games like don't say word 'baby' & DIYed guest notes on cards and then hung on the photo frame using the tiny clothespin.",
+                        "link": "Got the frame from micheals",
+                        "item_image": "/static/images/items/item_baby_d_4.jpg"
+                    },
+                    {
+                        "name": "Party Favors",
+                        "item_description": "DIYed rose petal lotion bars as party favors for the guests. Displayed on the dries rose petals in a tray.",
+                        "link": "https://pin.it/o98K7cy",
+                        "item_image": "/static/images/items/item_baby_d_5.jpg"
+                    },
+                    {
+                        "name": "Photo Booth",
+                        "item_description": "DIYed the whole photo booth props. Just freehand drawings and then cutouts and stuch them to sticks. The frame was also DIYed. ",
+                        "link": "The Frame was cut out using a chart paper.",
+                        "item_image": "/static/images/items/item_baby_d_6.jpg"
+                    }
+                ]
+    },
+    {
+        "color": "Yellow",
+        "category": 3,
+        "event_image": "/static/images/events/event_bday_a.jpg",
+        "event_description": "This was my daughter's 1st birthday and I was super excited to organise the best birthday party ever. Penguin was her favorite plush toy back then so I made everything around penguins.",
+        "items": [
+                    {
+                        "name": "Banner and Penguin Cutouts",
+                        "item_description": "Made the Birthday banner using yellow paper plates. Penguin cutouts were the hardest as I had to freehand draw them and then color them and cut them out.",
+                        "link": "Plates and cardstock paper for penguins from Dollar Tree",
+                        "item_image": "/static/images/items/item_bday_a_1.png"
+                    },
+                    {
+                        "name": "Balloon Flowers",
+                        "item_description": "Tied 4 big same color balloons together and then a smaller different color balloon in the middle.",
+                        "link": "Balloons from amazon",
+                        "item_image": "/static/images/items/item_bday_a_2.png"
+                    },
+                    {
+                        "name": "Candy Jars",
+                        "item_description": "Decorated rock candy and gum balls in clear jars.",
+                        "link": "Clear jars from Dollar Tree",
+                        "item_image": "/static/images/items/item_bday_a_3.jpg"
+                    },
+                    {
+                        "name": "Cutlery & Napkins",
+                        "item_description": "Got yellow and silver plates and folded t he napkins and placed a spoon in each. Also put a penguin sticker on there.",
+                        "link": "All cutlery and napkins from Dollar Tree",
+                        "item_image": "/static/images/items/item_bday_a_4.jpg"
+                    },
+                    {
+                        "name": "Party Favors",
+                        "item_description": "Tied small helium balloons to each party favor box.",
+                        "link": "Party favor boxes and balloons from amazon",
+                        "item_image": "/static/images/items/item_bday_a_5.jpg"
+                    }
+                ]
+    },
+    {
+        "color": "Yellow Black",
+        "category": 3,
+        "event_image": "/static/images/events/event_bday_b.jpg",
+        "event_description": "My 1st born's 1st birthday and honey is her nickname. So it had to be a yellow black honey bee.",
+        "items": [
+                    {
+                        "name": "Banner, Bees and Honeycombs",
+                        "item_description": "Used cardstock to make everything. Freehand drew the bees and cut them out.",
+                        "link": "Cardstock from micheals",
+                        "item_image": "/static/images/items/item_bday_b_1.png"
+                    },
+                    {
+                        "name": "Bee Balloons",
+                        "item_description": "Filled in the yellow balloons and painted black stripes on them. Made eyes and smile with a sharpie and cut out white wings and stuck them on sides.",
+                        "link": "Balloons from amazon",
+                        "item_image": "/static/images/items/item_bday_b_2.png"
+                    },
+                    {
+                        "name": "Table Decor",
+                        "item_description": "Found the picture frame, bee teapot and the bee on a flower for decor. That was just perfect.",
+                        "link": "Found everyrhing at a thrift store",
+                        "item_image": "/static/images/items/item_bday_b_3.png"
+                    },
+                    {
+                        "name": "More Table Decor",
+                        "item_description": "Filled the clear vase with my daughter's yellow balls. The rest I just gatheres yellow stuff from around the house.",
+                        "link": "From around the house",
+                        "item_image": "/static/images/items/item_bday_b_4.png"
+                    }
+                ]
+    },
+    {
+        "color": "Pink",
+        "category": 3,
+        "event_image": "/static/images/events/event_bday_c.jpg",
+        "event_description": "My princess turned 4 and wanted an icecream birthday party. So mommy pulled all her tricks and made it happen.",
+        "items": [
+                    {
+                        "name": "Hanging Icecream Cones",
+                        "item_description": "Rolled up brown paper to make a cone and then crumpled some gift paper and taped it in so it looks loke icecream.",
+                        "link": "Paper from dollar store",
+                        "item_image": "/static/images/items/item_bday_c_1.png"
+                    },
+                    {
+                        "name": "Candies",
+                        "item_description": "Took a paper plate and wrapped a gift paper all around it and then twisted the sides and wrapped a ribbon at both ends.",
+                        "link": "Wrapping paper and plated from dollar store",
+                        "item_image": "/static/images/items/item_bday_c_2.png"
+                    },
+                    {
+                        "name": "Lollipop Candies",
+                        "item_description": "Got a floral foam block and wrapped it up in a paper. Then arranged the lollipops on it.",
+                        "link": "Floral foam block from dollar store",
+                        "item_image": "/static/images/items/item_bday_c_3.png"
+                    }
+                ]
+    },
+    {
+        "color": "Pink",
+        "category": 3,
+        "event_image": "/static/images/events/event_bday_d.jpg",
+        "event_description": "My 4 year old is obsessed with flowers these days. So did not have any choice but to have flower themed birthday for her.",
+        "items": [
+                    {
+                        "name": "Balloon Arch",
+                        "item_description": "DIYed the balloon arch and it was a success.",
+                        "link": "Balloons and ties from amazon.",
+                        "item_image": "/static/images/items/item_bday_d_1.png"
+                    },
+                    {
+                        "name": "Pudding Cups",
+                        "item_description": "Made individual serving pudding cups and added the edible flower as decor. Placed them on a wooden crate.",
+                        "link": "Edible flowers from safeway.",
+                        "item_image": "/static/images/items/item_bday_d_2.jpeg"
+                    },
+                    {
+                        "name": "Flower Headbands & Balloons",
+                        "item_description": "Tied 4 heart flowers and one small roud flower in the middle. Got the flower headbands for all the girls.",
+                        "link": "Balloons and headbands from amazon.",
+                        "item_image": "/static/images/items/item_bday_d_3.jpeg"
+                    },
+                    {
+                        "name": "Favors & Decor",
+                        "item_description": "Found the flowers online and just decorated the party favor table with small balloons.",
+                        "link": "Balloons and the flowers from amazon.",
+                        "item_image": "/static/images/items/item_bday_d_4.jpeg"
+                    }
+                ]
+    },
+    {
+        "color": "Brown Gold",
+        "category": 3,
+        "event_image": "/static/images/events/event_bday_e.jpg",
+        "event_description": "Harry Potter themed birthday for my friend who is a Harry Potter die heart fan.",
+        "items": [
+                    {
+                        "name": "Balloon Arch",
+                        "item_description": "Made balloon arch with 4 different colored balloons.",
+                        "link": "Balloons from party city.",
+                        "item_image": "/static/images/items/item_bday_e_1.jpeg"
+                    },
+                    {
+                        "name": "Hogwart's Decor",
+                        "item_description": "Found some awesome stuff that was perfect for Harry Potter themed decor.",
+                        "link": "Found all from my local thrift store.",
+                        "item_image": "/static/images/items/item_bday_e_2.jpeg"
+                    },
+                    {
+                        "name": "Hogwarts Express",
+                        "item_description": "Found the Hogwarts Express and golden icecream bowl that went perfect with the theme.",
+                        "link": "Both things from my local thrift store.",
+                        "item_image": "/static/images/items/item_bday_e_3.jpeg"
+                    }
+                ]
+    },
+    {
+        "color": "White Gold Black",
+        "category": 3,
+        "event_image": "/static/images/events/event_bday_f.jpeg",
+        "event_description": "For my friend's 36th birthday, we threw them an elegant birthday party which they loved.",
+        "items": [
+                    {
+                        "name": "Cakepops",
+                        "item_description": "Upside down cakepops were a hit. decorated them on a glass vintage box which was jyst perfect.",
+                        "link": "Box from my house.",
+                        "item_image": "/static/images/items/item_bday_f_1.jpeg"
+                    }
+                ]
+    },
+    {
+        "color": "Blue",
+        "category": 3,
+        "event_image": "/static/images/events/event_bday_g.png",
+        "event_description": "Space themed birthday bash for my 6 year old, He wants to become an astronaut one day.",
+        "items": [
+                    {
+                        "name": "Astronaut Balloon",
+                        "item_description": "One of the main decor was the astronaut balloon.",
+                        "link": "Balloon from party city.",
+                        "item_image": "/static/images/items/item_bday_g_1.png"
+                    },
+                    {
+                        "name": "Planets Balloon Arch",
+                        "item_description": "Made a balloons arch with planets themed balloons",
+                        "link": "Balloons from party city.",
+                        "item_image": "/static/images/items/item_bday_g_2.png"
+                    },
+                    {
+                        "name": "Space Themed Plates & Favor Bags",
+                        "item_description": "Got all the plates and cutlery and favor bags space themed.",
+                        "link": "Everything from party city.",
+                        "item_image": "/static/images/items/item_bday_g_3.png"
+                    }
+                ]
+    },
+    {
+        "color": "Pink",
+        "category": 4,
+        "event_image": "/static/images/events/event_bridal_a.jpeg",
+        "event_description": "Bridal shower for my sister. Pink is her forever favorite color.",
+        "items": [
+                    {
+                        "name": "Balloon Arch",
+                        "item_description": "Got balloons in different shapes and sizes and made them into an arch and then stuck some leaves on it.",
+                        "link": "Balloons from party city.",
+                        "item_image": "/static/images/items/item_bridal_a_1.png"
+                    },
+                    {
+                        "name": "Bride to Be Stuff",
+                        "item_description": "Got ready made 'Bride to Be' stuff like favor bags, napkins, plates and glasses.",
+                        "link": "Everything from party city.",
+                        "item_image": "/static/images/items/item_bridal_a_2.png"
+                    },
+                    {
+                        "name": "Champagne Glass Stand",
+                        "item_description": "This was such a nice addition to the decor. Everyone loved it.",
+                        "link": "https://www.amazon.com/Ginger-Ray-Prosecco-Champagne-Decoration/dp/B07P57LZVS/ref=sr_1_8?crid=214EM3RCT90U1&dchild=1&keywords=mimosa+glass+stand&qid=1625024503&sprefix=mimosa+glass+st%2Caps%2C228&sr=8-8",
+                        "item_image": "/static/images/items/item_bridal_a_3.png"
+                    }
+                ]
+    },
+    {
+        "color": "Peach",
+        "category": 4,
+        "event_image": "/static/images/events/event_bridal_b.jpg",
+        "event_description": "My bridal shower was a hit. My friends all arranged such a nice one. We enjoyed everthing.",
+        "items": [
+                    {
+                        "name": "Balloon Arch $ Champagne Bottle",
+                        "item_description": "They got the champagne bottle balloon and made the balloons arch themselves mimicking the bubbles..",
+                        "link": "Balloons from party city.",
+                        "item_image": "/static/images/items/item_bridal_b_1.png"
+                    },
+                    {
+                        "name": "Food Decore",
+                        "item_description": "They decorated the food so awesomely by using a wood crate for height.",
+                        "link": "Wooden crate from micheals.",
+                        "item_image": "/static/images/items/item_bridal_b_2.png"
+                    }
+                ]
+    },
+    {
+        "color": "Pink Peach",
+        "category": 4,
+        "event_image": "/static/images/events/event_bridal_c.jpeg",
+        "event_description": "My best friend's bridal shower. All of us friends got toether to put up this little display before her big day.",
+        "items": [
+                    {
+                        "name": "Balloon Arch",
+                        "item_description": "Got balloons in different colors and made an arch.",
+                        "link": "Balloons from amazon.",
+                        "item_image": "/static/images/items/item_bridal_c_1.png"
+                    },
+                    {
+                        "name": "Favor Boxes",
+                        "item_description": "Got the avor boxes which were easy to put together and then decorated them on my golden vintage tray.",
+                        "link": "Favor bixes from party city.",
+                        "item_image": "/static/images/items/item_bridal_c_2.png"
+                    },
+                    {
+                        "name": "Pretzels in a Jar",
+                        "item_description": "Got these white chocolate covered pretzels and displayed them in a clear jar",
+                        "link": "Clear jar from walmart",
+                          "item_image": "/static/images/items/item_bridal_c_3.png"
+                    }
+                ]
+    },
+    {
+        "color": "Pink",
+        "category": 4,
+        "event_image": "/static/images/events/event_bridal_d.jpeg",
+        "event_description": "A mimimalist bridal shower as desired by the bride herself. Even this much was amazing for her.",
+        "items": [
+                    {
+                        "name": "Pompom Banner",
+                        "item_description": "Made the pompom banner by just stringing together the pompoms.",
+                        "link": "Pompoms from amazon.",
+                        "item_image": "/static/images/items/item_bridal_d_1.png"
+                    },
+                    {
+                        "name": "'She Said Yes' Sign",
+                        "item_description": "Got this wooden board and just painted 'She said Yes' on it.",
+                        "link": "Wooden board from micheals.",
+                        "item_image": "/static/images/items/item_bridal_d_2.png"
+                    },
+                    {
+                        "name": "Mini Wooden Crates",
+                        "item_description": "Got these wooden crates and filled them with white chocolate covered pretzels and berries.",
+                        "link": "Mini wooden board from micheals.",
+                          "item_image": "/static/images/items/item_bridal_d_3.png"
+                    }
+                ]
+    },
+    {
+        "color": "Gold Black",
+        "category": 5,
+        "event_image": "/static/images/events/event_graduation_a.jpeg",
+        "event_description": "My daughhter's graduation party. She and her friends enjoyed  this so much.",
+        "items": [
+                    {
+                        "name": "Grad Themed Stuff",
+                        "item_description": "The banner and all the decor was bought premade.",
+                        "link": "Decor from party city",
+                        "item_image": "/static/images/items/item_graduation_a_1.png"
+                    },
+                    {
+                        "name": "Cutlery & Flatware",
+                        "item_description": "Everything cutlery and flatware was purchased themed",
+                        "link": "Cutlery & flatware from party city",
+                        "item_image": "/static/images/items/item_graduation_a_2.png"
+                    },
+                    {
+                        "name": "Water Bottles",
+                        "item_description": "I covered the water bottles with pink paper and they looked so fancy.",
+                        "link": "Pink paper from dollar store",
+                          "item_image": "/static/images/items/item_graduation_a_3.png"
+                    }
+                ]
+    },
+    {
+        "color": "Gold Black",
+        "category": 5,
+        "event_image": "/static/images/events/event_graduation_b.png",
+        "event_description": "My daughhter's graduation party. She and her friends enjoyed  this so much.",
+        "items": [
+                    {
+                        "name": "Paper Fans",
+                        "item_description": "These were a purchase made online and easy to put on.",
+                        "link": "From amazon",
+                        "item_image": "/static/images/items/item_graduation_b_1.png"
+                    },
+                    {
+                        "name": "Banner",
+                        "item_description": "Banner was also purchased online.",
+                        "link": "From Amazon",
+                        "item_image": "/static/images/items/item_graduation_b_2.png"
+                    }
+                ]
+    },
+    {
+        "color": "Orange Black",
+        "category": 6,
+        "event_image": "/static/images/events/event_halloween_a.jpeg",
+        "event_description": "Halloween is an occassion everyone in our house is keen to celebrate, be it a kid or an adult.",
+        "items": [
+                    {
+                        "name": "Balloon Arch",
+                        "item_description": "DIYed the balloon arch and covered it with web. SPOOKY!",
+                        "link": "Balloons and web from amazon.",
+                        "item_image": "/static/images/items/item_halloween_a_1.png"
+                    },
+                    {
+                        "name": "Paper Bats",
+                        "item_description": "Made paper bats some big for decor and some small for cake decor.",
+                        "link": "Paper from micheals.",
+                        "item_image": "/static/images/items/item_halloween_a_2.png"
+                    },
+                    {
+                        "name": "Pompom Garland",
+                        "item_description": "Stringed the pompoms for table decor.",
+                        "link": "Pompoms from amazon.",
+                        "item_image": "/static/images/items/item_halloween_a_3.png"
+                    },
+                    {
+                        "name": "Candy",
+                        "item_description": "Decorated the table by putting gum balls and candy canes in clear jars.",
+                        "link": "Jars and candies from party city.",
+                        "item_image": "/static/images/items/item_halloween_a_4.png"
+                    }
+                ]
+    },
+    {
+        "color": "Black",
+        "category": 6,
+        "event_image": "/static/images/events/event_halloween_b.jpeg",
+        "event_description": "Elegant minimal halloween decor. A corner table.",
+        "items": [
+                    {
+                        "name": "Paper Bats",
+                        "item_description": "Made paper bats by freehand drawing them first and then cutting them out.",
+                        "link": "Paper from micheals.",
+                        "item_image": "/static/images/items/item_halloween_b_1.png"
+                    },
+                    {
+                        "name": "Paper Bats on Tree",
+                        "item_description": "Made mini paper bats and stuck them on my long twig decore, emulating a tree full of bats.",
+                        "link": "Paper from micheals.",
+                        "item_image": "/static/images/items/item_halloween_b_2.png"
+                    },
+                    {
+                        "name": "Insect Wall Decor",
+                        "item_description": "I already had these wall hangings and they went well with the halloween decor.",
+                        "link": "From around the house.",
+                        "item_image": "/static/images/items/item_halloween_b_3.png"
+                    },
+                    {
+                        "name": "Treats on Padestel",
+                        "item_description": "Displayed treats in a jar on a small black padestal.",
+                        "link": "Empty yogurt jars. Black padestal from Target.",
+                        "item_image": "/static/images/items/item_halloween_b_4.png"
+                    }
+                ]
+    },
+    {
+        "color": "Black Orange",
+        "category": 6,
+        "event_image": "/static/images/events/event_halloween_c.jpeg",
+        "event_description": "Halloween Table decor for a small party at my house. We all dressed up and had fun.",
+        "items": [
+                    {
+                        "name": "Banner",
+                        "item_description": "Made the banner myself by cutting out and pasting the letters and then stringing them all together",
+                        "link": "Paper from micheals.",
+                        "item_image": "/static/images/items/item_halloween_c_1.png"
+                    },
+                    {
+                        "name": "Flatware and Decor",
+                        "item_description": "Got all these plates, glasses, pumpkins premade.",
+                        "link": "Everything from dollar tree.",
+                        "item_image": "/static/images/items/item_halloween_c_2.png"
+                    },
+                    {
+                        "name": "Paper Fans",
+                        "item_description": "These paper fans were purchased online.",
+                        "link": "Paper fans from amazon.",
+                        "item_image": "/static/images/items/item_halloween_c_3.png"
+                    }
+                ]
+    },
+    {
+        "color": "Orange Black",
+        "category": 6,
+        "event_image": "/static/images/events/event_halloween_d.jpeg",
+        "event_description": "A mini feast with halloween decor. Snacks table spookified.",
+        "items": [
+                    {
+                        "name": "Balloon Arch",
+                        "item_description": "DIYed the balloon arch using balloons of different sizes and colors.",
+                        "link": "Balloons from dollar store.",
+                        "item_image": "/static/images/items/item_halloween_d_1.png"
+                    },
+                    {
+                        "name": "Drinkware",
+                        "item_description": "Added ribbon bows to the empty soda bottles and added paper straws in them.",
+                        "link": "Straws from amazon.",
+                        "item_image": "/static/images/items/item_halloween_d_2.png"
+                    },
+                    {
+                        "name": "Hanging Paper Fans",
+                        "item_description": "These paper fans were purchased online.",
+                        "link": "Paper fans from amazon.",
+                        "item_image": "/static/images/items/item_halloween_d_3.png"
+                    }
+                ]
+    },
+    {
+        "color": "Pink",
+        "category": 7,
+        "event_image": "/static/images/events/event_pool_a.png",
+        "event_description": "In summer, all my friends want to gather at my pool to cool off. This is my go to pool decor.",
+        "items": [
+                    {
+                        "name": "Balloons",
+                        "item_description": "Scatterred balloond in the pool look so cool and take no effort at all.",
+                        "link": "Balloons from amazon.",
+                        "item_image": "/static/images/items/item_pool_a_1.png"
+                    },
+                    {
+                        "name": "Balloon Posts",
+                        "item_description": "I have posts around my pool and I add bid sized balloons on top.",
+                        "link": "Big balloons from amazon.",
+                        "item_image": "/static/images/items/item_pool_a_2.png"
+                    },
+                    {
+                        "name": "Pool Drik Floats",
+                        "item_description": "This was my best purchase ever. they look cute while holding everyones drinks in the pool.",
+                        "link": "https://www.amazon.com/TOLTOL-Inflatable-Holders-Floats-Coasters/dp/B07CVR217N/ref=sr_1_3_sspa?crid=358J57JS3C8LQ&dchild=1&keywords=pool+drink+floats&qid=1625032087&sprefix=pool+dr%2Caps%2C245&sr=8-3-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUE1SUZXQVlYSFg4UDkmZW5jcnlwdGVkSWQ9QTAzNDEzODgzQ0hMTTlEQ1BWWklWJmVuY3J5cHRlZEFkSWQ9QTA1MTcwNTgzTFJCMkdMRzM2UjZSJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ==",
+                        "item_image": "/static/images/items/item_pool_a_3.jpeg"
+                    }
+                ]
+    },
+    {
+        "color": "Peach",
+        "category": 7,
+        "event_image": "/static/images/events/event_pool_c.jpg",
+        "event_description": "This is my pool party side decor. Basically a wecome booth for my guests to get drinks.",
+        "items": [
+                    {
+                        "name": "Balloon Arch",
+                        "item_description": "Made the balloon arch from different shades of pink balloons and then added some leaves in between.",
+                        "link": "Balloons from amazon.",
+                        "item_image": "/static/images/items/item_pool_c_1.png"
+                    },
+                    {
+                        "name": "Lemonade Stand",
+                        "item_description": "I used my side table outside to hold the lemonade jars and act as a center piece for the arched balloons.",
+                        "link": "Side table from amazon.",
+                        "item_image": "/static/images/items/item_pool_c_2.png"
+                    }
+                ]
+    },
+    {
+        "color": "Blue",
+        "category": 7,
+        "event_image": "/static/images/events/event_pool_d.jpeg",
+        "event_description": "The food table beside my pool. This was the main pool party decor area.",
+        "items": [
+                    {
+                        "name": "ALOHA Balloons",
+                        "item_description": "These balloons were purchased prefilled.",
+                        "link": "Balloons from party city.",
+                        "item_image": "/static/images/items/item_pool_d_1.png"
+                    },
+                    {
+                        "name": "Lemonade Stand",
+                        "item_description": "This lemonade dispenser was the best buy I ever got. It was very cheap yet elegant",
+                        "link": "Lemonade dispenser from target.",
+                        "item_image": "/static/images/items/item_pool_d_2.png"
+                    },
+                    {
+                        "name": "Beach Balls",
+                        "item_description": "Inflated some beach balls  and used them as my decor.",
+                        "link": "Beach balls from amazon.",
+                        "item_image": "/static/images/items/item_pool_d_3.png"
+                    },
+                    {
+                        "name": "Jello Stand",
+                        "item_description": "Dot this padestal stand and decorated jello shots on top.",
+                        "link": "Padestal from target.",
+                        "item_image": "/static/images/items/item_pool_d_4.png"
+                    },
+                    {
+                        "name": "Leaves & Flower Petals",
+                        "item_description": "Used these leaves as my table spread and added flower petals as confetti on them.",
+                        "link": "Leaves & Flower Petals from amazon.",
+                        "item_image": "/static/images/items/item_pool_d_5.png"
+                    }
+                ]
+    },
+    {
+        "color": "White",
+        "category": 8,
+        "event_image": "/static/images/events/event_wedding_a.jpeg",
+        "event_description": "Added this little corner at the entrance of my brother's wedding. Everyone loved it.",
+        "items": [
+                    {
+                        "name": "Welcome Easel",
+                        "item_description": "I paint as a hobby so already had the easel. just added the Welcome sign on the easel.",
+                        "link": "Easel from amazon.",
+                        "item_image": "/static/images/items/item_wedding_a_1.png"
+                    },
+                    {
+                        "name": "Wooden Crates",
+                        "item_description": "Had all these in my house as well. The wooden crates, flower vases and lantern. Just arranged them as such.",
+                        "link": "Lantern from amazon & Crates from micheals.",
+                        "item_image": "/static/images/items/item_wedding_a_2.png"
+                    }
+                ]
+    },
+    {
+        "color": "White",
+        "category": 8,
+        "event_image": "/static/images/events/event_wedding_b.jpeg",
+        "event_description": "Simplistic beach wedding. Lovely weather to accompany the lovely ceremony.",
+        "items": [
+                    {
+                        "name": "Chair Tags",
+                        "item_description": "Got these chalkboard tags and wrote some nice quotes and hung them on isle chairs.",
+                        "link": "Chalkboard tags from amazon.",
+                        "item_image": "/static/images/items/item_wedding_b_1.png"
+                    },
+                    {
+                        "name": "Bamboo Arch",
+                        "item_description": "Got 3 bamboo posts and made an arch. Then tied white sheets around the bamboo.",
+                        "link": "Bamboo posts from home depot.",
+                        "item_image": "/static/images/items/item_wedding_b_2.png"
+                    }
+                ]
+    },
+    {
+        "color": "Pink Brown",
+        "category": 8,
+        "event_image": "/static/images/events/event_wedding_c.jpeg",
+        "event_description": "Desserts table set up for an outdoor wedding of my best friend.",
+        "items": [
+                    {
+                        "name": "Chair Tags",
+                        "item_description": "Got these tags and wrote 'Mr' & 'Mrs' and hung them on the chairs.",
+                        "link": "Tags from micheals",
+                        "item_image": "/static/images/items/item_wedding_c_1.jpeg"
+                    },
+                    {
+                        "name": "Barrel Table",
+                        "item_description": "Got these barrels and added the wood plank on top and voila. A table!!",
+                        "link": "Barrels from a friend & wood plank from home depot",
+                        "item_image": "/static/images/items/item_wedding_c_2.png"
+                    },
+                    {
+                        "name": "Dessert Stands",
+                        "item_description": "Collected some dessert stands and used them to display different desserts.",
+                        "link": "Dessert stands from friends",
+                        "item_image": "/static/images/items/item_wedding_c_3.png"
+                    }
+                ]
+    }                                                       
+]

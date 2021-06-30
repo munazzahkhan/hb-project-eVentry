@@ -34,7 +34,7 @@ class SignupForm(FlaskForm):
         validators=[validators.DataRequired(), validators.Length(min=3, max=30)],
     )
     handle = StringField(
-        "Last Name",
+        "Handle",
         validators=[validators.DataRequired(), validators.Length(min=3, max=20)],
     )
     image = FileField(
