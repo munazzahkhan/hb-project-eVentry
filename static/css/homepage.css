@@ -12,15 +12,6 @@
     float: left;
 }
 
-#rDiv::before{
-    content: "";
-    background-color: #000;
-    position: absolute;
-    width: 1px;
-    height: 100%;
-    top: 25%;
-    display: block;
-}
 
 .thumbnail img {
     height:100px;

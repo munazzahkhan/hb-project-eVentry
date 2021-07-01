@@ -583,7 +583,6 @@ def upload_image(file_name, type, form):
     if not file_name:
         return None
 
-    # import pdb; pdb.set_trace()
     file = request.files[file_name]
     if not file or not file.filename:
         return None

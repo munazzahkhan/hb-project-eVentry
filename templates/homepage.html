@@ -7,12 +7,21 @@
 {% block title %}eVentry Home{% endblock %}
 
 {% block body %}
-  <br>
-  <h2>Welcome to <img src="/static/images/logo/eVentry_black.png" style="width: 100px; height: 60px; padding-top: 0px;">
-  </h2>
 
+
+  <br>
+  <span style="font-size: 80%; font-weight: normal">
+    <b style="font-size: 4em;">
+      Welcome to <img src="/static/images/logo/eVentry_black.png" style="width: 100px; height: 60px; padding-top: 0px;"> 
+    </b>
+    where creativity shines
+  </span>
+  
+  
+  <br>
   <div class="row">
     <div class="col-2" id="lDiv">
+      <nav class="nav flex-column" style="background-color: #827380; padding-top: 0px;"> 
       <h2>Event Categories</h2>
 
       {% for c in categories %}
@@ -24,6 +33,7 @@
             </li>
         </ul>
       {% endfor %}
+      </nav>
     </div>
     <div class="col-10" id="rDiv">
       <br>
