@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
     <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="/static/css/user_profile.css">
@@ -19,24 +20,27 @@
                 src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
 
     </head>
-    <body>
+    <body style="background-color: #F2E9E4;">
+        <div class="container" style="color: #22223B; font-family: fantasy;">
+        <br><br>
 
-        <p>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul>
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-                </ul>
-            {% endif %}
-            {% endwith %}
-        </p>
+            <p>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+                {% endwith %}
+            </p>
 
         <form action="/add-item" method="POST" enctype="multipart/form-data">
             {{ item_form.hidden_tag() }}
             <h4>Enter an item from your event and some details about that item</h4>
-            <table id="items-table" border="3">
+            <br>
+            <table id="items-table">
                 <tr>
                     <td>
                         <br>
@@ -62,7 +66,7 @@
                         </div>
                         <br>
                         <div>
-                            <input type="submit" value="Add this item" name="submit">
+                            <input class="btn btn-light" type="submit" value="Add this item" name="submit">
                         </div>
                         <br>
                 </td>
@@ -71,8 +75,8 @@
             <!-- <input type="hidden" name="number-of-items" id="number-of-items" value = "1"> -->
             <br>
             <div>
-                <input type="submit" value="Done" name="submit" formnovalidate>
-                <input type="submit" value="Cancel" name="submit" formnovalidate>
+                <input class="btn btn-light" type="submit" value="Done" name="submit" formnovalidate>
+                <input class="btn btn-secondary" type="submit" value="Cancel" name="submit" formnovalidate>
             </div>
         </form>
 

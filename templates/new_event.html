@@ -29,11 +29,12 @@
 	{% endwith %}
 </p>
 
-<div class="container">
+<div class="container" style="color: #22223B; font-family: fantasy;">
+  <br> <br>
   <form action="/new-event" method="POST" enctype="multipart/form-data">
       {{ form.hidden_tag() }}
       <h4>Please enter the details below to add your event</h4>
-      <br>
+      <br><br>
       <div>
           <label>Event category: </label>
           {{ form.category}}
@@ -57,7 +58,7 @@
       <br>
       <div>
           <input class="btn btn-light" type="submit" value="Add Items" name="add" id="add">
-          <input class="btn btn-light" type="submit" value = "Cancel" name="cancel" id="cancel" formnovalidate>
+          <input class="btn btn-secondary" type="submit" value = "Cancel" name="cancel" id="cancel" formnovalidate>
       </div>
   </form>
 </div>

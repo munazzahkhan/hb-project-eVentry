@@ -7,31 +7,42 @@
 {% block title %}All Events{% endblock %}
 
 {% block body %}
-<br>
-<p>
-    {% if events %}
-    <h2>Events matching your search</h2>
-        {% for event in events %}
-            <div class='thumbnail'>
-                <p>{{ event.theme.color }} {{ event.category.name }}</p>
-                <a href="/events/{{ event.category.name }}/{{ event.event_id }}">
-                    <img src="{{ event.image.url }}">
-                </a>
-            </div><br>
-        {% endfor %}
-    {% endif %}
-    {% if item_events %}
-        <h2>Event Items matching your search</h2>
-        {% for item, event in item_events.items() %}
-            <div class='thumbnail'>
-                <p>"{{ item.name }}" from <b>{{ event.theme.color }} {{ event.category.name }}</b></p>
-                <a href="/events/{{ event.category.name }}/{{ event.event_id }}">
-                    <img src="{{ event.image.url }}">
-                </a>
-            </div><br>
-        {% endfor %}
-    {% else %}
-        <h2>No Event Items matching your search</h2>
-    {% endif %}
-</p>
+<div class="container" style="color: #22223B; font-family: fantasy;">
+    <br> 
+    <br>
+    <div class="row">
+        {% if events %}
+        <h2>Events matching your search</h2>
+            {% for event in events %}
+            <div class="col-4">
+                <br><br>
+                <div class='thumbnail'>
+                    <p>{{ event.theme.color }} {{ event.category.name }}</p>
+                    <a href="/events/{{ event.category.name }}/{{ event.event_id }}">
+                        <img src="{{ event.image.url }}">
+                    </a>
+                </div><br><br><br>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="row">
+        {% if item_events %}
+            <h2>Event Items matching your search</h2>
+            {% for item, event in item_events.items() %}
+                <div class="col-4">
+                    <br><br>
+                    <div class='thumbnail'>
+                        <p>"{{ item.name }}" from <b>{{ event.theme.color }} {{ event.category.name }}</b></p>
+                        <a href="/events/{{ event.category.name }}/{{ event.event_id }}">
+                            <img src="{{ event.image.url }}">
+                        </a>
+                    </div><br>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h2>No Event Items matching your search</h2>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

@@ -3,8 +3,12 @@
 
 {% block body %}
 
+<div class="container" style="color: #22223B; font-family: fantasy;">
+  <br> <br>
   <h2>Update Profile</h2>
+  <br>
   <form action="/edit-profile" method="POST">
+    <br>
     {{ form.hidden_tag() }}
     <div>
       <label>First Name </label>
@@ -29,10 +33,11 @@
     </div>
     <br>
     <div>
-        <input type="submit" value = "Save Changes" name="save" id="save">
-        <input type="submit" value = "Cancel" name="cancel" id="cancel" formnovalidate>
+        <input class="btn btn-light" type="submit" value = "Save Changes" name="save" id="save">
+        <input class="btn btn-secondary" type="submit" value = "Cancel" name="cancel" id="cancel" formnovalidate>
     </div>
   </form>
+</div>
 
 {% endblock %}
         

@@ -8,10 +8,11 @@
 {% endblock %}
 
 {% block body %}
-  
-  <h1>eVentry!</h1>
+<div class="container" style="color: #22223B; font-family: fantasy;">
+  <br><br>
 
   <h2>Please, Sign in</h2>
+  <br><br>
   <form action="/sign-in" method="POST">
     {{ form.hidden_tag() }}
     <div>
@@ -27,10 +28,10 @@
     </div>
     <br>
     <div>
-      <input type="submit">
+      <input class="btn btn-light" type="submit">
     </div>
   </form>
-
+</div>
   <script src="/static/js/events.js"></script>
 
 {% endblock %}

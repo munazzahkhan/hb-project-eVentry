@@ -7,18 +7,21 @@
 {% block title %}All Events{% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="container" style="color: #22223B; font-family: fantasy;">
     <br>
-    <p>
+    <div class="row">
         {% for event in events %}
-            <div class='thumbnail'>
-                <p>{{ event.theme.color }} {{ event.category.name }}</p>
-                <a href="/events/{{ event.category.name }}/{{ event.event_id }}">
-                    <img src="{{ event.image.url }}">
-                </a>
-            </div><br>
+            <div class="col-3">
+                <br><br>
+                <div class='thumbnail'>
+                    <p>{{ event.theme.color }} {{ event.category.name }}</p>
+                    <a href="/events/{{ event.category.name }}/{{ event.event_id }}">
+                        <img src="{{ event.image.url }}">
+                    </a>
+                </div><br>
+            </div>
         {% endfor %}
-    </p>
+        </div>
 </div>
 
 {% endblock %}

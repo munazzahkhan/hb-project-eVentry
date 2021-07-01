@@ -8,8 +8,10 @@
 {% endblock %}
 
 {% block body %}
-
+<div class="container" style="color: #22223B; font-family: fantasy;">
+    <br> <br>
   <h2>Upload Image</h2>
+  <br><br>
   <form action="/upload-image" method="POST" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     <div>
@@ -17,10 +19,10 @@
         {{ form.image() }}
     </div>
     <br>
-        <input type="submit" value = "Save Changes" name="save" id="save">
-        <input type="submit" value = "Cancel" name="cancel" id="cancel" formnovalidate>
-    </div>
+        <input class="btn btn-light" type="submit" value = "Save Changes" name="save" id="save">
+        <input class="btn btn-secondary" type="submit" value = "Cancel" name="cancel" id="cancel" formnovalidate>
   </form>
+</div>
 
   <script src="/static/js/events.js"></script>
   

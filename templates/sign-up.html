@@ -16,48 +16,52 @@
 {% endblock %}
 
 {% block body %}
+<div class="container" style="color: #22223B; font-family: fantasy;">
+  <br><br>
 
-<h2>Create an Account</h2>
-<form action="/sign-up" method="POST" enctype="multipart/form-data">
-  {{ form.hidden_tag() }}
-  <div>
-    <label>First Name </label>
-    {{ form.fname(placeholder="First name") }}
-  </div>
-  <br>
-  <div>
-    <label>Last Name </label>
-    {{ form.lname(placeholder="Last name") }}
-  </div>
-  <br>
-  <div>
-    <label>Handle </label>
-    {{ form.handle(placeholder="Handle") }}
-  </div>
-  <br>
-  <div class="profile_thumbnail">
-    <label>Upload a profile picture: </label>
-    <img id="pro" src="/static/images/profiles/profile-1.png" alt="your image" />
-    {{ form.image(onchange="readURL(this);") }}
-  </div>
-  <!-- TODO move it to a better place and add a blank image-->
-  <br>
-  <div>
-    <label>Email </label>
-    {{ form.email(placeholder="Enter email") }}
-  </div>
-  <br>
-  <div>
-    <label>Password </label>
-    {{ form.password(placeholder="Password") }}
-    <input type="checkbox" onclick="toggleShowHide()">
-    Show Password
-  </div>
-  <br>
-  <div>
-    <input type="submit">
-  </div>
-</form>
+  <h2>Create an Account</h2>
+  <br><br>
+  <form action="/sign-up" method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div>
+      <label>First Name </label>
+      {{ form.fname(placeholder="First name") }}
+    </div>
+    <br>
+    <div>
+      <label>Last Name </label>
+      {{ form.lname(placeholder="Last name") }}
+    </div>
+    <br>
+    <div>
+      <label>Handle </label>
+      {{ form.handle(placeholder="Handle") }}
+    </div>
+    <br>
+    <div class="profile_thumbnail">
+      <label>Upload a profile picture: </label>
+      <img id="pro" src="/static/images/profiles/profile-1.png" alt="your image" />
+      {{ form.image(onchange="readURL(this);") }}
+    </div>
+    <!-- TODO move it to a better place and add a blank image-->
+    <br>
+    <div>
+      <label>Email </label>
+      {{ form.email(placeholder="Enter email") }}
+    </div>
+    <br>
+    <div>
+      <label>Password </label>
+      {{ form.password(placeholder="Password") }}
+      <input type="checkbox" onclick="toggleShowHide()">
+      Show Password
+    </div>
+    <br>
+    <div>
+      <input class="btn btn-light" type="submit">
+    </div>
+  </form>
+</div>
 
 <script src="/static/js/events.js"></script>
 
