@@ -11,7 +11,7 @@
 {% block title %}Details{% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="container" style="color: #22223B; font-family: fantasy;">
     <form action="/edit-event-page">
         <div class="row">
             <div class="col-6">
@@ -88,7 +88,7 @@
                     {% for item in items %}
                         <div class="col-4">
                             <form action="/edit-event-page">
-                                <div class="card" style="width: 18rem;">
+                                <div class="card" style="width: 18rem; border: 1px solid silver;">
                                         <img src="{{ item.image.url }}">
                                     
                                         {% if is_event_by_user == True %}

@@ -69,7 +69,6 @@ def signin_user():
     if user:
         if user.password == form.password.data:
             session["signed_in_user_id"] = user.user_id
-            flash('Signed in!')
             return redirect('/')
         else:
             flash('Email and password do not match.')
@@ -84,7 +83,6 @@ def signout_user():
     """ Sign out user """
 
     del session["signed_in_user_id"]
-    flash("Logged out.")
     return redirect('/')
 
 
