@@ -258,11 +258,15 @@ def edit_event_image(event_id, img_id):
 def delete_event(event_id):
     """ Delete event from Events table """
 
+    delete_favorite(event_id)
+    delete_likes(event_id)
+    delete_all_comments_on_an_event(event_id)
     items, event = get_event_by_id(event_id)
     if items:
         for item in items:
             delete_item(item.item_id)
         EventsItems.query.filter(EventsItems.event_id == event_id).delete()
+
     Event.query.filter(Event.event_id == event_id).delete()
     db.session.commit()
 
@@ -293,6 +297,14 @@ def get_all_comments_on_an_event(event_id):
     return list_comments
 
 
+def delete_all_comments_on_an_event(event_id):
+    """ Delete all comments on an event """
+
+    comments = get_all_comments_on_an_event(event_id)
+    if comments:
+        Comment.query.filter(Comment.event_id == event_id).delete()
+
+
 def create_favorite(event, user):
     """ Create and return a new favorite event by the user """
 
@@ -308,6 +320,15 @@ def is_favorite(event, user):
     """ Return True if the event has already been favorited by the user """
 
     if Favorite.query.filter(Favorite.user_id == user, Favorite.event_id == event).first():
+        return True
+    else:
+        return False
+
+
+def is_favorited_event(event):
+    """ Return True if the event has already been favorited """
+
+    if Favorite.query.filter(Favorite.event_id == event).first():
         return True
     else:
         return False
@@ -332,6 +353,14 @@ def remove_favorite(event, user):
     db.session.commit()
 
 
+def delete_favorite(event):
+    """ Delete favorites of event """
+
+    if is_favorited_event(event):
+        Favorite.query.filter(Favorite.event_id == event).delete()
+        db.session.commit()
+
+
 def create_like(event, user):
     """ Create and return a new like for the event """
 
@@ -344,9 +373,18 @@ def create_like(event, user):
 
 
 def is_like(event, user):
-    """ Return True if the event is liked """
+    """ Return True if the event is liked by a user """
 
     if Like.query.filter(Like.user_id == user, Like.event_id == event).first():
+        return True
+    else:
+        return False
+
+
+def is_liked_event(event):
+    """ Return True if the event has any likes """
+
+    if Like.query.filter(Like.event_id == event).first():
         return True
     else:
         return False
@@ -378,6 +416,14 @@ def remove_like(event, user):
 
     Like.query.filter(Like.user_id == user, Like.event_id == event).delete()
     db.session.commit()
+
+
+def delete_likes(event):
+    """ Delete likes of an event """
+
+    if is_liked_event(event):
+        Like.query.filter(Like.event_id == event).delete()
+        db.session.commit()
 
 
 def create_events_items(event, item):
