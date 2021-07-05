@@ -11,7 +11,7 @@
   <div class="container">
     
     <div class="row">
-      <div class="col-2" id="lDiv">
+      <div class="col-sm-12 col-md-6 col-lg-2" id="lDiv">
         <nav class="nav flex-column" style="background-color:#A99EA7; padding-top: 0px; color: #ebdfd9; font-family: fantasy;"> 
           <br><br><br>
           <div class="row">
@@ -124,7 +124,7 @@
           </div>
         </nav>
       </div>
-      <div class="col-10" id="rDiv">
+      <div class="col-sm-12 col-md-6 col-lg-10" id="rDiv">
         <br>
         <div class="row">
           <br>
@@ -147,7 +147,7 @@
         </div>
         <div class="row">
           {% for event in events[:8] %}
-            <div class="col-3">
+            <div class="col-sm-12 col-md-6 col-lg-3">
               <br>
               <div class='thumbnail left_div' style="font-family: fantasy; color:#22223B;">
                 <p>{{ event.theme.color }} {{ event.category.name }}</p>
