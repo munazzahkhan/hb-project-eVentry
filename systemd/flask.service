@@ -3,7 +3,7 @@ Description=My Awesome eVentry App
 After=network.target
 
 [Service]
-User=ubuntu-eVentry
+User=ubuntu
 Group=ubuntu
 Environment="LANG=en_US.UTF-8"
 Environment="LANGUAGE=en_US.UTF-8:"
