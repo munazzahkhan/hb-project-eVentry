@@ -5,7 +5,7 @@ There is no one-stop-shop with information and instructions on how to pull off a
 Munazzah graduated with a masters degree in CS. Soon after graduation, she moved to the United States on a non-work visa. Munazzah immersed herself in arts & crafts classes and also became involved in event management, as they brought joy and excitement to her life.  She became eligible to legally work in the US but by this time, her software engineering skills were a bit rusty and she was behind on industry trends. Munazzah has always been passionate about problem solving and algorithms. Recently, her path led her back to computer science and reignited her passion for software engineering. She is excited about finally pursuing her dream and passion in IT and software engineering.
 
 ## Deployment
-<n/>http://34.218.45.14/
+<n/>http://www.eventry.us/
 
 ## Contents
 * [Tech Stack](#tech-stack)
