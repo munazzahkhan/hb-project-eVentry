@@ -1,0 +1,16 @@
+[Unit]
+Description=My Awesome eVentry App
+After=network.target
+
+[Service]
+User=ubuntu-eVentry
+Group=ubuntu
+Environment="LANG=en_US.UTF-8"
+Environment="LANGUAGE=en_US.UTF-8:"
+WorkingDirectory=/home/ubuntu/eVentry/
+ExecStart=/bin/bash -c "source env/bin/activate\
+&& python3 server.py &>> flask.log"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
